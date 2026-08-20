@@ -1,0 +1,731 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://scene.studio/schema/scene-format-v1.schema.json",
+  "title": "Scene Format v1.0 — Studio Contract",
+  "type": "object",
+  "required": [
+    "format",
+    "version",
+    "language",
+    "title",
+    "author",
+    "theme",
+    "scenes"
+  ],
+  "properties": {
+    "format": {
+      "const": "scene-format"
+    },
+    "version": {
+      "const": "1.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "workId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "language": {
+      "type": "string",
+      "pattern": "^(?:mul|und|[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*)$"
+    },
+    "title": {
+      "type": "string",
+      "description": "Author-entered LF line breaks are significant and must be preserved by cover renderers; text without LF may wrap responsively."
+    },
+    "author": {
+      "type": "string"
+    },
+    "theme": {
+      "enum": [
+        "light",
+        "dark",
+        "cinema"
+      ]
+    },
+    "preset": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/scene"
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "player": {
+      "$ref": "#/$defs/player"
+    },
+    "appearance": {
+      "type": "object",
+      "properties": {
+        "cinemaTone": {
+          "enum": [
+            "dark",
+            "light"
+          ]
+        },
+        "typography": {
+          "type": "object",
+          "properties": {
+            "fontFamily": {
+              "enum": [
+                "serif",
+                "sans",
+                "mono"
+              ]
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$"
+      },
+      "uniqueItems": true
+    },
+    "direction": {
+      "enum": [
+        "auto",
+        "ltr",
+        "rtl"
+      ]
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "subtitle": {
+          "type": "string"
+        },
+        "seriesTitle": {
+          "type": "string"
+        },
+        "episode": {
+          "type": "string"
+        },
+        "episodeTitle": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "cover": {
+      "$ref": "#/$defs/cover"
+    },
+    "ending": {
+      "$ref": "#/$defs/ending"
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "scene": {
+      "type": "object",
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "enum": [
+            "text",
+            "dialogue",
+            "sound"
+          ]
+        },
+        "text": {
+          "type": "string",
+          "description": "Primary Scene text. Author-entered LF line breaks are significant and must be preserved."
+        },
+        "subText": {
+          "type": "string",
+          "description": "Secondary Scene text. Author-entered LF line breaks are significant and must be preserved."
+        },
+        "pause": {
+          "type": "number",
+          "minimum": 0
+        },
+        "presentation": {
+          "$ref": "#/$defs/presentation"
+        },
+        "audio": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/audioCommand"
+          }
+        },
+        "extensions": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "language": {
+          "type": "string",
+          "pattern": "^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$"
+        },
+        "direction": {
+          "enum": [
+            "auto",
+            "ltr",
+            "rtl"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "enum": [
+                  "text",
+                  "dialogue"
+                ]
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "text"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": true
+    },
+    "style": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "type": "string"
+        },
+        "size": {
+          "oneOf": [
+            {
+              "enum": [
+                "auto",
+                "small",
+                "normal",
+                "large",
+                "xl"
+              ]
+            },
+            {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          ]
+        },
+        "wrap": {
+          "enum": [
+            "auto",
+            "nowrap"
+          ]
+        },
+        "fontFamily": {
+          "enum": [
+            "inherit",
+            "serif",
+            "sans",
+            "mono"
+          ]
+        },
+        "shadow": {
+          "enum": [
+            "none",
+            "soft",
+            "strong"
+          ]
+        },
+        "lineHeight": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "letterSpacing": {
+          "type": "number",
+          "minimum": -0.2,
+          "maximum": 0.5
+        },
+        "sideMargin": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 40
+        },
+        "opacity": {
+          "type": "number",
+          "minimum": 0.1,
+          "maximum": 1
+        },
+        "align": {
+          "enum": [
+            "auto",
+            "left",
+            "center",
+            "right"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "presentation": {
+      "type": "object",
+      "properties": {
+        "display": {
+          "enum": [
+            "stack",
+            "solo"
+          ]
+        },
+        "view": {
+          "enum": [
+            "world",
+            "console",
+            "system",
+            "warning",
+            "void"
+          ]
+        },
+        "effect": {
+          "enum": [
+            "none",
+            "blur",
+            "fade",
+            "loud",
+            "pop",
+            "pulse",
+            "shake",
+            "slow",
+            "tilt",
+            "whisper",
+            "auto",
+            "fadeRise",
+            "softRise",
+            "whisperIn",
+            "emphasis",
+            "settle"
+          ]
+        },
+        "text": {
+          "$ref": "#/$defs/style"
+        },
+        "subText": {
+          "$ref": "#/$defs/style"
+        },
+        "typing": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "speed": {
+              "type": "number",
+              "minimum": 0
+            },
+            "cursor": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": true
+        },
+        "disappear": {
+          "type": "object",
+          "properties": {
+            "after": {
+              "type": "number",
+              "minimum": 0
+            },
+            "fade": {
+              "type": "number",
+              "minimum": 0
+            },
+            "motion": {
+              "enum": [
+                "stay",
+                "up"
+              ]
+            }
+          },
+          "additionalProperties": true
+        },
+        "background": {
+          "$ref": "#/$defs/background"
+        },
+        "effectTiming": {
+          "type": "object",
+          "properties": {
+            "duration": {
+              "type": "number",
+              "minimum": 0
+            },
+            "delay": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "additionalProperties": true
+        },
+        "entryMotion": {
+          "enum": [
+            "flow",
+            "still"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "background": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "transition": {
+          "enum": [
+            "fade",
+            "cut",
+            "flash",
+            "glitch"
+          ]
+        },
+        "dim": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "blur": {
+          "type": "number",
+          "minimum": 0
+        },
+        "fit": {
+          "enum": [
+            "cover",
+            "contain"
+          ]
+        },
+        "position": {
+          "type": "string"
+        },
+        "reveal": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "none",
+                "still",
+                "intro",
+                "memory",
+                "ghost",
+                "flash"
+              ]
+            },
+            "duration": {
+              "type": "number",
+              "minimum": 0
+            },
+            "hold": {
+              "type": "number",
+              "minimum": 0
+            },
+            "opacity": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "additionalProperties": true
+        },
+        "motion": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "none",
+                "parallax",
+                "breath",
+                "slowZoom",
+                "panLeft",
+                "panRight",
+                "panUp",
+                "panDown"
+              ]
+            },
+            "duration": {
+              "type": "number",
+              "minimum": 0
+            },
+            "scaleFrom": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "scaleTo": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "pan": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": true
+        },
+        "textures": {
+          "type": "object",
+          "properties": {
+            "blur": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "grain": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "scanline": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "glitch": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "vignette": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "monochrome": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "additionalProperties": true
+        },
+        "tone": {
+          "enum": [
+            "dark",
+            "light"
+          ]
+        },
+        "transitionDuration": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": true
+    },
+    "audioCommand": {
+      "type": "object",
+      "required": [
+        "channel",
+        "action"
+      ],
+      "properties": {
+        "channel": {
+          "enum": [
+            "bgm",
+            "ambient",
+            "oneshot"
+          ]
+        },
+        "action": {
+          "enum": [
+            "start",
+            "stop",
+            "volume",
+            "duck",
+            "play"
+          ]
+        },
+        "role": {
+          "enum": [
+            "voice",
+            "se",
+            "other"
+          ]
+        },
+        "src": {
+          "type": "string"
+        },
+        "volume": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "loop": {
+          "type": "boolean"
+        },
+        "fadeIn": {
+          "type": "number",
+          "minimum": 0
+        },
+        "fadeOut": {
+          "type": "number",
+          "minimum": 0
+        },
+        "fade": {
+          "type": "number",
+          "minimum": 0
+        },
+        "hold": {
+          "type": "number",
+          "minimum": 0
+        },
+        "stopAfter": {
+          "type": "number",
+          "minimum": 0
+        },
+        "startAt": {
+          "type": "number",
+          "minimum": 0
+        },
+        "stopAt": {
+          "type": "number",
+          "minimum": 0
+        },
+        "restart": {
+          "type": "boolean"
+        },
+        "_editorFileName": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "player": {
+      "type": "object",
+      "properties": {
+        "navigation": {
+          "type": "object",
+          "properties": {
+            "allowPrevious": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "coverLogo": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "_editorFileName": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "cover": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "fit": {
+          "enum": [
+            "cover",
+            "contain"
+          ]
+        },
+        "position": {
+          "type": "string"
+        },
+        "logo": {
+          "$ref": "#/$defs/coverLogo"
+        },
+        "fontFamily": {
+          "enum": [
+            "serif",
+            "sans",
+            "mono"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "endingLink": {
+      "type": "object",
+      "properties": {
+        "position": {
+          "enum": [
+            "left",
+            "right"
+          ]
+        },
+        "kicker": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "ending": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Author-entered LF line breaks are significant and must be preserved by Players."
+        },
+        "coverButton": {
+          "type": "object",
+          "properties": {
+            "kicker": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/endingLink"
+          },
+          "maxItems": 2
+        },
+        "fontFamily": {
+          "enum": [
+            "serif",
+            "sans",
+            "mono"
+          ]
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "description": "Current Scene Studio / Player shared v1.0 contract. Existing v1.0 .scene files remain compatible."
+}

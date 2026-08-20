@@ -1,0 +1,784 @@
+:root{
+  color-scheme:light dark;
+  background:#0b1016;
+  --public-bg:#0b1016;
+  --public-text:#f5f5f2;
+  --public-sub:rgba(245,245,242,.58);
+  --public-line:rgba(245,245,242,.16)
+}
+*{box-sizing:border-box}
+html,body{width:100%;min-height:100%;margin:0;padding:0;overscroll-behavior:none}
+body{
+  min-height:100dvh;
+  overflow:hidden;
+  background:var(--public-bg);
+  color:var(--public-text);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif
+}
+[hidden]{display:none!important}
+.public-player{width:100%;height:100dvh;min-height:100dvh}
+
+/* Lightweight hand-off screen, not a publishing-site cover. */
+.public-intro,.public-ending{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:grid;
+  background:var(--public-bg);
+  color:var(--public-text)
+}
+.public-intro-frame{
+  width:min(720px,100%);
+  min-height:100dvh;
+  margin:auto;
+  padding:max(48px,env(safe-area-inset-top)) 28px max(36px,env(safe-area-inset-bottom));
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:min(18vh,150px)
+}
+.public-intro-copy{text-align:center}
+.public-kicker{
+  display:block;
+  margin-bottom:34px;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.28em;
+  color:var(--public-sub)
+}
+.public-author{
+  margin:0 0 12px;
+  color:var(--public-sub);
+  font-size:12px;
+  letter-spacing:.12em
+}
+.public-title{
+  margin:0;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(32px,9vw,64px);
+  font-weight:500;
+  line-height:1.15
+}
+.public-description{
+  max-width:540px;
+  margin:28px auto 0;
+  color:var(--public-sub);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:16px;
+  line-height:1.9
+}
+.public-intro-actions{
+  width:min(440px,100%);
+  align-self:center;
+  display:grid;
+  gap:12px
+}
+.public-primary,.public-secondary{
+  min-height:60px;
+  border:1px solid var(--public-line);
+  border-radius:999px;
+  font:inherit;
+  font-size:17px;
+  letter-spacing:.08em
+}
+.public-primary{background:var(--public-text);color:var(--public-bg)}
+.public-secondary{background:transparent;color:var(--public-text)}
+
+/* Public shell: left = leave Scene, right = audio toggle. */
+.public-player .sp-prev,.public-player .sp-restart{
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:22px;
+  line-height:1
+}
+.public-player .sp-restart.is-muted{opacity:.36}
+
+/* Core ending is replaced by the neutral hand-off screen. */
+.public-player .sp-ending{display:none!important}
+
+.public-ending{
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 850ms ease;
+  background:var(--public-bg)
+}
+.public-ending.is-visible{opacity:1;pointer-events:auto}
+.public-ending-inner{
+  width:min(680px,100%);
+  min-height:100dvh;
+  margin:auto;
+  padding:max(44px,env(safe-area-inset-top)) 28px max(44px,env(safe-area-inset-bottom));
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:stretch;
+  gap:18px
+}
+.public-ending-label{
+  margin:0 0 34px;
+  text-align:center;
+  color:var(--public-sub);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(24px,7vw,38px);
+  letter-spacing:.08em
+}
+.public-ending-links{
+  display:grid;
+  gap:12px
+}
+.public-ending-links:empty{display:none}
+.public-ending-link{
+  width:100%;
+  min-height:62px;
+  padding:0 22px;
+  border:1px solid var(--public-line);
+  border-radius:999px;
+  background:transparent;
+  color:var(--public-text);
+  text-decoration:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font:inherit;
+  font-size:16px;
+  letter-spacing:.04em
+}
+.public-reread{
+  margin-top:24px;
+  border:0;
+  background:transparent;
+  color:var(--public-sub);
+  font:inherit;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:15px;
+  letter-spacing:.08em
+}
+
+.public-error{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:grid;
+  place-items:center;
+  padding:24px;
+  background:#0b1016;
+  color:#f5f5f2
+}
+.public-error-card{
+  width:min(460px,100%);
+  padding:28px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:20px;
+  background:rgba(255,255,255,.04)
+}
+.public-error strong{font-size:1.15rem}
+.public-error p{
+  margin:12px 0 20px;
+  line-height:1.7;
+  color:rgba(255,255,255,.68);
+  overflow-wrap:anywhere
+}
+.public-error button{
+  min-height:44px;
+  padding:0 18px;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:999px;
+  background:#f5f5f2;
+  color:#111;
+  font:inherit;
+  font-weight:700
+}
+
+@media(max-width:560px){
+  .public-intro-frame{
+    padding-left:22px;
+    padding-right:22px;
+    gap:12vh
+  }
+  .public-ending-inner{
+    padding-left:22px;
+    padding-right:22px
+  }
+}
+
+
+/* v0.3.2 — opening breath */
+.public-intro{
+  opacity:1;
+  transition:opacity 240ms ease;
+}
+.public-intro.is-leaving{
+  opacity:0;
+  pointer-events:none;
+}
+
+.public-opening{
+  position:fixed;
+  inset:0;
+  z-index:90;
+  overflow:hidden;
+  background:var(--public-bg);
+  opacity:0;
+  transition:opacity 180ms ease;
+  pointer-events:none;
+}
+.public-opening.is-visible{
+  opacity:1;
+}
+.public-opening-image,
+.public-opening-dim{
+  position:absolute;
+  inset:0;
+}
+.public-opening-image{
+  background-color:var(--public-bg);
+}
+
+
+/* v0.3.17 — authored cover / afterglow ending */
+.public-intro{overflow:hidden}.public-intro-cover,.public-intro-cover-dim{position:absolute;inset:0;pointer-events:none}.public-intro-cover{z-index:0;background-repeat:no-repeat;background-position:center;background-size:cover}.public-intro-cover-dim{z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.58));opacity:0;transition:opacity 240ms ease}.public-intro-frame{position:relative;z-index:2}.public-intro.has-cover{--public-text:#fff;--public-sub:rgba(255,255,255,.72);--public-line:rgba(255,255,255,.34)}.public-intro.has-cover .public-intro-copy{text-shadow:0 1px 18px rgba(0,0,0,.34)}
+.public-ending-inner{justify-content:flex-start;padding-top:max(72px,calc(env(safe-area-inset-top) + 48px))}.public-ending-label{margin:auto 0;min-height:22vh;display:grid;place-items:center}.public-ending-actions{margin-top:auto;display:grid;gap:12px}.public-ending-cover,.public-ending-link{opacity:0;transform:translateY(12px);transition:opacity 720ms ease var(--ending-delay,380ms),transform 720ms ease var(--ending-delay,380ms)}.public-ending-cover{--ending-delay:380ms}.public-ending.is-visible .public-ending-cover,.public-ending.is-visible .public-ending-link{opacity:1;transform:translateY(0)}.public-ending-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}.public-ending-cover{width:100%;min-height:62px;padding:0 22px;border:1px solid var(--public-line);border-radius:18px;background:transparent;color:var(--public-text);font:inherit;font-size:16px;letter-spacing:.04em}.public-reread{margin-top:30px;margin-bottom:max(6px,env(safe-area-inset-bottom));align-self:center}
+
+
+/* v0.3.18 — 3 second ending afterglow + quiet tab buttons */
+.public-ending-cover,
+.public-ending-link{
+  min-height:58px;
+  border-radius:10px!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.public-ending-links{
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:10px;
+}
+.public-ending-cover{
+  width:min(340px,88vw)!important;
+  margin-inline:auto;
+}
+.public-reread{
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  padding:14px 10px!important;
+  min-height:auto!important;
+  color:var(--public-sub)!important;
+}
+
+/* v0.3.19 fixed ending row */
+.public-ending-three{width:min(760px,92vw);display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.public-ending-box{min-height:96px;padding:12px 8px;border:1px solid var(--public-line);border-radius:2px!important;background:transparent!important;color:var(--public-text);text-decoration:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;opacity:0;transform:translateY(10px);transition:opacity .85s ease var(--ending-delay,3000ms),transform .85s ease var(--ending-delay,3000ms)}.public-ending-box[hidden]{visibility:hidden;display:flex!important}.public-ending-box small{font-size:10px;letter-spacing:.2em;color:var(--public-sub)}.public-ending-box strong{font-family:Georgia,"Times New Roman",serif;font-size:clamp(17px,3.8vw,24px);font-weight:500}.public-ending.is-visible .public-ending-box{opacity:1;transform:translateY(0)}.public-ending-cover{width:auto!important;min-height:96px!important;margin:0!important;border-radius:2px!important}.public-reread{margin-top:26px!important;opacity:0;transform:translateY(8px);transition:opacity .75s ease 3400ms,transform .75s ease 3400ms}.public-ending.is-visible .public-reread{opacity:1;transform:translateY(0)}
+
+
+/* v0.3.20 — ending vertical balance + exact centering */
+.public-ending-inner{
+  box-sizing:border-box;
+  width:100%;
+  min-height:100%;
+  padding:
+    max(72px,calc(env(safe-area-inset-top) + 48px))
+    20px
+    max(24px,env(safe-area-inset-bottom))!important;
+}
+.public-ending-label{
+  width:100%;
+  min-height:50vh!important;
+  margin:0!important;
+  padding-top:7vh;
+  box-sizing:border-box;
+  display:grid;
+  place-items:center;
+}
+.public-ending-actions.public-ending-three{
+  width:min(720px,100%)!important;
+  max-width:100%!important;
+  margin:0 auto!important;
+  padding:0!important;
+  box-sizing:border-box;
+  align-self:center;
+}
+.public-ending-box,
+.public-ending-cover{
+  width:100%!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+}
+.public-reread{
+  margin-top:28px!important;
+  margin-bottom:0!important;
+}
+@media(max-width:520px){
+  .public-ending-label{
+    min-height:52vh!important;
+    padding-top:5vh;
+  }
+  .public-ending-actions.public-ending-three{
+    width:100%!important;
+  }
+}
+
+
+/* v0.3.21 — authored ending sentence fades in before the 3 action boxes */
+.public-ending-label{
+  opacity:0;
+  transform:translateY(5px);
+  transition:opacity 1200ms ease 280ms,transform 1200ms ease 280ms;
+}
+.public-ending.is-visible .public-ending-label{opacity:1;transform:translateY(0)}
+
+
+/* v0.3.22 — public ending cleanup */
+.public-reread{
+  display:block!important;
+  margin:30px auto 0!important;
+  padding:8px 10px!important;
+  min-height:auto!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:var(--public-sub)!important;
+  font-family:Georgia,"Times New Roman","Yu Mincho","Hiragino Mincho ProN",serif!important;
+  font-size:13px!important;
+  font-weight:400!important;
+  letter-spacing:.035em!important;
+}
+
+/* v0.3.24 — episode on public cover */
+.public-episode{margin:6px 0 0;font-family:Georgia,"Times New Roman","Yu Mincho","Hiragino Mincho ProN",serif;font-size:clamp(13px,3.2vw,17px);letter-spacing:.06em;opacity:.82}
+.public-episode[hidden]{display:none!important}
+
+
+/* v0.3.25 — default start action uses Mincho */
+.public-primary{
+  font-family:"Yu Mincho","Hiragino Mincho ProN","Hiragino Mincho Pro",serif!important;
+  font-weight:500!important;
+}
+
+
+/* v0.3.26 — cover hierarchy: work → credit → episode */
+.public-intro-frame{gap:min(12vh,100px)}
+.public-intro-copy{display:flex;flex-direction:column;align-items:center;text-align:center}
+.public-kicker{margin-bottom:24px!important}
+.public-work-block{display:flex;flex-direction:column;align-items:center;gap:9px;width:100%}
+.public-logo{display:block;max-width:min(78vw,520px);max-height:128px;width:auto;height:auto;object-fit:contain;filter:drop-shadow(0 2px 18px rgba(0,0,0,.28))}
+.public-description{margin:0!important;max-width:540px}
+.public-author{margin:2px 0 0!important;font-size:11px!important;letter-spacing:.13em!important}
+.public-episode-block{margin-top:clamp(46px,8vh,86px);display:flex;flex-direction:column;align-items:center;gap:9px}
+.public-episode{margin:0;color:var(--public-sub);font-size:11px;letter-spacing:.14em}
+.public-episode-title{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:clamp(18px,4.8vw,28px);font-weight:500;line-height:1.35;letter-spacing:.04em}
+@media(max-width:520px){
+  .public-logo{max-height:94px}
+  .public-episode-block{margin-top:42px}
+}
+
+
+/* =========================================================
+   v0.3.28 — public cover layout fix
+   ========================================================= */
+.public-intro-frame{
+  gap:0!important;
+  justify-content:center!important;
+}
+.public-intro-copy{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  text-align:center!important;
+}
+.public-kicker{display:none!important;}
+.public-work-block{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:8px!important;
+  width:100%!important;
+}
+.public-logo{
+  display:block!important;
+  width:auto!important;
+  height:auto!important;
+  max-width:min(62vw,420px)!important;
+  max-height:min(14vh,112px)!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  margin:0 auto!important;
+  filter:drop-shadow(0 2px 18px rgba(0,0,0,.28))!important;
+}
+.public-logo[hidden]{display:none!important;}
+.public-title{
+  width:100%!important;
+  max-width:min(90vw,680px)!important;
+  margin:0!important;
+  font-size:clamp(31px,7.2vw,56px)!important;
+  line-height:1.08!important;
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  text-wrap:balance!important;
+}
+.public-description{
+  margin:0!important;
+  max-width:540px!important;
+  font-size:clamp(13px,3vw,19px)!important;
+  line-height:1.45!important;
+}
+.public-author{
+  margin:0!important;
+  font-size:10px!important;
+  line-height:1.3!important;
+  letter-spacing:.12em!important;
+}
+.public-episode-block{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:7px!important;
+  margin-top:clamp(34px,6vh,60px)!important;
+}
+.public-episode{
+  margin:0!important;
+  font-size:10px!important;
+  line-height:1.2!important;
+  letter-spacing:.14em!important;
+}
+.public-episode-title{
+  max-width:min(88vw,620px)!important;
+  margin:0!important;
+  font-size:clamp(18px,4.4vw,28px)!important;
+  line-height:1.3!important;
+  font-weight:500!important;
+  letter-spacing:.03em!important;
+  text-wrap:balance!important;
+}
+.public-intro-actions{
+  margin-top:clamp(36px,6vh,62px)!important;
+}
+@media(max-width:520px){
+  .public-logo{max-width:58vw!important;max-height:88px!important;}
+  .public-title{font-size:clamp(30px,10vw,46px)!important;}
+  .public-episode-block{margin-top:34px!important;}
+  .public-intro-actions{margin-top:34px!important;}
+}
+
+/* =========================================================
+   v0.3.29 — cover composition based on the approved text cover
+   ========================================================= */
+.public-intro-frame{
+  padding-top:max(48px,env(safe-area-inset-top))!important;
+  padding-bottom:max(34px,env(safe-area-inset-bottom))!important;
+  justify-content:flex-start!important;
+  gap:0!important;
+}
+.public-intro-copy{
+  width:100%!important;
+  margin-top:24vh!important;
+}
+.public-work-block{gap:8px!important;}
+.public-logo{
+  width:auto!important;
+  height:auto!important;
+  max-width:min(52vw,360px)!important;
+  max-height:min(10.5vh,88px)!important;
+  margin:0 auto!important;
+}
+.public-logo:not([hidden]) + .public-title{display:none!important;}
+.public-title[hidden]{display:none!important;}
+.public-title{
+  max-width:min(92vw,680px)!important;
+  font-size:clamp(34px,9.4vw,58px)!important;
+  line-height:1.08!important;
+  font-weight:500!important;
+}
+.public-description{
+  font-size:clamp(13px,3.5vw,18px)!important;
+  line-height:1.4!important;
+  opacity:.92!important;
+}
+.public-author{
+  margin-top:1px!important;
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif!important;
+  font-size:10px!important;
+  font-weight:700!important;
+  letter-spacing:.12em!important;
+  opacity:.84!important;
+}
+.public-episode-block{
+  margin-top:clamp(38px,5.4vh,56px)!important;
+  gap:8px!important;
+}
+.public-episode{
+  font-size:10px!important;
+  opacity:.74!important;
+}
+.public-episode-title{
+  max-width:min(90vw,620px)!important;
+  font-size:clamp(20px,5.7vw,30px)!important;
+  line-height:1.25!important;
+}
+.public-intro-actions{
+  margin-top:clamp(38px,5.2vh,56px)!important;
+}
+@media(max-width:520px){
+  .public-intro-copy{margin-top:22vh!important;}
+  .public-logo{max-width:50vw!important;max-height:82px!important;}
+  .public-title{font-size:clamp(34px,10.8vw,46px)!important;}
+  .public-episode-block{margin-top:36px!important;}
+  .public-intro-actions{margin-top:36px!important;}
+}
+
+/* =========================================================
+   v0.3.30 — published cover start button matches Studio preview
+   ========================================================= */
+.public-intro .public-intro-actions{
+  width:min(420px,84vw)!important;
+  align-self:center!important;
+}
+.public-intro .public-primary{
+  width:100%!important;
+  min-height:58px!important;
+  padding:0 24px!important;
+  border:1px solid rgba(255,255,255,.52)!important;
+  border-radius:14px!important;
+  background:rgba(255,255,255,.94)!important;
+  color:#111!important;
+  box-shadow:0 10px 36px rgba(0,0,0,.12)!important;
+  font-family:"Yu Mincho","Hiragino Mincho ProN","Hiragino Mincho Pro",serif!important;
+  font-size:17px!important;
+  font-weight:500!important;
+  line-height:1!important;
+  letter-spacing:.04em!important;
+  -webkit-text-fill-color:#111!important;
+  opacity:1!important;
+}
+.public-intro .public-primary:disabled{
+  opacity:.52!important;
+}
+
+/* v0.3.32 — stable ending slots + no awkward Japanese wrapping */
+/* Keep the authored ending-copy slot even when no copy was entered, so the
+   action row never jumps upward between an empty and authored ending. */
+.public-ending-label,
+.public-ending-label[hidden]{
+  display:grid!important;
+  place-items:center!important;
+  width:100%!important;
+  min-height:52vh!important;
+  margin:0!important;
+  padding-top:5vh!important;
+  box-sizing:border-box!important;
+}
+.public-ending-label[hidden]{
+  visibility:hidden!important;
+  opacity:0!important;
+}
+
+/* Keep the lower controls at one stable vertical position. */
+.public-ending-actions.public-ending-three{
+  flex:0 0 auto!important;
+}
+
+/* Japanese action labels should stay on one line. */
+.public-ending-box strong{
+  white-space:nowrap!important;
+  word-break:keep-all!important;
+  overflow-wrap:normal!important;
+  line-break:strict!important;
+}
+
+@media(max-width:520px){
+  .public-ending-box strong{
+    font-size:14px!important;
+    letter-spacing:0!important;
+  }
+  .public-ending-box small{
+    font-size:9px!important;
+  }
+}
+
+/* =========================================================
+   v0.3.32 — keep COVER label on one line down to 360px
+   Give the center COVER cell a guaranteed readable width instead of
+   splitting the ending row into three equal narrow columns.
+   ========================================================= */
+@media(max-width:520px){
+  .public-ending-actions.public-ending-three{
+    width:min(92vw,760px)!important;
+    grid-template-columns:minmax(0,1fr) minmax(128px,156px) minmax(0,1fr)!important;
+    gap:8px!important;
+  }
+  .public-ending-cover{
+    min-width:128px!important;
+    padding:12px 10px!important;
+  }
+  .public-ending-cover strong{
+    display:block!important;
+    width:max-content!important;
+    max-width:none!important;
+    white-space:nowrap!important;
+    word-break:normal!important;
+    overflow-wrap:normal!important;
+    line-break:auto!important;
+  }
+}
+
+
+/* ==========================================================
+   Format v1 authored line-break parity
+   ========================================================== */
+.public-title,
+.public-ending-label{
+  white-space:pre-line!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+}
+
+
+/* v0.3.34 — cover typography parity with Studio */
+.public-episode-title{
+  font-family:var(--sp-font-serif,"Yu Mincho","Hiragino Mincho ProN","Hiragino Mincho Pro",serif)!important;
+  font-variant-numeric:lining-nums proportional-nums!important;
+  font-feature-settings:"lnum" 1,"pnum" 1!important;
+}
+
+
+/* v0.3.40 — authored cover font */
+.public-intro .public-title,
+.public-intro .public-description,
+.public-intro .public-author,
+.public-intro .public-episode,
+.public-intro .public-episode-title{font-family:var(--public-cover-font)!important}
+
+/* =========================================================
+   v0.3.49 — ending navigation: equal three-button geometry
+   Keep PREVIOUS / COVER / NEXT (or author info) exactly equal.
+   ========================================================= */
+.public-ending-actions.public-ending-three{
+  width:min(760px,92vw)!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:8px!important;
+}
+.public-ending-actions.public-ending-three > .public-ending-box{
+  width:100%!important;
+  min-width:0!important;
+  max-width:none!important;
+  min-height:96px!important;
+  height:96px!important;
+  margin:0!important;
+  padding:10px 6px!important;
+  box-sizing:border-box!important;
+}
+.public-ending-actions.public-ending-three > .public-ending-cover{
+  width:100%!important;
+  min-width:0!important;
+}
+.public-ending-actions.public-ending-three > .public-ending-box strong{
+  width:100%!important;
+  max-width:100%!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+  line-height:1.2!important;
+  text-align:center!important;
+}
+@media(max-width:520px){
+  .public-ending-actions.public-ending-three{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+  .public-ending-actions.public-ending-three > .public-ending-box{
+    min-width:0!important;
+    height:94px!important;
+    min-height:94px!important;
+    padding:9px 4px!important;
+  }
+  .public-ending-actions.public-ending-three > .public-ending-cover strong{
+    width:100%!important;
+    max-width:100%!important;
+    white-space:normal!important;
+  }
+}
+
+
+/* v0.3.55 — rights report entry */
+.public-report-trigger{position:fixed;left:50%;bottom:max(12px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:35;border:0;background:transparent;color:var(--public-sub);font-size:11px;letter-spacing:.03em;padding:8px 12px}
+.public-report-dialog{border:0;padding:0;background:transparent;max-width:min(92vw,420px);width:100%}
+.public-report-dialog::backdrop{background:rgba(0,0,0,.58)}
+.public-report-card{position:relative;display:grid;gap:12px;background:#fff;color:#17191d;border-radius:18px;padding:22px;margin:0}
+.public-report-card>small{font-size:10px;letter-spacing:.18em;color:#737986}
+.public-report-card h2{margin:0 0 4px;font-size:20px}
+.public-report-card label{display:flex;gap:9px;align-items:flex-start;font-size:14px;line-height:1.45}
+.public-report-close{position:absolute;right:12px;top:10px;border:0;background:transparent;font-size:24px}
+.public-report-meta{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:11px}
+.public-report-meta code{overflow-wrap:anywhere;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.public-report-status{font-size:12px;color:#666;margin:0}
+.public-report-copy{border:0;border-radius:12px;background:#17191d;color:#fff;padding:13px;font-weight:700}
+
+/* v0.3.56 — iPhone report dialog close button */
+.public-report-close{
+  -webkit-appearance:none!important;
+  appearance:none!important;
+  -webkit-tap-highlight-color:transparent!important;
+  position:absolute!important;
+  top:10px!important;
+  right:10px!important;
+  z-index:3!important;
+  display:grid!important;
+  place-items:center!important;
+  width:40px!important;
+  height:40px!important;
+  min-width:40px!important;
+  min-height:40px!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:50%!important;
+  outline:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#17191d!important;
+  -webkit-text-fill-color:#17191d!important;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+  font-size:28px!important;
+  font-weight:400!important;
+  line-height:1!important;
+  text-align:center!important;
+}
+.public-report-close:focus,
+.public-report-close:focus-visible,
+.public-report-close:active{
+  outline:0!important;
+  box-shadow:none!important;
+  background:rgba(23,25,29,.06)!important;
+}
+@media(max-width:520px){
+  .public-report-card{padding:22px 20px 20px!important}
+  .public-report-card h2{padding-right:42px}
+}
+
+/* v0.3.58 claim form */
+.public-report-dialog{max-height:min(92dvh,760px);overflow:visible}
+.public-report-card{max-height:min(92dvh,760px);overflow:auto;overscroll-behavior:contain}
+.public-report-section{display:grid;gap:9px;border:0;padding:0;margin:0}
+.public-report-section legend{font-size:12px;font-weight:700;margin-bottom:2px}
+.public-report-field{display:grid!important;gap:6px!important;font-size:12px!important}
+.public-report-field>span{font-weight:700}.public-report-field b{font-size:9px;color:#b42318;margin-left:4px}
+.public-report-field input,.public-report-field select,.public-report-field textarea{width:100%;box-sizing:border-box;border:1px solid #d9dde3;border-radius:10px;background:#fff;color:#17191d;padding:10px 11px;font:inherit;line-height:1.45}
+.public-report-field textarea{resize:vertical;min-height:88px}.public-report-field small{font-size:10px;color:#767b84;line-height:1.45}
+.public-report-confirm{border-top:1px solid #e5e7eb;padding-top:11px!important;align-items:flex-start!important;font-size:12px!important}
+.public-report-confirm input{width:18px!important;height:18px!important;min-width:18px!important;margin:0!important;accent-color:#17191d}
+@media(max-width:600px){.public-report-dialog{max-width:calc(100vw - 28px);max-height:calc(100dvh - 28px)}.public-report-card{max-height:calc(100dvh - 28px);padding-bottom:calc(20px + env(safe-area-inset-bottom))!important}.public-report-field input,.public-report-field select,.public-report-field textarea{font-size:16px}}
+
+
+/* v0.3.61 — iPhone report close touch isolation */
+.public-report-close{
+  touch-action:manipulation!important;
+  pointer-events:auto!important;
+  user-select:none!important;
+  -webkit-user-select:none!important;
+  isolation:isolate!important;
+  z-index:20!important;
+}
+.public-report-card{isolation:isolate}
