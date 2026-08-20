@@ -1,0 +1,1424 @@
+{
+  "format": "scene-format",
+  "version": "1.0",
+  "id": "honnoji-4am",
+  "language": "ja",
+  "title": "本能寺、午前4時。",
+  "author": "Scene Format v1 Historical Test",
+  "theme": "cinema",
+  "appearance": {
+    "cinemaTone": "dark",
+    "typography": {
+      "fontFamily": "serif"
+    }
+  },
+  "metadata": {
+    "subtitle": "1582年6月2日 未明",
+    "description": "本能寺の変を、夜明け前の時間として体験する歴史Scene。"
+  },
+  "cover": {
+    "src": "../works/demo-story/assets/cover.png",
+    "fit": "cover",
+    "position": "center"
+  },
+  "player": {
+    "allowPrevious": true
+  },
+  "ending": {
+    "label": "1582年6月2日。\n夜は明けた。",
+    "coverButton": {
+      "kicker": "REPLAY",
+      "label": "もう一度見る"
+    }
+  },
+  "scenes": [
+    {
+      "id": "s001",
+      "type": "text",
+      "text": "本能寺、午前4時。",
+      "pause": 4300,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-story/assets/temple_night.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 900,
+          "tone": "dark",
+          "dim": 0.3,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 11000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        },
+        "subText": {
+          "color": "#ddd4c5",
+          "size": "normal",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.03,
+          "sideMargin": 10,
+          "opacity": 0.95,
+          "align": "center"
+        }
+      },
+      "subText": "1582年6月2日 未明\n京都",
+      "audio": [
+        {
+          "channel": "ambient",
+          "action": "start",
+          "src": "../works/demo-story/assets/night.wav",
+          "volume": 0.32,
+          "loop": true,
+          "fadeIn": 1200,
+          "restart": true
+        },
+        {
+          "channel": "bgm",
+          "action": "start",
+          "src": "../works/demo-story/assets/tension.wav",
+          "volume": 0.12,
+          "loop": true,
+          "fadeIn": 1800,
+          "restart": true
+        }
+      ]
+    },
+    {
+      "id": "s002",
+      "type": "text",
+      "text": "夜明けには、まだ早い。",
+      "pause": 4800,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s003",
+      "type": "text",
+      "text": "寺の中は静かだった。",
+      "pause": 4300,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-story/assets/interior.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 900,
+          "tone": "dark",
+          "dim": 0.3,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 11000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        },
+        "subText": {
+          "color": "#ddd4c5",
+          "size": "normal",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.03,
+          "sideMargin": 10,
+          "opacity": 0.95,
+          "align": "center"
+        }
+      },
+      "subText": "少なくとも、まだ。"
+    },
+    {
+      "id": "s004",
+      "type": "text",
+      "text": "織田信長は、\n少人数の供と本能寺にいた。",
+      "pause": 6000,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-story/assets/nobunaga.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 900,
+          "tone": "dark",
+          "dim": 0.3,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 11000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        }
+      }
+    },
+    {
+      "id": "s005",
+      "type": "text",
+      "text": "大軍を率いていたわけではない。",
+      "pause": 4700,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        },
+        "subText": {
+          "color": "#ddd4c5",
+          "size": "normal",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.03,
+          "sideMargin": 10,
+          "opacity": 0.95,
+          "align": "center"
+        }
+      },
+      "subText": "京都滞在のための宿所だった。"
+    },
+    {
+      "id": "s006",
+      "type": "text",
+      "text": "その頃。",
+      "pause": 2300,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-story/assets/temple_night.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 900,
+          "tone": "dark",
+          "dim": 0.3,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 11000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        }
+      }
+    },
+    {
+      "id": "s007",
+      "type": "text",
+      "text": "西から、兵が近づいていた。",
+      "pause": 5200,
+      "presentation": {
+        "display": "solo",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-story/assets/temple_troops.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 900,
+          "tone": "dark",
+          "dim": 0.3,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 11000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        }
+      },
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "role": "se",
+          "src": "../works/demo-story/assets/march.wav",
+          "volume": 0.32
+        }
+      ]
+    },
+    {
+      "id": "s008",
+      "type": "text",
+      "text": "率いるのは、明智光秀。",
+      "pause": 4600,
+      "presentation": {
+        "display": "solo",
+        "effect": "emphasis",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s009",
+      "type": "text",
+      "text": "標的は――",
+      "pause": 2700,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s010",
+      "type": "text",
+      "text": "本能寺。",
+      "pause": 3000,
+      "presentation": {
+        "display": "solo",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-story/assets/temple_troops.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 900,
+          "tone": "dark",
+          "dim": 0.3,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 11000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        }
+      }
+    },
+    {
+      "id": "s011",
+      "type": "text",
+      "text": "寺を囲む気配が、\n夜の静けさを変えていく。",
+      "pause": 5600,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s012",
+      "type": "text",
+      "text": "物音。",
+      "pause": 1800,
+      "presentation": {
+        "display": "solo",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-story/assets/alarm.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 900,
+          "tone": "dark",
+          "dim": 0.3,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 11000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        }
+      },
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "role": "se",
+          "src": "../works/demo-story/assets/impact.wav",
+          "volume": 0.55
+        }
+      ]
+    },
+    {
+      "id": "s013",
+      "type": "text",
+      "text": "誰かが走る。",
+      "pause": 2600,
+      "presentation": {
+        "display": "solo",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s014",
+      "type": "text",
+      "text": "「敵襲」",
+      "pause": 2200,
+      "presentation": {
+        "display": "solo",
+        "effect": "emphasis",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s015",
+      "type": "text",
+      "text": "信長は、何が起きたのかを問う。",
+      "pause": 4700,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-story/assets/nobunaga.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 900,
+          "tone": "dark",
+          "dim": 0.3,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 11000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        }
+      }
+    },
+    {
+      "id": "s016",
+      "type": "text",
+      "text": "伝えられた名は、",
+      "pause": 3300,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s017",
+      "type": "text",
+      "text": "明智。",
+      "pause": 2600,
+      "presentation": {
+        "display": "solo",
+        "effect": "emphasis",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s018",
+      "type": "text",
+      "text": "『是非に及ばず』",
+      "pause": 5000,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-story/assets/nobunaga.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 900,
+          "tone": "dark",
+          "dim": 0.3,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 11000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        },
+        "subText": {
+          "color": "#ddd4c5",
+          "size": "normal",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.03,
+          "sideMargin": 10,
+          "opacity": 0.95,
+          "align": "center"
+        }
+      },
+      "subText": "そう伝わる言葉が、後世に残った。"
+    },
+    {
+      "id": "s019",
+      "type": "text",
+      "text": "ただし。",
+      "pause": 2200,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s020",
+      "type": "text",
+      "text": "この場面の細部を、\n私たちは直接見てはいない。",
+      "pause": 5200,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s021",
+      "type": "text",
+      "text": "記録に残った言葉と、\n後世に組み立てられた情景。",
+      "pause": 5600,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s022",
+      "type": "text",
+      "text": "それでも、戦いは始まる。",
+      "pause": 3800,
+      "presentation": {
+        "display": "solo",
+        "effect": "fadeRise",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-story/assets/sword.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 900,
+          "tone": "dark",
+          "dim": 0.3,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 11000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        }
+      },
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "role": "se",
+          "src": "../works/demo-story/assets/sword.wav",
+          "volume": 0.5
+        }
+      ]
+    },
+    {
+      "id": "s023",
+      "type": "text",
+      "text": "弓。",
+      "pause": 1700,
+      "presentation": {
+        "display": "solo",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s024",
+      "type": "text",
+      "text": "槍。",
+      "pause": 1700,
+      "presentation": {
+        "display": "solo",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s025",
+      "type": "text",
+      "text": "火。",
+      "pause": 1700,
+      "presentation": {
+        "display": "solo",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-story/assets/fire.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 900,
+          "tone": "dark",
+          "dim": 0.3,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 11000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        }
+      },
+      "audio": [
+        {
+          "channel": "ambient",
+          "action": "stop",
+          "fade": 800
+        },
+        {
+          "channel": "ambient",
+          "action": "start",
+          "src": "../works/demo-story/assets/fire.wav",
+          "volume": 0.42,
+          "loop": true,
+          "fadeIn": 500,
+          "restart": true
+        }
+      ]
+    },
+    {
+      "id": "s026",
+      "type": "text",
+      "text": "本能寺は、炎に包まれていく。",
+      "pause": 5200,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s027",
+      "type": "text",
+      "text": "信長の最期について、\n確実に分かっていることは多くない。",
+      "pause": 6500,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s028",
+      "type": "text",
+      "text": "遺体も、確認されなかった。",
+      "pause": 4500,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s029",
+      "type": "text",
+      "text": "午前4時だった世界は、",
+      "pause": 4000,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-story/assets/fire.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 900,
+          "tone": "dark",
+          "dim": 0.3,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 11000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        }
+      }
+    },
+    {
+      "id": "s030",
+      "type": "text",
+      "text": "数時間後には、\nもう同じ世界ではなかった。",
+      "pause": 6000,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s031",
+      "type": "text",
+      "text": "光秀は主君を討った。",
+      "pause": 4200,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s032",
+      "type": "text",
+      "text": "だが、その天下は長く続かない。",
+      "pause": 4500,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s033",
+      "type": "text",
+      "text": "十一日後。",
+      "pause": 3000,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-story/assets/ruin_dawn.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 900,
+          "tone": "dark",
+          "dim": 0.3,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 11000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        }
+      }
+    },
+    {
+      "id": "s034",
+      "type": "text",
+      "text": "山崎の戦いで敗れる。",
+      "pause": 4000,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s035",
+      "type": "text",
+      "text": "歴史では、数行になる。",
+      "pause": 4200,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s036",
+      "type": "text",
+      "text": "1582年6月2日。\n本能寺の変。",
+      "pause": 4800,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s037",
+      "type": "text",
+      "text": "けれど、その数行にも。",
+      "pause": 3500,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-story/assets/ruin_dawn.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 900,
+          "tone": "dark",
+          "dim": 0.3,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 11000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        }
+      }
+    },
+    {
+      "id": "s038",
+      "type": "text",
+      "text": "夜があり、",
+      "pause": 2300,
+      "presentation": {
+        "display": "solo",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s039",
+      "type": "text",
+      "text": "音があり、",
+      "pause": 2300,
+      "presentation": {
+        "display": "solo",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s040",
+      "type": "text",
+      "text": "夜明けを待っていた人間がいた。",
+      "pause": 5200,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s041",
+      "type": "text",
+      "text": "本能寺、午前4時。",
+      "pause": 5000,
+      "presentation": {
+        "display": "solo",
+        "effect": "fadeRise",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4efe5",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.04,
+          "sideMargin": 9,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-story/assets/cover.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 900,
+          "tone": "dark",
+          "dim": 0.3,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 11000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        },
+        "subText": {
+          "color": "#ddd4c5",
+          "size": "normal",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.03,
+          "sideMargin": 10,
+          "opacity": 0.95,
+          "align": "center"
+        }
+      },
+      "subText": "歴史が変わる少し前。",
+      "audio": [
+        {
+          "channel": "ambient",
+          "action": "stop",
+          "fade": 1800
+        },
+        {
+          "channel": "bgm",
+          "action": "stop",
+          "fade": 2200
+        }
+      ]
+    }
+  ],
+  "package": {
+    "assetsBase": "assets/"
+  }
+}
