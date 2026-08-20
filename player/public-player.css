@@ -788,3 +788,10 @@ body{
 .public-report-dialog {
   display: none !important;
 }
+
+
+/* Demo embed: avoid duplicate replay control when ending coverButton is present. */
+.public-reread,
+#publicRestart {
+  display: none !important;
+}
