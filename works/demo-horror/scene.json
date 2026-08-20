@@ -1,0 +1,2358 @@
+{
+  "format": "scene-format",
+  "version": "1.0",
+  "id": "mirror-does-not-lie",
+  "language": "ja",
+  "title": "鏡は、嘘をつかない。",
+  "author": "Generated from SCENE_FORMAT_V1_KIT",
+  "theme": "cinema",
+  "appearance": {
+    "cinemaTone": "dark",
+    "typography": {
+      "fontFamily": "serif"
+    }
+  },
+  "metadata": {
+    "subtitle": "5分ホラー",
+    "description": "午前2:17。鏡の中の自分だけが、少し遅れて動き始める。"
+  },
+  "cover": {
+    "src": "../works/demo-horror/assets/mirror_smile.jpg",
+    "fit": "cover",
+    "position": "center center"
+  },
+  "player": {
+    "navigation": {
+      "allowPrevious": true
+    }
+  },
+  "ending": {
+    "label": "おしまい",
+    "coverButton": {
+      "kicker": "もう一度",
+      "label": "鏡を見る"
+    }
+  },
+  "package": {
+    "type": "scene-package",
+    "version": "1.0"
+  },
+  "scenes": [
+    {
+      "id": "s001",
+      "type": "text",
+      "text": "午前 2:17",
+      "pause": 5000,
+      "presentation": {
+        "display": "solo",
+        "view": "system",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        },
+        "background": {
+          "src": "../works/demo-horror/assets/empty_bathroom.jpg",
+          "fit": "cover",
+          "position": "center center",
+          "transition": "fade",
+          "transitionDuration": 700,
+          "tone": "dark",
+          "dim": 0.62,
+          "blur": 0,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 10,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.06
+          },
+          "_editorFileName": "empty_bathroom.jpg",
+          "textures": {
+            "grain": 0.25,
+            "vignette": 0.5,
+            "monochrome": 0.7
+          }
+        }
+      },
+      "audio": [
+        {
+          "channel": "ambient",
+          "action": "start",
+          "src": "../works/demo-horror/assets/vent_hum.wav",
+          "_editorFileName": "vent_hum.wav",
+          "volume": 0.28,
+          "fadeIn": 1800,
+          "loop": true,
+          "restart": true
+        }
+      ]
+    },
+    {
+      "id": "s002",
+      "type": "text",
+      "text": "洗面所の電気を消した。",
+      "pause": 3800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s003",
+      "type": "text",
+      "text": "なのに、鏡だけが\n少し明るかった。",
+      "pause": 4800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "whisperIn",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s004",
+      "type": "text",
+      "text": "気のせい。",
+      "pause": 2500,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "normal",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s005",
+      "type": "text",
+      "text": "そう思って、\n歯ブラシを置いた。",
+      "pause": 4300,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      },
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "src": "../works/demo-horror/assets/tap.wav",
+          "_editorFileName": "tap.wav",
+          "volume": 0.42,
+          "role": "se"
+        }
+      ]
+    },
+    {
+      "id": "s006",
+      "type": "text",
+      "text": "ぽた。",
+      "pause": 2600,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      },
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "src": "../works/demo-horror/assets/drop.wav",
+          "_editorFileName": "drop.wav",
+          "volume": 0.55,
+          "role": "se"
+        }
+      ]
+    },
+    {
+      "id": "s007",
+      "type": "text",
+      "text": "蛇口は閉まっている。",
+      "pause": 4200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s008",
+      "type": "text",
+      "text": "ぽた。",
+      "pause": 2800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      },
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "src": "../works/demo-horror/assets/drop.wav",
+          "_editorFileName": "drop.wav",
+          "volume": 0.48,
+          "role": "se"
+        }
+      ]
+    },
+    {
+      "id": "s009",
+      "type": "text",
+      "text": "鏡を見る。",
+      "pause": 3500,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        },
+        "background": {
+          "src": "../works/demo-horror/assets/mirror_woman.jpg",
+          "fit": "cover",
+          "position": "center center",
+          "transition": "fade",
+          "transitionDuration": 700,
+          "tone": "dark",
+          "dim": 0.5,
+          "blur": 0,
+          "motion": {
+            "type": "breath",
+            "duration": 10,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.06
+          },
+          "_editorFileName": "mirror_woman.jpg",
+          "textures": {
+            "grain": 0.25,
+            "vignette": 0.5,
+            "monochrome": 0.7
+          }
+        }
+      }
+    },
+    {
+      "id": "s010",
+      "type": "text",
+      "text": "私がいる。",
+      "pause": 3000,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s011",
+      "type": "text",
+      "text": "当たり前だ。",
+      "pause": 2800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s012",
+      "type": "text",
+      "text": "目を逸らす。",
+      "pause": 2600,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        },
+        "disappear": {
+          "after": 1300,
+          "fade": 700,
+          "motion": "up"
+        }
+      }
+    },
+    {
+      "id": "s013",
+      "type": "text",
+      "text": "戻す。",
+      "pause": 2200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s014",
+      "type": "text",
+      "text": "私がいる。",
+      "pause": 3000,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s015",
+      "type": "text",
+      "text": "……笑っている。",
+      "pause": 5200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "whisper",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        },
+        "background": {
+          "src": "../works/demo-horror/assets/mirror_smile.jpg",
+          "fit": "cover",
+          "position": "center center",
+          "transition": "glitch",
+          "transitionDuration": 700,
+          "tone": "dark",
+          "dim": 0.45,
+          "blur": 0,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 10,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.06
+          },
+          "_editorFileName": "mirror_smile.jpg",
+          "textures": {
+            "grain": 0.35,
+            "vignette": 0.6,
+            "monochrome": 0.8,
+            "glitch": 0.12
+          }
+        }
+      }
+    },
+    {
+      "id": "s016",
+      "type": "text",
+      "text": "私は、笑っていない。",
+      "pause": 5000,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "emphasis",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      },
+      "audio": [
+        {
+          "channel": "bgm",
+          "action": "start",
+          "src": "../works/demo-horror/assets/mirror_drone.wav",
+          "_editorFileName": "mirror_drone.wav",
+          "volume": 0.18,
+          "fadeIn": 2500,
+          "loop": true,
+          "restart": true
+        }
+      ]
+    },
+    {
+      "id": "s017",
+      "type": "text",
+      "text": "口角だけが、\n鏡の中で上がっている。",
+      "pause": 5200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s018",
+      "type": "text",
+      "text": "一歩、下がる。",
+      "pause": 3000,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fadeRise",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s019",
+      "type": "text",
+      "text": "鏡の私は、\n下がらない。",
+      "pause": 5200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "whisperIn",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s020",
+      "type": "text",
+      "text": "近づいてくる。",
+      "pause": 3800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        },
+        "background": {
+          "src": "../works/demo-horror/assets/mirror_smile_blur.jpg",
+          "fit": "cover",
+          "position": "center center",
+          "transition": "fade",
+          "transitionDuration": 700,
+          "tone": "dark",
+          "dim": 0.38,
+          "blur": 2,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 10,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.06
+          },
+          "_editorFileName": "mirror_smile_blur.jpg",
+          "textures": {
+            "grain": 0.3,
+            "vignette": 0.65,
+            "monochrome": 0.85,
+            "blur": 0.2
+          }
+        }
+      }
+    },
+    {
+      "id": "s021",
+      "type": "dialogue",
+      "text": "やめて。",
+      "pause": 2600,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "whisper",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s022",
+      "type": "text",
+      "text": "声に出した瞬間、",
+      "pause": 3000,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s023",
+      "type": "text",
+      "text": "鏡の向こうで、\n私の唇が遅れて動いた。",
+      "pause": 6000,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s024",
+      "type": "dialogue",
+      "text": "「やめて」",
+      "pause": 3200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "whisperIn",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        },
+        "subText": {
+          "color": "#a8a8a8",
+          "size": "small",
+          "fontFamily": "mono",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 0.82,
+          "align": "center",
+          "wrap": "auto"
+        }
+      },
+      "subText": "0.8秒 遅れて",
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "src": "../works/demo-horror/assets/breath.wav",
+          "_editorFileName": "breath.wav",
+          "volume": 0.38,
+          "role": "voice"
+        }
+      ]
+    },
+    {
+      "id": "s025",
+      "type": "text",
+      "text": "違う。",
+      "pause": 2400,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s026",
+      "type": "text",
+      "text": "今のは、\n私の声じゃない。",
+      "pause": 4700,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "emphasis",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s027",
+      "type": "sound",
+      "text": "コン。",
+      "pause": 2800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      },
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "src": "../works/demo-horror/assets/knock3.wav",
+          "_editorFileName": "knock3.wav",
+          "volume": 0.62,
+          "role": "se"
+        }
+      ]
+    },
+    {
+      "id": "s028",
+      "type": "text",
+      "text": "鏡の、内側。",
+      "pause": 3800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "whisper",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s029",
+      "type": "sound",
+      "text": "コン。",
+      "pause": 2500,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s030",
+      "type": "sound",
+      "text": "コン。",
+      "pause": 2500,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s031",
+      "type": "text",
+      "text": "三回。",
+      "pause": 2800,
+      "presentation": {
+        "display": "solo",
+        "view": "warning",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ddd",
+          "size": "large",
+          "fontFamily": "mono",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s032",
+      "type": "text",
+      "text": "鏡の私は、\nもう笑っていなかった。",
+      "pause": 5000,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        },
+        "background": {
+          "src": "../works/demo-horror/assets/mirror_touch.jpg",
+          "fit": "cover",
+          "position": "center center",
+          "transition": "cut",
+          "transitionDuration": 700,
+          "tone": "dark",
+          "dim": 0.5,
+          "blur": 0,
+          "motion": {
+            "type": "breath",
+            "duration": 10,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.06
+          },
+          "_editorFileName": "mirror_touch.jpg",
+          "textures": {
+            "grain": 0.25,
+            "vignette": 0.5,
+            "monochrome": 0.7
+          }
+        }
+      }
+    },
+    {
+      "id": "s033",
+      "type": "text",
+      "text": "怯えていた。",
+      "pause": 3200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s034",
+      "type": "text",
+      "text": "私ではなく、",
+      "pause": 3000,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s035",
+      "type": "text",
+      "text": "私の後ろを見て。",
+      "pause": 5200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "emphasis",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s036",
+      "type": "text",
+      "text": "振り向けない。",
+      "pause": 3500,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s037",
+      "type": "text",
+      "text": "鏡の中の私が、\n必死に首を振る。",
+      "pause": 4800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "shake",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s038",
+      "type": "dialogue",
+      "text": "見るな。",
+      "pause": 2700,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "loud",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "xl",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s039",
+      "type": "text",
+      "text": "そう読めた。",
+      "pause": 2800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s040",
+      "type": "text",
+      "text": "背中に、",
+      "pause": 2200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s041",
+      "type": "text",
+      "text": "息。",
+      "pause": 4200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "whisper",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      },
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "src": "../works/demo-horror/assets/breath.wav",
+          "_editorFileName": "breath.wav",
+          "volume": 0.72,
+          "role": "se"
+        },
+        {
+          "channel": "bgm",
+          "action": "volume",
+          "volume": 0.27,
+          "fade": 1200
+        }
+      ]
+    },
+    {
+      "id": "s042",
+      "type": "text",
+      "text": "冷たい。",
+      "pause": 2800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s043",
+      "type": "text",
+      "text": "鏡の私は、\n泣きながら手を伸ばした。",
+      "pause": 5600,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        },
+        "background": {
+          "src": "../works/demo-horror/assets/hand_glass.jpg",
+          "fit": "cover",
+          "position": "center center",
+          "transition": "flash",
+          "transitionDuration": 700,
+          "tone": "dark",
+          "dim": 0.38,
+          "blur": 0,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 10,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.06
+          },
+          "_editorFileName": "hand_glass.jpg",
+          "textures": {
+            "grain": 0.3,
+            "vignette": 0.7,
+            "monochrome": 0.8
+          }
+        }
+      }
+    },
+    {
+      "id": "s044",
+      "type": "text",
+      "text": "ガラスに、\n手のひらがつく。",
+      "pause": 4200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      },
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "src": "../works/demo-horror/assets/tap.wav",
+          "_editorFileName": "tap.wav",
+          "volume": 0.7,
+          "role": "se"
+        }
+      ]
+    },
+    {
+      "id": "s045",
+      "type": "text",
+      "text": "私も、手を上げる。",
+      "pause": 4000,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s046",
+      "type": "text",
+      "text": "触れてはいけない。",
+      "pause": 4200,
+      "presentation": {
+        "display": "solo",
+        "view": "warning",
+        "effect": "emphasis",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s047",
+      "type": "text",
+      "text": "分かっているのに。",
+      "pause": 3300,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s048",
+      "type": "text",
+      "text": "指先が、\n鏡に触れた。",
+      "pause": 4800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s049",
+      "type": "text",
+      "text": "冷たくない。",
+      "pause": 3600,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s050",
+      "type": "text",
+      "text": "あたたかい。",
+      "pause": 4200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "whisperIn",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s051",
+      "type": "text",
+      "text": "皮膚みたいに。",
+      "pause": 4600,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "whisper",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        },
+        "background": {
+          "src": "../works/demo-horror/assets/hand_glass_blur.jpg",
+          "fit": "cover",
+          "position": "center center",
+          "transition": "glitch",
+          "transitionDuration": 700,
+          "tone": "dark",
+          "dim": 0.28,
+          "blur": 3,
+          "motion": {
+            "type": "breath",
+            "duration": 10,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.06
+          },
+          "_editorFileName": "hand_glass_blur.jpg",
+          "textures": {
+            "grain": 0.45,
+            "vignette": 0.8,
+            "monochrome": 0.7,
+            "glitch": 0.28
+          }
+        }
+      }
+    },
+    {
+      "id": "s052",
+      "type": "text",
+      "text": "引く。",
+      "pause": 2200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s053",
+      "type": "text",
+      "text": "引けない。",
+      "pause": 3000,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "shake",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s054",
+      "type": "text",
+      "text": "鏡の中の私が、\n私の手首を掴んでいる。",
+      "pause": 5600,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "loud",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s055",
+      "type": "text",
+      "text": "違う。",
+      "pause": 2300,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s056",
+      "type": "text",
+      "text": "あれは、\nもう私じゃない。",
+      "pause": 5200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "emphasis",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s057",
+      "type": "text",
+      "text": "ガラスが、\n内側から膨らむ。",
+      "pause": 4700,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "blur",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s058",
+      "type": "sound",
+      "text": "ミシ。",
+      "pause": 2200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s059",
+      "type": "sound",
+      "text": "ミシ、ミシ。",
+      "pause": 2500,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "shake",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s060",
+      "type": "text",
+      "text": "割れる。",
+      "pause": 1800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "loud",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        },
+        "background": {
+          "src": "../works/demo-horror/assets/broken_floor.jpg",
+          "fit": "cover",
+          "position": "center center",
+          "transition": "flash",
+          "transitionDuration": 700,
+          "tone": "dark",
+          "dim": 0.42,
+          "blur": 0,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 10,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.06
+          },
+          "_editorFileName": "broken_floor.jpg",
+          "textures": {
+            "grain": 0.45,
+            "vignette": 0.75,
+            "monochrome": 0.9
+          }
+        }
+      },
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "src": "../works/demo-horror/assets/glass.wav",
+          "_editorFileName": "glass.wav",
+          "volume": 0.95,
+          "role": "se"
+        },
+        {
+          "channel": "ambient",
+          "action": "stop",
+          "fadeOut": 900
+        },
+        {
+          "channel": "bgm",
+          "action": "duck",
+          "volume": 0.06,
+          "fade": 300,
+          "hold": 1700
+        }
+      ]
+    },
+    {
+      "id": "s061",
+      "type": "sound",
+      "text": "",
+      "pause": 1800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "none",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s062",
+      "type": "text",
+      "text": "暗い。",
+      "pause": 3500,
+      "presentation": {
+        "display": "solo",
+        "view": "void",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s063",
+      "type": "text",
+      "text": "床に、\n誰かが倒れている。",
+      "pause": 5000,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fadeRise",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s064",
+      "type": "text",
+      "text": "私だ。",
+      "pause": 3500,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "whisper",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s065",
+      "type": "text",
+      "text": "じゃあ。",
+      "pause": 2800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s066",
+      "type": "text",
+      "text": "今、\n鏡の前に立っている私は——",
+      "pause": 6200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        },
+        "background": {
+          "src": "../works/demo-horror/assets/empty_bathroom.jpg",
+          "fit": "cover",
+          "position": "center center",
+          "transition": "glitch",
+          "transitionDuration": 700,
+          "tone": "dark",
+          "dim": 0.72,
+          "blur": 0,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 10,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.06
+          },
+          "_editorFileName": "empty_bathroom.jpg",
+          "textures": {
+            "grain": 0.4,
+            "vignette": 0.85,
+            "monochrome": 1,
+            "glitch": 0.18
+          }
+        }
+      },
+      "audio": [
+        {
+          "channel": "bgm",
+          "action": "volume",
+          "volume": 0.14,
+          "fade": 1800
+        }
+      ]
+    },
+    {
+      "id": "s067",
+      "type": "sound",
+      "text": "コン。",
+      "pause": 2600,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      },
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "src": "../works/demo-horror/assets/knock3.wav",
+          "_editorFileName": "knock3.wav",
+          "volume": 0.48,
+          "role": "se"
+        }
+      ]
+    },
+    {
+      "id": "s068",
+      "type": "sound",
+      "text": "コン。",
+      "pause": 2400,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s069",
+      "type": "sound",
+      "text": "コン。",
+      "pause": 2400,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s070",
+      "type": "text",
+      "text": "今度は、",
+      "pause": 2800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "whisper",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      }
+    },
+    {
+      "id": "s071",
+      "type": "text",
+      "text": "こちら側から。",
+      "pause": 5200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "emphasis",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f2f2f2",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "strong",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        }
+      },
+      "audio": [
+        {
+          "channel": "bgm",
+          "action": "stop",
+          "fadeOut": 3500
+        }
+      ]
+    },
+    {
+      "id": "s072",
+      "type": "text",
+      "text": "鏡は、嘘をつかない。",
+      "pause": 7000,
+      "presentation": {
+        "display": "solo",
+        "view": "void",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 1.0,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f4f4f4",
+          "size": "xl",
+          "fontFamily": "serif",
+          "shadow": "soft",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.035,
+          "sideMargin": 10,
+          "opacity": 1,
+          "align": "center",
+          "wrap": "auto"
+        },
+        "disappear": {
+          "after": 5200,
+          "fade": 1700,
+          "motion": "stay"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,872 @@
+{
+  "format": "scene-format",
+  "version": "1.0",
+  "id": "exhibit-guide-07",
+  "language": "ja",
+  "title": "展示番号 07｜名もなき椅子",
+  "author": "SCENE_FORMAT_V1_KIT v1.1 Test",
+  "theme": "dark",
+  "appearance": {
+    "cinemaTone": "dark",
+    "typography": {
+      "fontFamily": "serif"
+    }
+  },
+  "metadata": {
+    "subtitle": "展示物の音声ガイド検証",
+    "description": "実物を背景として使い、スマホ画面には画像を出さず、視線誘導・間・環境音で展示鑑賞を補助する実験。展示内容は架空。"
+  },
+  "player": {
+    "navigation": {
+      "allowPrevious": true
+    }
+  },
+  "ending": {
+    "label": "GUIDE 07 END",
+    "coverButton": {
+      "kicker": "REPLAY",
+      "label": "もう一度見る"
+    }
+  },
+  "scenes": [
+    {
+      "id": "s001",
+      "type": "text",
+      "text": "展示番号 07",
+      "pause": 3000,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        },
+        "subText": {
+          "color": "#8f8a81",
+          "size": "normal",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.55,
+          "letterSpacing": 0.015,
+          "sideMargin": 11,
+          "opacity": 0.92,
+          "align": "center"
+        }
+      },
+      "subText": "『名もなき椅子』\n作者不詳・20世紀前半（架空展示）",
+      "audio": [
+        {
+          "channel": "ambient",
+          "action": "start",
+          "src": "../works/demo-exhibit/assets/gallery.wav",
+          "volume": 0.2,
+          "loop": true,
+          "fadeIn": 1400,
+          "restart": true
+        }
+      ]
+    },
+    {
+      "id": "s002",
+      "type": "text",
+      "text": "まず、スマホではなく。",
+      "pause": 3500,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s003",
+      "type": "text",
+      "text": "目の前の椅子を見てください。",
+      "pause": 5000,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s004",
+      "type": "text",
+      "text": "座面の中央。",
+      "pause": 3800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s005",
+      "type": "text",
+      "text": "少しだけ、色が薄くなっています。",
+      "pause": 5200,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s006",
+      "type": "text",
+      "text": "近づけるなら、",
+      "pause": 3300,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s007",
+      "type": "text",
+      "text": "その部分を見てみてください。",
+      "pause": 4800,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s008",
+      "type": "text",
+      "text": "傷ではありません。",
+      "pause": 4200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s009",
+      "type": "text",
+      "text": "何度も、誰かが座った跡です。",
+      "pause": 5600,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s010",
+      "type": "text",
+      "text": "背もたれの右側にも、",
+      "pause": 3800,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s011",
+      "type": "text",
+      "text": "小さな擦れがあります。",
+      "pause": 4500,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s012",
+      "type": "text",
+      "text": "ここで少し、",
+      "pause": 3200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s013",
+      "type": "text",
+      "text": "この椅子に座っていた人を",
+      "pause": 3600,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s014",
+      "type": "text",
+      "text": "想像してみてください。",
+      "pause": 6000,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s015",
+      "type": "text",
+      "text": "どんな服だったでしょう。",
+      "pause": 4800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s016",
+      "type": "text",
+      "text": "何を待っていたでしょう。",
+      "pause": 5000,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s017",
+      "type": "text",
+      "text": "誰かと話していたのか。",
+      "pause": 4500,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s018",
+      "type": "text",
+      "text": "一人だったのか。",
+      "pause": 5000,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s019",
+      "type": "text",
+      "text": "……。",
+      "pause": 4500,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s020",
+      "type": "text",
+      "text": "この展示について、",
+      "pause": 3400,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s021",
+      "type": "text",
+      "text": "分かっていることは多くありません。",
+      "pause": 5000,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s022",
+      "type": "text",
+      "text": "だからこそ。",
+      "pause": 3600,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s023",
+      "type": "text",
+      "text": "目の前に残っている痕跡が",
+      "pause": 3800,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s024",
+      "type": "text",
+      "text": "いちばん雄弁です。",
+      "pause": 5200,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s025",
+      "type": "text",
+      "text": "もう一度、座面を見てください。",
+      "pause": 5600,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s026",
+      "type": "text",
+      "text": "さっきより、",
+      "pause": 3500,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s027",
+      "type": "text",
+      "text": "少し違って見えませんか。",
+      "pause": 6000,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s028",
+      "type": "text",
+      "text": "それで、この展示の案内は終わりです。",
+      "pause": 5000,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s029",
+      "type": "text",
+      "text": "次へ進む前に。",
+      "pause": 3800,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s030",
+      "type": "text",
+      "text": "あと三秒だけ、見ていってください。",
+      "pause": 6500,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s031",
+      "type": "text",
+      "text": "……。",
+      "pause": 5000,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.75,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#eeeae1",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.7,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      },
+      "audio": [
+        {
+          "channel": "ambient",
+          "action": "stop",
+          "fadeOut": 2200
+        }
+      ]
+    }
+  ],
+  "package": {
+    "assetsBase": "assets/"
+  }
+}
