@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>あ箱｜こんな風に使えるかも。</title>
-<meta name="description" content="あ箱の使い方を、本物のPublic Playerで体験できるデモサイト。">
+<title>あ箱 SHOWCASE｜公式デモと、あ箱でつくられた作品。</title>
+<meta name="description" content="あ箱の公式デモと、あ箱でつくられた作品を、本物のPublic Playerで体験できるSHOWCASE。">
 <style>
 :root{--ink:#111827;--muted:#667085;--line:#e7e7e9;--paper:#fbfaf7;--soft:#f2f4f7;--dark:#111318}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",sans-serif}
@@ -14,13 +14,14 @@ header{position:sticky;top:0;z-index:10;background:rgba(251,250,247,.9);backdrop
 .phone{width:min(360px,88vw);aspect-ratio:9/19.2;border-radius:42px;background:#0e1014;padding:10px;box-shadow:0 35px 70px rgba(20,24,32,.23);margin:auto;position:relative}.phone iframe{width:100%;height:100%;border:0;border-radius:32px;background:#090b0f}.phone-scroll-shield{display:none}.phone-note{text-align:center;color:#7b818b;font-size:12px;margin-top:14px}
 section{padding:86px 0}.section-head{text-align:center;margin-bottom:42px}.section-head h2{font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-size:clamp(32px,4vw,52px);font-weight:500;margin:8px 0 12px}.section-head p{color:#737983}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{border:1px solid var(--line);border-radius:24px;background:#fff;padding:28px;min-height:240px;display:flex;flex-direction:column;transition:.2s transform,.2s box-shadow}.card:hover{transform:translateY(-3px);box-shadow:0 18px 36px rgba(0,0,0,.07)}.icon{font-size:30px}.card h3{font-size:21px;margin:18px 0 10px}.card p{color:#69717c;line-height:1.75;margin:0 0 24px}.open-demo{margin-top:auto;border:0;background:transparent;text-align:left;padding:0;font-weight:700;cursor:pointer}.featured{background:linear-gradient(145deg,#f1f8f6,#fff)}
+.showcase{background:#f5f3ee}.showcase-empty{max-width:850px;margin:0 auto;border:1px solid #dedbd3;border-radius:28px;background:rgba(255,255,255,.72);padding:38px;display:grid;grid-template-columns:120px 1fr;gap:30px;align-items:center}.showcase-mark{width:112px;height:112px;border-radius:24px;background:#fff;display:flex;align-items:center;justify-content:center;font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-size:36px;box-shadow:0 12px 30px rgba(20,20,20,.06)}.showcase-empty small{font-size:11px;letter-spacing:.18em;color:#90949b}.showcase-empty h3{font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-size:28px;font-weight:500;margin:8px 0 10px}.showcase-empty p{color:#686f78;line-height:1.8;margin:0}.showcase-note{font-size:12px!important;color:#969ba2!important;margin-top:16px!important}
 .real{background:#111318;color:#fff}.real .section-head p{color:#aab0b8}.real-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.real-card{border:1px solid #30343a;border-radius:22px;padding:26px;background:#171a1f}.real-card small{color:#9aa1aa}.real-card h3{font-size:22px}.real-card p{color:#b5bbc3;line-height:1.8}
 .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;align-items:stretch}.step{border:1px solid var(--line);background:#fff;border-radius:20px;padding:20px}.step b{font-size:12px;color:#8c929b}.step h3{font-size:16px;line-height:1.5}.step .visual{height:104px;border-radius:14px;background:#f4f5f6;display:flex;align-items:center;justify-content:center;text-align:center;margin:14px 0;font-weight:700}
 .cta{display:flex;justify-content:space-between;gap:30px;align-items:center;border-top:1px solid var(--line)}.cta h2{font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-size:38px;font-weight:500;margin:0}.cta p{color:#727984}
 footer{border-top:1px solid var(--line);padding:34px 0;color:#777e87;font-size:13px}
 .modal{position:fixed;inset:0;z-index:100;display:none}.modal.open{display:block}.backdrop{position:absolute;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(8px)}.panel{position:absolute;inset:3vh max(18px,calc((100vw - 980px)/2));background:#0c0e12;border-radius:26px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.45)}.panel iframe{width:100%;height:100%;border:0}.close{position:absolute;z-index:2;right:14px;top:14px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(0,0,0,.55);color:#fff;font-size:22px;cursor:pointer}
 @media(max-width:900px){.nav a{display:none}.hero{grid-template-columns:1fr;padding-top:54px;gap:44px}.grid,.real-grid{grid-template-columns:1fr 1fr}.flow{grid-template-columns:1fr 1fr}.cta{display:block}.cta .pill{margin-top:20px}.panel{inset:0;border-radius:0}}
-@media(max-width:620px){.shell{width:min(100% - 24px,1160px)}header .shell{height:60px}.hero h1{font-size:47px}.lead{font-size:16px}.hero-actions{align-items:flex-start;flex-direction:column}.grid,.real-grid,.flow{grid-template-columns:1fr}.card{min-height:205px}section{padding:64px 0}}
+@media(max-width:620px){.showcase-empty{grid-template-columns:1fr;padding:26px}.showcase-mark{width:82px;height:82px}.shell{width:min(100% - 24px,1160px)}header .shell{height:60px}.hero h1{font-size:47px}.lead{font-size:16px}.hero-actions{align-items:flex-start;flex-direction:column}.grid,.real-grid,.flow{grid-template-columns:1fr}.card{min-height:205px}section{padding:64px 0}}
 
 @media (max-width: 760px){
   .phone-scroll-shield{
@@ -38,13 +39,13 @@ footer{border-top:1px solid var(--line);padding:34px 0;color:#777e87;font-size:1
 </style>
 </head>
 <body>
-<header><div class="shell"><a class="brand" href="#top">あ□<small>by ahako</small></a><nav class="nav"><a href="#uses">できること</a><a href="#real">現物で使う</a><a href="#flow">体験の流れ</a><button class="pill" data-demo="exhibit">本物のPlayerを体験</button></nav></div></header>
+<header><div class="shell"><a class="brand" href="#top">あ□<small>by ahako</small></a><nav class="nav"><a href="#official">公式デモ</a><a href="#showcase">SHOWCASE</a><a href="#real">現物で使う</a><button class="pill" data-demo="exhibit">本物のPlayerを体験</button></nav></div></header>
 <main id="top">
 <section class="hero shell">
-<div><div class="eyebrow">SCENE FORMAT / PUBLIC PLAYER DEMO</div><h1>文章は、<br>読むだけじゃない。</h1><p class="lead">あ箱は、文章を一度に見せず、受け手自身の操作で次を開く体験です。物語だけでなく、手紙、展示案内、商品ショールームまで。</p><div class="hero-actions"><button class="pill" data-demo="exhibit">展示ガイドを体験する →</button><a class="subtle" href="#uses">使い方を見る</a></div><p class="subtle">ここにあるデモは、簡易再現ではなく実際のPublic Playerで動きます。</p></div>
+<div><div class="eyebrow">AHAKO / OFFICIAL DEMO + SHOWCASE</div><h1>文章は、<br>読むだけじゃない。</h1><p class="lead">あ箱は、文章を一度に見せず、受け手自身の操作で次を開く体験です。公式デモと、実際にあ箱でつくられた作品をここに並べていきます。</p><div class="hero-actions"><button class="pill" data-demo="exhibit">展示ガイドを体験する →</button><a class="subtle" href="#showcase">作品を見る</a></div><p class="subtle">公式デモもSHOWCASE作品も、実際のPublic Playerでそのまま体験できます。</p></div>
 <div><div class="phone"><iframe title="あ箱 Public Player デモ" src="./player/index.html?src=../works/demo-letter/scene.json" loading="eager"></iframe><button class="phone-scroll-shield" type="button" data-demo="letter" aria-label="手紙のPlayerを体験"><span>タップして体験する</span></button></div><div class="phone-note">スマホではタップするとPlayerが全画面で開きます。</div></div>
 </section>
-<section id="uses"><div class="shell"><div class="section-head"><div class="eyebrow">USE CASES</div><h2>こんな風に使えるかも。</h2><p>カードを押すと、本物のPlayerがそのまま開きます。</p></div><div class="grid">
+<section id="official"><div class="shell"><div class="section-head"><div class="eyebrow">OFFICIAL DEMO</div><h2>あ箱で、こんなことができる。</h2><p>まずは公式がつくった用途デモ。内容・音・演出は今後アップデートしていきます。</p></div><div class="grid">
 <article class="card"><div class="icon">📖</div><h3>歴史・物語</h3><p>出来事を説明するのではなく、その時間の中へ入ってもらう。</p><button class="open-demo" data-demo="story">『本能寺、午前4時。』 →</button></article>
 <article class="card"><div class="icon">💌</div><h3>手紙・メッセージ</h3><p>言葉を一つずつ届ける。大事な一文だけ、過去を消して残す。</p><button class="open-demo" data-demo="letter">『手紙。』 →</button></article>
 <article class="card featured"><div class="icon">🏛️</div><h3>展示ガイド</h3><p>スマホを見るためではなく、目の前の展示物を見るためのガイド。</p><button class="open-demo" data-demo="exhibit">展示番号07 →</button></article>
@@ -53,11 +54,12 @@ footer{border-top:1px solid var(--line);padding:34px 0;color:#777e87;font-size:1
 <article class="card"><div class="icon">🎧</div><h3>静かな体験</h3><p>画像を使わず、文字・音・間だけで時間そのものを作品にする。</p><button class="open-demo" data-demo="silence">『何も起きません。』 →</button></article>
 <article class="card"><div class="icon">👻</div><h3>ホラー</h3><p>次を自分で押す操作が、そのまま怖さになる。</p><button class="open-demo" data-demo="horror">『鏡は、嘘をつかない。』 →</button></article>
 </div></div></section>
+<section id="showcase" class="showcase"><div class="shell"><div class="section-head"><div class="eyebrow">SHOWCASE</div><h2>あ箱で、つくられたもの。</h2><p>作者の許可をいただいた作品を、少しずつここに展示していきます。</p></div><div class="showcase-empty"><div class="showcase-mark">あ□</div><div><small>OPEN CALL</small><h3>最初の作品を、待っています。</h3><p>物語だけでなく、手紙、詩、ガイド、実験作まで。<br>「あ箱でこう使った」が、そのまま次の使い方になります。</p><p class="showcase-note">掲載作品には、作品タイトル・作者名・短い紹介と、作品をひらく導線を表示します。</p></div></div></div></section>
 <section class="real" id="real"><div class="shell"><div class="section-head"><div class="eyebrow">REAL WORLD</div><h2>現物がある場所へ。</h2><p>画面の中ではなく、目の前を見てもらう。</p></div><div class="real-grid"><article class="real-card"><small>MUSEUM / GALLERY</small><h3>展示の見え方を変える</h3><p>「右下を見てください」のように視線を案内し、鑑賞者の速度で進める。</p></article><article class="real-card"><small>SHOWROOM / STORE</small><h3>質問を持った客を店員へ</h3><p>商品を見るポイントを先に体験してもらい、接客をゼロから始めない。</p></article><article class="real-card"><small>PLACE / TOUR</small><h3>現実そのものを背景にする</h3><p>史跡、建築、工場見学など、実物があるほど画像を見せる必要がなくなる。</p></article></div></div></section>
 <section id="flow"><div class="shell"><div class="section-head"><div class="eyebrow">EXPERIENCE FLOW</div><h2>QRの先だけを作らない。</h2><p>QRを読みたくなる「Scene 0」から、店員との会話まで。</p></div><div class="flow"><div class="step"><b>01</b><div class="visual">この車、まず<br>ドアノブを<br>探してください。</div><h3>現実側の問い</h3></div><div class="step"><b>02</b><div class="visual">▦<br>QR</div><h3>読み取る理由を作る</h3></div><div class="step"><b>03</b><div class="visual">次に、横へ<br>回ってください。</div><h3>あ箱で案内</h3></div><div class="step"><b>04</b><div class="visual">☞</div><h3>現物を見る・触る</h3></div><div class="step"><b>05</b><div class="visual">「この音まで<br>設計してるんですね」</div><h3>会話へつなぐ</h3></div></div></div></section>
-<section class="cta shell"><div><div class="eyebrow">DEMO BUILD</div><h2>本物のPlayerで、<br>使い道を試す。</h2><p>このサイト自体が、あ箱の用途ショーケースです。</p></div><button class="pill" data-demo="showroom">ショールームデモを見る →</button></section>
+<section class="cta shell"><div><div class="eyebrow">AHAKO SHOWCASE</div><h2>つくる人が増えるほど、<br>使い方も増えていく。</h2><p>公式が決めた用途だけでなく、作者が見つけた「あ箱の使い方」もここに残していきます。</p></div><button class="pill" data-demo="letter">まず一つ体験する →</button></section>
 </main>
-<footer><div class="shell">あ□ demo — powered by the actual Scene Public Player</div></footer>
+<footer><div class="shell">あ□ SHOWCASE — Official Demo + Works made with ahako</div></footer>
 <div class="modal" id="modal" aria-hidden="true"><div class="backdrop" id="backdrop"></div><div class="panel"><button class="close" id="close" aria-label="閉じる">×</button><iframe id="demoFrame" title="あ箱 デモ"></iframe></div></div>
 <script>
 const sources={story:'../works/demo-story/scene.json',letter:'../works/demo-letter/scene.json',exhibit:'../works/demo-exhibit/scene.json',showroom:'../works/demo-showroom/scene.json',howto:'../works/demo-howto/scene.json',silence:'../works/demo-silence/scene.json',horror:'../works/demo-horror/scene.json'};
