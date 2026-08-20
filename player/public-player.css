@@ -782,3 +782,9 @@ body{
   z-index:20!important;
 }
 .public-report-card{isolation:isolate}
+
+/* Demo site only — hide rights/report UI in embedded Public Player. */
+.public-report-trigger,
+.public-report-dialog {
+  display: none !important;
+}
