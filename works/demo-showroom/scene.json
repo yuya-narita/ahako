@@ -1,0 +1,1318 @@
+{
+  "format": "scene-format",
+  "version": "1.0",
+  "id": "showroom-guide-aera",
+  "language": "ja",
+  "title": "SHOWROOM GUIDE｜AERA Concept",
+  "author": "SCENE_FORMAT_V1_KIT v1.1 Test",
+  "theme": "dark",
+  "appearance": {
+    "cinemaTone": "dark",
+    "typography": {
+      "fontFamily": "sans"
+    }
+  },
+  "metadata": {
+    "subtitle": "商品ショールーム検証",
+    "description": "架空の展示車を使い、現物への視線・移動・触覚・音を案内する商品ショールーム向けScene。画像は使用しない。"
+  },
+  "player": {
+    "navigation": {
+      "allowPrevious": true
+    }
+  },
+  "ending": {
+    "label": "GUIDE END",
+    "coverButton": {
+      "kicker": "REPLAY",
+      "label": "もう一度見る"
+    }
+  },
+  "scenes": [
+    {
+      "id": "s001",
+      "type": "text",
+      "text": "SHOWROOM GUIDE",
+      "pause": 2800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        },
+        "subText": {
+          "color": "#92928e",
+          "size": "normal",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.5,
+          "letterSpacing": 0.015,
+          "sideMargin": 11,
+          "opacity": 0.9,
+          "align": "center"
+        }
+      },
+      "subText": "展示車 01｜AERA Concept（架空製品）",
+      "audio": [
+        {
+          "channel": "ambient",
+          "action": "start",
+          "src": "../works/demo-showroom/assets/showroom.wav",
+          "volume": 0.18,
+          "loop": true,
+          "fadeIn": 1200,
+          "restart": true
+        }
+      ]
+    },
+    {
+      "id": "s002",
+      "type": "text",
+      "text": "まず、スマホを少し下げてください。",
+      "pause": 3800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s003",
+      "type": "text",
+      "text": "目の前の車を、正面から見てください。",
+      "pause": 5200,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s004",
+      "type": "text",
+      "text": "ライトではなく。",
+      "pause": 3400,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s005",
+      "type": "text",
+      "text": "その間にある、一本の線。",
+      "pause": 4800,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s006",
+      "type": "text",
+      "text": "ボンネットから下へ、",
+      "pause": 3400,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s007",
+      "type": "text",
+      "text": "途切れず続いています。",
+      "pause": 4600,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s008",
+      "type": "text",
+      "text": "この車は、",
+      "pause": 3200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s009",
+      "type": "text",
+      "text": "『速そうに見せる』より、",
+      "pause": 3600,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s010",
+      "type": "text",
+      "text": "『止まっていても流れて見える』ことを",
+      "pause": 4100,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s011",
+      "type": "text",
+      "text": "優先してデザインされています。",
+      "pause": 5200,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s012",
+      "type": "text",
+      "text": "今度は、横へ回ってください。",
+      "pause": 5200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s013",
+      "type": "text",
+      "text": "ドアの取っ手を探してみてください。",
+      "pause": 5200,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s014",
+      "type": "text",
+      "text": "……。",
+      "pause": 3500,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s015",
+      "type": "text",
+      "text": "見つかりましたか？",
+      "pause": 4200,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s016",
+      "type": "text",
+      "text": "目立たないのは、意図的です。",
+      "pause": 4800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s017",
+      "type": "text",
+      "text": "触れられるなら、",
+      "pause": 3300,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s018",
+      "type": "text",
+      "text": "指を近づけてください。",
+      "pause": 4500,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s019",
+      "type": "text",
+      "text": "小さく反応します。",
+      "pause": 3800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      },
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "role": "se",
+          "src": "../works/demo-showroom/assets/click.wav",
+          "volume": 0.3
+        }
+      ]
+    },
+    {
+      "id": "s020",
+      "type": "text",
+      "text": "操作部品を、",
+      "pause": 3200,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s021",
+      "type": "text",
+      "text": "『部品らしく見せない』。",
+      "pause": 4700,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s022",
+      "type": "text",
+      "text": "それも、この製品の考え方です。",
+      "pause": 5000,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s023",
+      "type": "text",
+      "text": "次に、ドアを開けてください。",
+      "pause": 5000,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s024",
+      "type": "text",
+      "text": "閉める時の音を、聞いてください。",
+      "pause": 5200,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s025",
+      "type": "text",
+      "text": "……。",
+      "pause": 2800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      },
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "role": "se",
+          "src": "../works/demo-showroom/assets/door.wav",
+          "volume": 0.32
+        }
+      ]
+    },
+    {
+      "id": "s026",
+      "type": "text",
+      "text": "大きな音ではありません。",
+      "pause": 4000,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s027",
+      "type": "text",
+      "text": "でも、軽くもない。",
+      "pause": 4000,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s028",
+      "type": "text",
+      "text": "この音も、設計されています。",
+      "pause": 5000,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s029",
+      "type": "text",
+      "text": "最後に、運転席へ。",
+      "pause": 4500,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s030",
+      "type": "text",
+      "text": "座ったら、",
+      "pause": 3000,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s031",
+      "type": "text",
+      "text": "すぐに画面を触らず、",
+      "pause": 3500,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s032",
+      "type": "text",
+      "text": "前を見てください。",
+      "pause": 4800,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s033",
+      "type": "text",
+      "text": "必要な情報だけが、",
+      "pause": 3500,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s034",
+      "type": "text",
+      "text": "視線の近くに残っています。",
+      "pause": 4600,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s035",
+      "type": "text",
+      "text": "機能を増やすことより。",
+      "pause": 3900,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s036",
+      "type": "text",
+      "text": "迷う時間を減らすこと。",
+      "pause": 5200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "emphasis",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s037",
+      "type": "text",
+      "text": "それが、この車の設計思想です。",
+      "pause": 5200,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s038",
+      "type": "text",
+      "text": "もう一度、車全体を見てください。",
+      "pause": 5200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s039",
+      "type": "text",
+      "text": "最初に見た時より、",
+      "pause": 3500,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s040",
+      "type": "text",
+      "text": "少しだけ、",
+      "pause": 3200,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s041",
+      "type": "text",
+      "text": "理由のある形に見えたなら。",
+      "pause": 4800,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s042",
+      "type": "text",
+      "text": "このガイドの役目は終わりです。",
+      "pause": 5200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s043",
+      "type": "text",
+      "text": "製品を見る。",
+      "pause": 3300,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s044",
+      "type": "text",
+      "text": "説明を読む。",
+      "pause": 3300,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s045",
+      "type": "text",
+      "text": "ではなく。",
+      "pause": 3000,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s046",
+      "type": "text",
+      "text": "見る場所を、案内する。",
+      "pause": 5200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "emphasis",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s047",
+      "type": "text",
+      "text": "SHOWROOM GUIDE",
+      "pause": 4800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.7,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#f1f1ef",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.65,
+          "letterSpacing": 0.025,
+          "sideMargin": 11,
+          "opacity": 1,
+          "align": "center"
+        },
+        "subText": {
+          "color": "#92928e",
+          "size": "normal",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.5,
+          "letterSpacing": 0.015,
+          "sideMargin": 11,
+          "opacity": 0.9,
+          "align": "center"
+        }
+      },
+      "subText": "AERA Concept｜Guide End",
+      "audio": [
+        {
+          "channel": "ambient",
+          "action": "stop",
+          "fadeOut": 1800
+        }
+      ]
+    }
+  ],
+  "package": {
+    "assetsBase": "assets/"
+  }
+}

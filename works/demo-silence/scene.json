@@ -1,0 +1,1695 @@
+{
+  "format": "scene-format",
+  "version": "1.0",
+  "id": "nothing-happens",
+  "language": "ja",
+  "title": "何も起きません。",
+  "author": "Scene Format v1 Test",
+  "theme": "dark",
+  "appearance": {
+    "cinemaTone": "dark",
+    "typography": {
+      "fontFamily": "sans"
+    }
+  },
+  "metadata": {
+    "subtitle": "何も起きない5分間。",
+    "description": "画像を一切使わず、文字・間・環境音だけで成立するかを試すScene Format v1実験作品。"
+  },
+  "player": {
+    "allowPrevious": true
+  },
+  "ending": {
+    "label": "何も起きませんでした。",
+    "coverButton": {
+      "kicker": "REPLAY",
+      "label": "もう一度、何も起こさない"
+    }
+  },
+  "scenes": [
+    {
+      "id": "s001",
+      "type": "text",
+      "text": "何も起きません。",
+      "pause": 5000,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      },
+      "audio": [
+        {
+          "channel": "ambient",
+          "action": "start",
+          "src": "../works/demo-silence/assets/room.wav",
+          "volume": 0.25,
+          "loop": true,
+          "fadeIn": 1800,
+          "restart": true
+        }
+      ]
+    },
+    {
+      "id": "s002",
+      "type": "text",
+      "text": "……。",
+      "pause": 5000,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s003",
+      "type": "text",
+      "text": "本当に。",
+      "pause": 4000,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s004",
+      "type": "text",
+      "text": "何も起きません。",
+      "pause": 6000,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s005",
+      "type": "text",
+      "text": "タップしましたね。",
+      "pause": 4500,
+      "presentation": {
+        "display": "solo",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s006",
+      "type": "text",
+      "text": "でも、",
+      "pause": 3500,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s007",
+      "type": "text",
+      "text": "何も起きません。",
+      "pause": 6500,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s008",
+      "type": "text",
+      "text": "今、",
+      "pause": 3000,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s009",
+      "type": "text",
+      "text": "何か起きると思いました？",
+      "pause": 6000,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s010",
+      "type": "text",
+      "text": "……。",
+      "pause": 5500,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s011",
+      "type": "text",
+      "text": "部屋の音がします。",
+      "pause": 5000,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s012",
+      "type": "text",
+      "text": "それだけです。",
+      "pause": 5000,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s013",
+      "type": "text",
+      "text": "遠くで、車。",
+      "pause": 5000,
+      "presentation": {
+        "display": "solo",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      },
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "role": "se",
+          "src": "../works/demo-silence/assets/distant_car.wav",
+          "volume": 0.28
+        }
+      ]
+    },
+    {
+      "id": "s014",
+      "type": "text",
+      "text": "通り過ぎました。",
+      "pause": 5500,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s015",
+      "type": "text",
+      "text": "……。",
+      "pause": 6000,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s016",
+      "type": "text",
+      "text": "まだ、ここにいます。",
+      "pause": 5500,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s017",
+      "type": "text",
+      "text": "何も起きない時間って、",
+      "pause": 5000,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s018",
+      "type": "text",
+      "text": "こんなに長かったっけ。",
+      "pause": 6500,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s019",
+      "type": "text",
+      "text": "……。",
+      "pause": 6000,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s020",
+      "type": "text",
+      "text": "冷蔵庫の音が変わった。",
+      "pause": 5500,
+      "presentation": {
+        "display": "solo",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      },
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "role": "se",
+          "src": "../works/demo-silence/assets/fridge.wav",
+          "volume": 0.3
+        }
+      ]
+    },
+    {
+      "id": "s021",
+      "type": "text",
+      "text": "たぶん。",
+      "pause": 4500,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s022",
+      "type": "text",
+      "text": "確認しなくていいです。",
+      "pause": 5500,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s023",
+      "type": "text",
+      "text": "何も起きてませんから。",
+      "pause": 6500,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s024",
+      "type": "text",
+      "text": "……。",
+      "pause": 6000,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s025",
+      "type": "text",
+      "text": "ところで。",
+      "pause": 4000,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s026",
+      "type": "text",
+      "text": "さっきから、",
+      "pause": 4500,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s027",
+      "type": "text",
+      "text": "何を待ってるんですか？",
+      "pause": 7000,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s028",
+      "type": "text",
+      "text": "オチ？",
+      "pause": 4000,
+      "presentation": {
+        "display": "solo",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s029",
+      "type": "text",
+      "text": "怖いこと？",
+      "pause": 4000,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s030",
+      "type": "text",
+      "text": "意味？",
+      "pause": 4500,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s031",
+      "type": "text",
+      "text": "……。",
+      "pause": 6000,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s032",
+      "type": "text",
+      "text": "ありません。",
+      "pause": 6500,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s033",
+      "type": "text",
+      "text": "少なくとも、",
+      "pause": 4000,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s034",
+      "type": "text",
+      "text": "今のところは。",
+      "pause": 6500,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s035",
+      "type": "text",
+      "text": "……。",
+      "pause": 6500,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s036",
+      "type": "text",
+      "text": "またタップしましたね。",
+      "pause": 5000,
+      "presentation": {
+        "display": "solo",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s037",
+      "type": "text",
+      "text": "律儀ですね。",
+      "pause": 5000,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s038",
+      "type": "text",
+      "text": "でも、",
+      "pause": 3500,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s039",
+      "type": "text",
+      "text": "次も、",
+      "pause": 4000,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s040",
+      "type": "text",
+      "text": "何も起きません。",
+      "pause": 7000,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s041",
+      "type": "text",
+      "text": "……。",
+      "pause": 6500,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s042",
+      "type": "text",
+      "text": "ここまで来ると、",
+      "pause": 5000,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s043",
+      "type": "text",
+      "text": "何か起きない方が",
+      "pause": 4500,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s044",
+      "type": "text",
+      "text": "気になってきません？",
+      "pause": 6500,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s045",
+      "type": "text",
+      "text": "……。",
+      "pause": 7000,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s046",
+      "type": "text",
+      "text": "大丈夫。",
+      "pause": 4500,
+      "presentation": {
+        "display": "solo",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s047",
+      "type": "text",
+      "text": "起きません。",
+      "pause": 6500,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s048",
+      "type": "text",
+      "text": "たぶん。",
+      "pause": 5500,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s049",
+      "type": "text",
+      "text": "……。",
+      "pause": 6500,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s050",
+      "type": "text",
+      "text": "今の「たぶん」で、",
+      "pause": 4500,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s051",
+      "type": "text",
+      "text": "少し期待しました？",
+      "pause": 6500,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s052",
+      "type": "text",
+      "text": "残念。",
+      "pause": 4500,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s053",
+      "type": "text",
+      "text": "何もありません。",
+      "pause": 6500,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s054",
+      "type": "text",
+      "text": "……。",
+      "pause": 7000,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s055",
+      "type": "text",
+      "text": "もうすぐ終わります。",
+      "pause": 5500,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s056",
+      "type": "text",
+      "text": "最後くらい、",
+      "pause": 4500,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s057",
+      "type": "text",
+      "text": "何かあると思います？",
+      "pause": 6500,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s058",
+      "type": "text",
+      "text": "……。",
+      "pause": 7000,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s059",
+      "type": "text",
+      "text": "ありません。",
+      "pause": 6500,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s060",
+      "type": "text",
+      "text": "何も起きませんでした。",
+      "pause": 7000,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s061",
+      "type": "text",
+      "text": "でも。",
+      "pause": 4500,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s062",
+      "type": "text",
+      "text": "あなたは最後まで、",
+      "pause": 5000,
+      "presentation": {
+        "display": "solo",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s063",
+      "type": "text",
+      "text": "何かが起きるのを待っていた。",
+      "pause": 7500,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s064",
+      "type": "text",
+      "text": "それだけです。",
+      "pause": 6500,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s065",
+      "type": "text",
+      "text": "何も起きません。",
+      "pause": 7000,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.85,
+          "delay": 0.08
+        },
+        "text": {
+          "color": "#d8d8d8",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "none",
+          "lineHeight": 1.75,
+          "letterSpacing": 0.035,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      },
+      "audio": [
+        {
+          "channel": "ambient",
+          "action": "stop",
+          "fade": 3000
+        }
+      ]
+    }
+  ],
+  "package": {
+    "assetsBase": "assets/"
+  }
+}
