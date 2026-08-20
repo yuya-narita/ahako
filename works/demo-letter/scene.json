@@ -1,0 +1,967 @@
+{
+  "format": "scene-format",
+  "version": "1.0",
+  "id": "letter-message-card",
+  "language": "ja",
+  "title": "手紙。",
+  "author": "SCENE_FORMAT_V1_KIT v1.1 Test",
+  "theme": "dark",
+  "appearance": {
+    "cinemaTone": "dark",
+    "typography": {
+      "fontFamily": "serif"
+    }
+  },
+  "metadata": {
+    "subtitle": "メッセージカード検証",
+    "description": "画像を使わず、積層表示とsoloを使い分けた手紙風メッセージカードScene。"
+  },
+  "player": {
+    "navigation": {
+      "allowPrevious": true
+    }
+  },
+  "ending": {
+    "label": "封を閉じました。",
+    "coverButton": {
+      "kicker": "REPLAY",
+      "label": "もう一度読む"
+    }
+  },
+  "scenes": [
+    {
+      "id": "s001",
+      "type": "text",
+      "text": "手紙。",
+      "pause": 3500,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        },
+        "subText": {
+          "color": "#9d978d",
+          "size": "normal",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 12,
+          "opacity": 0.9,
+          "align": "left"
+        }
+      },
+      "subText": "開封してください。",
+      "audio": [
+        {
+          "channel": "ambient",
+          "action": "start",
+          "src": "../works/demo-letter/assets/room.wav",
+          "volume": 0.22,
+          "loop": true,
+          "fadeIn": 1200,
+          "restart": true
+        },
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "role": "se",
+          "src": "../works/demo-letter/assets/paper.wav",
+          "volume": 0.28
+        }
+      ]
+    },
+    {
+      "id": "s002",
+      "type": "text",
+      "text": "あなたへ。",
+      "pause": 4200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      },
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "role": "se",
+          "src": "../works/demo-letter/assets/pen.wav",
+          "volume": 0.16
+        }
+      ]
+    },
+    {
+      "id": "s003",
+      "type": "text",
+      "text": "ちゃんと手紙を書くなんて、",
+      "pause": 3900,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s004",
+      "type": "text",
+      "text": "たぶん、初めてかもしれません。",
+      "pause": 4300,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s005",
+      "type": "text",
+      "text": "だから少しだけ、",
+      "pause": 3300,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s006",
+      "type": "text",
+      "text": "変な文章でも許してください。",
+      "pause": 4500,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s007",
+      "type": "text",
+      "text": "伝えたいことは、",
+      "pause": 3600,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s008",
+      "type": "text",
+      "text": "すごく簡単です。",
+      "pause": 3800,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s009",
+      "type": "text",
+      "text": "ありがとう。",
+      "pause": 5200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "emphasis",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      },
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "role": "se",
+          "src": "../works/demo-letter/assets/pen.wav",
+          "volume": 0.13
+        }
+      ]
+    },
+    {
+      "id": "s010",
+      "type": "text",
+      "text": "何か特別なことを",
+      "pause": 3400,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s011",
+      "type": "text",
+      "text": "してもらったからじゃなくて。",
+      "pause": 4300,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s012",
+      "type": "text",
+      "text": "一緒にいた時間とか、",
+      "pause": 3600,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s013",
+      "type": "text",
+      "text": "くだらない話とか、",
+      "pause": 3400,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s014",
+      "type": "text",
+      "text": "何でもない日のことを",
+      "pause": 3600,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s015",
+      "type": "text",
+      "text": "思い出すたびに。",
+      "pause": 4200,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s016",
+      "type": "text",
+      "text": "いてくれて良かったなって",
+      "pause": 4000,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s017",
+      "type": "text",
+      "text": "思います。",
+      "pause": 4600,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s018",
+      "type": "text",
+      "text": "たぶん、",
+      "pause": 3200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s019",
+      "type": "text",
+      "text": "こういうことは",
+      "pause": 3300,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s020",
+      "type": "text",
+      "text": "普段ちゃんと言えないから。",
+      "pause": 4300,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s021",
+      "type": "text",
+      "text": "手紙にしました。",
+      "pause": 4800,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      },
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "role": "se",
+          "src": "../works/demo-letter/assets/paper.wav",
+          "volume": 0.24
+        }
+      ]
+    },
+    {
+      "id": "s022",
+      "type": "text",
+      "text": "これからも、",
+      "pause": 3600,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s023",
+      "type": "text",
+      "text": "たくさん笑って。",
+      "pause": 3600,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s024",
+      "type": "text",
+      "text": "たまに腹を立てて。",
+      "pause": 3500,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s025",
+      "type": "text",
+      "text": "どうでもいいことで",
+      "pause": 3500,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s026",
+      "type": "text",
+      "text": "時間を使って。",
+      "pause": 3900,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s027",
+      "type": "text",
+      "text": "そういう日が",
+      "pause": 3600,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s028",
+      "type": "text",
+      "text": "長く続けばいいと思っています。",
+      "pause": 5200,
+      "presentation": {
+        "display": "stack",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s029",
+      "type": "text",
+      "text": "改めて。",
+      "pause": 3600,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s030",
+      "type": "text",
+      "text": "ありがとう。",
+      "pause": 5200,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "emphasis",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s031",
+      "type": "text",
+      "text": "そして。",
+      "pause": 3400,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "left"
+        }
+      }
+    },
+    {
+      "id": "s032",
+      "type": "text",
+      "text": "これからも、よろしく。",
+      "pause": 5600,
+      "presentation": {
+        "display": "solo",
+        "view": "world",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      },
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "role": "se",
+          "src": "../works/demo-letter/assets/seal.wav",
+          "volume": 0.35
+        }
+      ]
+    },
+    {
+      "id": "s033",
+      "type": "text",
+      "text": "— いつも言えないことを、手紙で。",
+      "pause": 5000,
+      "presentation": {
+        "display": "solo",
+        "view": "void",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.8,
+          "delay": 0.06
+        },
+        "text": {
+          "color": "#f2eee6",
+          "size": "large",
+          "fontFamily": "serif",
+          "shadow": "none",
+          "lineHeight": 1.8,
+          "letterSpacing": 0.03,
+          "sideMargin": 12,
+          "opacity": 1,
+          "align": "center"
+        }
+      },
+      "audio": [
+        {
+          "channel": "ambient",
+          "action": "stop",
+          "fadeOut": 1800
+        }
+      ]
+    }
+  ],
+  "package": {
+    "assetsBase": "assets/"
+  }
+}

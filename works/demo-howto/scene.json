@@ -1,0 +1,1399 @@
+{
+  "format": "scene-format",
+  "version": "1.0",
+  "id": "tie-plain-knot-scene-test",
+  "language": "ja",
+  "title": "ネクタイの結び方。",
+  "author": "Scene Format v1 Test",
+  "theme": "light",
+  "appearance": {
+    "cinemaTone": "light",
+    "typography": {
+      "fontFamily": "sans"
+    }
+  },
+  "metadata": {
+    "subtitle": "プレーンノット",
+    "description": "Scene Format v1でハウツー作品が成立するかを検証する実験作品。"
+  },
+  "cover": {
+    "src": "../works/demo-howto/assets/cover.png",
+    "fit": "cover",
+    "position": "center"
+  },
+  "player": {
+    "allowPrevious": true
+  },
+  "ending": {
+    "label": "完成。\nおつかれさまでした。",
+    "coverButton": {
+      "kicker": "REPLAY",
+      "label": "もう一度見る"
+    }
+  },
+  "scenes": [
+    {
+      "id": "s001",
+      "type": "text",
+      "text": "ネクタイの結び方。",
+      "pause": 3200,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-howto/assets/step1.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 650,
+          "tone": "light",
+          "dim": 0.18,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 9000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        },
+        "subText": {
+          "color": "#f4f4f4",
+          "size": "normal",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.01,
+          "sideMargin": 10,
+          "opacity": 0.9,
+          "align": "center"
+        }
+      },
+      "subText": "今日は、いちばん基本的な\nプレーンノット。",
+      "audio": [
+        {
+          "channel": "ambient",
+          "action": "start",
+          "src": "../works/demo-howto/assets/room.wav",
+          "volume": 0.22,
+          "loop": true,
+          "fadeIn": 800,
+          "restart": true
+        },
+        {
+          "channel": "bgm",
+          "action": "start",
+          "src": "../works/demo-howto/assets/calm_pad.wav",
+          "volume": 0.2,
+          "loop": true,
+          "fadeIn": 1500,
+          "restart": true
+        }
+      ]
+    },
+    {
+      "id": "s002",
+      "type": "text",
+      "text": "まず、首にかけます。",
+      "pause": 3600,
+      "presentation": {
+        "display": "solo",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-howto/assets/step1.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 650,
+          "tone": "light",
+          "dim": 0.18,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 9000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        },
+        "subText": {
+          "color": "#f4f4f4",
+          "size": "normal",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.01,
+          "sideMargin": 10,
+          "opacity": 0.9,
+          "align": "center"
+        }
+      },
+      "subText": "太い方を、少し長めに。"
+    },
+    {
+      "id": "s003",
+      "type": "text",
+      "text": "長さは、あとで調整できます。",
+      "pause": 3200,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "subText": {
+          "color": "#f4f4f4",
+          "size": "normal",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.01,
+          "sideMargin": 10,
+          "opacity": 0.9,
+          "align": "center"
+        }
+      },
+      "subText": "今はだいたいで大丈夫。"
+    },
+    {
+      "id": "s004",
+      "type": "text",
+      "text": "1",
+      "pause": 1500,
+      "presentation": {
+        "display": "solo",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-howto/assets/step2.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 650,
+          "tone": "light",
+          "dim": 0.18,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 9000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        },
+        "subText": {
+          "color": "#f4f4f4",
+          "size": "normal",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.01,
+          "sideMargin": 10,
+          "opacity": 0.9,
+          "align": "center"
+        }
+      },
+      "subText": "太い方を、細い方の上へ。",
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "role": "se",
+          "src": "../works/demo-howto/assets/fabric.wav",
+          "volume": 0.38
+        }
+      ]
+    },
+    {
+      "id": "s005",
+      "type": "text",
+      "text": "胸の前で、X。",
+      "pause": 3000,
+      "presentation": {
+        "display": "solo",
+        "effect": "emphasis",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "subText": {
+          "color": "#f4f4f4",
+          "size": "normal",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.01,
+          "sideMargin": 10,
+          "opacity": 0.9,
+          "align": "center"
+        }
+      },
+      "subText": "交差は一度だけ。"
+    },
+    {
+      "id": "s006",
+      "type": "text",
+      "text": "2",
+      "pause": 1500,
+      "presentation": {
+        "display": "solo",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-howto/assets/step3.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 650,
+          "tone": "light",
+          "dim": 0.18,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 9000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        },
+        "subText": {
+          "color": "#f4f4f4",
+          "size": "normal",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.01,
+          "sideMargin": 10,
+          "opacity": 0.9,
+          "align": "center"
+        }
+      },
+      "subText": "太い方を、細い方の後ろへ。",
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "role": "se",
+          "src": "../works/demo-howto/assets/fabric.wav",
+          "volume": 0.34
+        }
+      ]
+    },
+    {
+      "id": "s007",
+      "type": "text",
+      "text": "そのまま前へ戻します。",
+      "pause": 3400,
+      "presentation": {
+        "display": "solo",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "subText": {
+          "color": "#f4f4f4",
+          "size": "normal",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.01,
+          "sideMargin": 10,
+          "opacity": 0.9,
+          "align": "center"
+        }
+      },
+      "subText": "結び目の前に\n横向きの帯ができます。"
+    },
+    {
+      "id": "s008",
+      "type": "text",
+      "text": "ここまでで、形の半分。",
+      "pause": 3000,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s009",
+      "type": "text",
+      "text": "3",
+      "pause": 1500,
+      "presentation": {
+        "display": "solo",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-howto/assets/step4.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 650,
+          "tone": "light",
+          "dim": 0.18,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 9000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        },
+        "subText": {
+          "color": "#f4f4f4",
+          "size": "normal",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.01,
+          "sideMargin": 10,
+          "opacity": 0.9,
+          "align": "center"
+        }
+      },
+      "subText": "太い方を、首元の輪へ。",
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "role": "se",
+          "src": "../works/demo-howto/assets/fabric.wav",
+          "volume": 0.36
+        }
+      ]
+    },
+    {
+      "id": "s010",
+      "type": "text",
+      "text": "下から上へ通します。",
+      "pause": 3500,
+      "presentation": {
+        "display": "solo",
+        "effect": "softRise",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s011",
+      "type": "text",
+      "text": "まだ、締めません。",
+      "pause": 2800,
+      "presentation": {
+        "display": "solo",
+        "effect": "emphasis",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "subText": {
+          "color": "#f4f4f4",
+          "size": "normal",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.01,
+          "sideMargin": 10,
+          "opacity": 0.9,
+          "align": "center"
+        }
+      },
+      "subText": "ゆるいままでOK。"
+    },
+    {
+      "id": "s012",
+      "type": "text",
+      "text": "4",
+      "pause": 1500,
+      "presentation": {
+        "display": "solo",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-howto/assets/step5.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 650,
+          "tone": "light",
+          "dim": 0.18,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 9000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        },
+        "subText": {
+          "color": "#f4f4f4",
+          "size": "normal",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.01,
+          "sideMargin": 10,
+          "opacity": 0.9,
+          "align": "center"
+        }
+      },
+      "subText": "太い方を、前の輪へ。",
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "role": "se",
+          "src": "../works/demo-howto/assets/fabric.wav",
+          "volume": 0.38
+        }
+      ]
+    },
+    {
+      "id": "s013",
+      "type": "text",
+      "text": "上から、すっと通します。",
+      "pause": 3600,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s014",
+      "type": "text",
+      "text": "ここで初めて、\nゆっくり引きます。",
+      "pause": 3800,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s015",
+      "type": "text",
+      "text": "結び目ができました。",
+      "pause": 3000,
+      "presentation": {
+        "display": "solo",
+        "effect": "fadeRise",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-howto/assets/step6.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 650,
+          "tone": "light",
+          "dim": 0.18,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 9000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        }
+      },
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "role": "se",
+          "src": "../works/demo-howto/assets/done.wav",
+          "volume": 0.45
+        }
+      ]
+    },
+    {
+      "id": "s016",
+      "type": "text",
+      "text": "細い方を押さえながら、",
+      "pause": 3200,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "subText": {
+          "color": "#f4f4f4",
+          "size": "normal",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.01,
+          "sideMargin": 10,
+          "opacity": 0.9,
+          "align": "center"
+        }
+      },
+      "subText": "結び目だけを\n首元へ上げます。"
+    },
+    {
+      "id": "s017",
+      "type": "text",
+      "text": "強く締めすぎない。",
+      "pause": 3200,
+      "presentation": {
+        "display": "solo",
+        "effect": "emphasis",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "subText": {
+          "color": "#f4f4f4",
+          "size": "normal",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.01,
+          "sideMargin": 10,
+          "opacity": 0.9,
+          "align": "center"
+        }
+      },
+      "subText": "指が一本入るくらいで十分。"
+    },
+    {
+      "id": "s018",
+      "type": "text",
+      "text": "最後に、鏡で確認。",
+      "pause": 3200,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s019",
+      "type": "text",
+      "text": "結び目は、だいたい三角形。",
+      "pause": 3200,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "subText": {
+          "color": "#f4f4f4",
+          "size": "normal",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.01,
+          "sideMargin": 10,
+          "opacity": 0.9,
+          "align": "center"
+        }
+      },
+      "subText": "左右の長さも見てみます。"
+    },
+    {
+      "id": "s020",
+      "type": "text",
+      "text": "短すぎる？",
+      "pause": 2300,
+      "presentation": {
+        "display": "solo",
+        "effect": "whisperIn",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-howto/assets/step6.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 650,
+          "tone": "light",
+          "dim": 0.18,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 9000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        },
+        "subText": {
+          "color": "#f4f4f4",
+          "size": "normal",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.01,
+          "sideMargin": 10,
+          "opacity": 0.9,
+          "align": "center"
+        }
+      },
+      "subText": "最初の太い方を\nもう少し長くしてやり直す。"
+    },
+    {
+      "id": "s021",
+      "type": "text",
+      "text": "長すぎる？",
+      "pause": 2300,
+      "presentation": {
+        "display": "solo",
+        "effect": "whisperIn",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-howto/assets/step6.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 650,
+          "tone": "light",
+          "dim": 0.18,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 9000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        },
+        "subText": {
+          "color": "#f4f4f4",
+          "size": "normal",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.01,
+          "sideMargin": 10,
+          "opacity": 0.9,
+          "align": "center"
+        }
+      },
+      "subText": "最初の太い方を\n少し短くしてやり直す。"
+    },
+    {
+      "id": "s022",
+      "type": "text",
+      "text": "一回で決めなくて大丈夫。",
+      "pause": 3600,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s023",
+      "type": "text",
+      "text": "外すときは、",
+      "pause": 2800,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-howto/assets/step3.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 650,
+          "tone": "light",
+          "dim": 0.18,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 9000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        },
+        "subText": {
+          "color": "#f4f4f4",
+          "size": "normal",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.01,
+          "sideMargin": 10,
+          "opacity": 0.9,
+          "align": "center"
+        }
+      },
+      "subText": "結び目を引っ張って抜かない。"
+    },
+    {
+      "id": "s024",
+      "type": "text",
+      "text": "結び目をゆるめて、\n逆の順番でほどきます。",
+      "pause": 4000,
+      "presentation": {
+        "display": "solo",
+        "effect": "slow",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "id": "s025",
+      "type": "text",
+      "text": "もう一度。",
+      "pause": 1800,
+      "presentation": {
+        "display": "solo",
+        "effect": "pop",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-howto/assets/step1.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 650,
+          "tone": "light",
+          "dim": 0.18,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 9000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        }
+      }
+    },
+    {
+      "id": "s026",
+      "type": "text",
+      "text": "① 太い方を上に交差。",
+      "pause": 2600,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-howto/assets/step2.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 650,
+          "tone": "light",
+          "dim": 0.18,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 9000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        }
+      }
+    },
+    {
+      "id": "s027",
+      "type": "text",
+      "text": "② 後ろへ回して、前へ。",
+      "pause": 2800,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-howto/assets/step3.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 650,
+          "tone": "light",
+          "dim": 0.18,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 9000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        }
+      }
+    },
+    {
+      "id": "s028",
+      "type": "text",
+      "text": "③ 首元の輪へ、下から上。",
+      "pause": 3000,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-howto/assets/step4.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 650,
+          "tone": "light",
+          "dim": 0.18,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 9000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        }
+      }
+    },
+    {
+      "id": "s029",
+      "type": "text",
+      "text": "④ 前の輪へ、上から通す。",
+      "pause": 3000,
+      "presentation": {
+        "display": "solo",
+        "effect": "fade",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-howto/assets/step5.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 650,
+          "tone": "light",
+          "dim": 0.18,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 9000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        }
+      }
+    },
+    {
+      "id": "s030",
+      "type": "text",
+      "text": "⑤ 引いて、結び目を上げる。",
+      "pause": 3200,
+      "presentation": {
+        "display": "solo",
+        "effect": "fadeRise",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-howto/assets/step6.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 650,
+          "tone": "light",
+          "dim": 0.18,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 9000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        }
+      }
+    },
+    {
+      "id": "s031",
+      "type": "text",
+      "text": "完成。",
+      "pause": 3000,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-howto/assets/step6.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 650,
+          "tone": "light",
+          "dim": 0.18,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 9000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        }
+      },
+      "audio": [
+        {
+          "channel": "oneshot",
+          "action": "play",
+          "role": "se",
+          "src": "../works/demo-howto/assets/done.wav",
+          "volume": 0.45
+        }
+      ]
+    },
+    {
+      "id": "s032",
+      "type": "text",
+      "text": "ネクタイの結び方。",
+      "pause": 3000,
+      "presentation": {
+        "display": "solo",
+        "effect": "settle",
+        "effectTiming": {
+          "duration": 0.65,
+          "delay": 0.05
+        },
+        "text": {
+          "color": "#ffffff",
+          "size": "large",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.02,
+          "sideMargin": 8,
+          "opacity": 1,
+          "align": "center"
+        },
+        "background": {
+          "src": "../works/demo-howto/assets/cover.png",
+          "fit": "cover",
+          "position": "center",
+          "transition": "fade",
+          "transitionDuration": 650,
+          "tone": "light",
+          "dim": 0.18,
+          "motion": {
+            "type": "slowZoom",
+            "duration": 9000,
+            "scaleFrom": 1.0,
+            "scaleTo": 1.025
+          }
+        },
+        "subText": {
+          "color": "#f4f4f4",
+          "size": "normal",
+          "fontFamily": "sans",
+          "shadow": "strong",
+          "lineHeight": 1.6,
+          "letterSpacing": 0.01,
+          "sideMargin": 10,
+          "opacity": 0.9,
+          "align": "center"
+        }
+      },
+      "subText": "覚えるのは、\n交差 → 後ろ → 首元 → 前の輪。",
+      "audio": [
+        {
+          "channel": "ambient",
+          "action": "stop",
+          "fade": 1200
+        },
+        {
+          "channel": "bgm",
+          "action": "stop",
+          "fade": 1800
+        }
+      ]
+    }
+  ],
+  "package": {
+    "assetsBase": "assets/"
+  }
+}
