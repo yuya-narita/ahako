@@ -50,9 +50,124 @@
 
   const params = new URLSearchParams(location.search);
   const requested = (params.get('src') || '').trim();
-  const DEFAULT_SCENE = '../works/external-signal/scene.json';
+  const DEFAULT_SCENE = './works/external-signal/scene.json';
   const source = () => requested || DEFAULT_SCENE;
   const storageKey = () => `scene-public-progress:${source()}`;
+
+  // v0.3.64 — anonymous, work-level analytics.
+  // One small R2 session record is overwritten as reading progresses, so
+  // Scene taps do not create one object per tap. No account / personal ID is used.
+  const analyticsSessionId = crypto.randomUUID().replaceAll('-', '').slice(0, 24);
+  let analyticsSceneAdvances = 0;
+  let analyticsCompleted = false;
+  let analyticsViewSent = false;
+
+  // Optional author/reader pacing resonance. No judgement is shown during reading;
+  // the comparison appears only on the ending screen.
+  let resonanceSession = null;
+
+  function resonanceIsEnabled(){
+    const resonance=documentData?.player?.resonance;
+    // Strict, versioned opt-in.
+    // Earlier development builds may already contain enabled/authorOptIn,
+    // so only a fresh author action in the finalized v2 opt-in UI counts.
+    return resonance?.enabled===true
+      && resonance?.authorOptIn===true
+      && Number(resonance?.authorOptInVersion)===2;
+  }
+  function resonanceHasCompleteAuthorTiming(){
+    const scenes=documentData?.scenes;
+    return Array.isArray(scenes)&&scenes.length>0&&scenes.every(scene=>Number.isFinite(Number(scene?.pause))&&Number(scene.pause)>0);
+  }
+  function resetResonanceSession(startAt=0){
+    resonanceSession=(resonanceIsEnabled()&&resonanceHasCompleteAuthorTiming()&&Number(startAt)===0)
+      ? {valid:true,lastAt:0,samples:[]}
+      : null;
+    renderResonanceResult(null);
+  }
+  function beginResonanceClock(){if(resonanceSession?.valid)resonanceSession.lastAt=performance.now();}
+  function invalidateResonance(){if(resonanceSession)resonanceSession.valid=false;}
+  function recordResonanceBoundary(sceneIndex){
+    const session=resonanceSession;if(!session?.valid||!session.lastAt)return;
+    const expected=Number(documentData?.scenes?.[sceneIndex]?.pause);
+    if(!Number.isFinite(expected)||expected<=0){invalidateResonance();return;}
+    const now=performance.now();
+    const actual=Math.max(0,now-session.lastAt);
+    session.lastAt=now;
+    session.samples.push({sceneIndex,expected,actual});
+  }
+  function resonanceScore(){
+    const session=resonanceSession;
+    if(!session?.valid||session.samples.length!==(documentData?.scenes?.length||0))return null;
+    const values=session.samples.map(({expected,actual})=>{
+      const diff=Math.abs(actual-expected);
+      // No visible notes: this is a comparison of pacing, not a strict rhythm-game judgement.
+      // 100% remains possible only at exact coincidence, but nearby taps stay meaningful.
+      const tolerance=Math.max(1500,expected*.75);
+      const ratio=diff/tolerance;
+      return 1/(1+ratio*ratio);
+    });
+    return Math.max(0,Math.min(100,(values.reduce((a,b)=>a+b,0)/values.length)*100));
+  }
+  function resonanceResultNode(){
+    let node=document.getElementById('publicResonanceResult');
+    if(node||!endingLabel?.parentElement)return node;
+    node=document.createElement('div');
+    node.id='publicResonanceResult';
+    node.className='public-resonance-result';
+    node.hidden=true;
+    node.innerHTML='<small>RESONANCE</small><strong></strong><p>あなたと作者の「間」の共鳴率</p>';
+    endingLabel.insertAdjacentElement('afterend',node);
+    return node;
+  }
+  function renderResonanceResult(score){
+    const node=resonanceResultNode();
+    if(!node)return;
+
+    // IMPORTANT: Number(null) === 0.
+    // v1.8 converted null before checking validity, so disabled / legacy works
+    // were mistakenly rendered as RESONANCE 0.0%. Treat null/undefined as
+    // "no result" before numeric conversion.
+    const hasScore=score!==null && score!==undefined && score!=='';
+    const value=hasScore ? Number(score) : NaN;
+    node.hidden=!Number.isFinite(value);
+    ending?.classList.toggle('has-resonance',!node.hidden);
+
+    const strong=node.querySelector('strong');
+    if(!node.hidden){
+      if(strong)strong.textContent=`${value.toFixed(1)}%`;
+    }else if(strong){
+      strong.textContent='';
+    }
+  }
+
+  function analyticsEndpoint(){
+    try{
+      const u=new URL(source(),location.href);
+      return (u.pathname.includes('/work/')?u.origin:'https://scene-studio-api.a-hako.workers.dev') + '/analytics';
+    }catch{
+      return 'https://scene-studio-api.a-hako.workers.dev/analytics';
+    }
+  }
+
+  function sendAnalytics(event, extra={}){
+    const workId=currentWorkId();
+    if(!workId)return;
+    const payload={
+      event, workId, sessionId:analyticsSessionId,
+      title:String(documentData?.title||'').slice(0,200),
+      sceneCount:Array.isArray(documentData?.scenes)?documentData.scenes.length:0,
+      sceneAdvances:analyticsSceneAdvances,
+      completed:analyticsCompleted,
+      ...extra
+    };
+    try{
+      fetch(analyticsEndpoint(),{
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(payload), keepalive:true, cache:'no-store'
+      }).catch(()=>{});
+    }catch(_){}
+  }
 
   function safeProgress() {
     const n = Number(localStorage.getItem(storageKey()));
@@ -89,7 +204,12 @@
   }
 
   function setTheme(doc) {
-    const light = doc.theme === 'light';
+    // Public chrome / ending must follow the same visual theme contract as
+    // Scene Player Core. CINEMA can be authored with a light tone; treating
+    // every CINEMA document as dark makes only the public ending flip to the
+    // dark palette even while the work itself is visibly light.
+    const light = doc.theme === 'light'
+      || (doc.theme === 'cinema' && doc.appearance?.cinemaTone === 'light');
     const bg = light ? '#f7f6f1' : '#0b1016';
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', bg);
     document.documentElement.style.setProperty('--public-bg', bg);
@@ -180,18 +300,94 @@
     opening.hidden = true;
   }
 
+  function applyPublicCoverTypography(doc){
+    const styles=doc?.cover?.styles||{};
+    const baseFamily={
+      serif:'"Yu Mincho","Hiragino Mincho ProN",serif',
+      sans:'-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",sans-serif',
+      mono:'ui-monospace,SFMono-Regular,Menlo,Consolas,monospace'
+    };
+    const sizeScale={small:.78,normal:1,large:1.28,xl:1.6};
+    const fields=[
+      [introTitle,'title'],
+      [introDescription,'subtitle'],
+      [introAuthor,'author'],
+      [introEpisode,'episode'],
+      [introEpisodeTitle,'episodeTitle']
+    ];
+
+    for(const [el,key] of fields){
+      if(!el)continue;
+      const st=styles[key]||{};
+      el.style.removeProperty('font-size');
+      el.style.removeProperty('font-family');
+      el.style.removeProperty('color');
+      const baseSize=parseFloat(getComputedStyle(el).fontSize)||16;
+
+      const family=st.fontFamily && st.fontFamily!=='inherit'
+        ? baseFamily[st.fontFamily]
+        : baseFamily[doc?.cover?.fontFamily];
+      if(family)el.style.setProperty('font-family',family,'important');
+
+      if(st.color)el.style.setProperty('color',String(st.color),'important');
+
+      if(st.size && st.size!=='auto'){
+        const resolved=typeof st.size==='number'
+          ? Number(st.size)
+          : baseSize*(sizeScale[String(st.size)]||1);
+        if(Number.isFinite(resolved))el.style.setProperty('font-size',`${resolved}px`,'important');
+      }
+    }
+  }
+
   function applyDocumentMeta(doc) {
-    document.title = doc.title || 'Scene';
+    const cleanTitle=String(doc.title||'').trim()==='Untitled'?'':String(doc.title||'');
+    document.title = cleanTitle || 'Scene';
+
+    const legacyText=doc.cover?.text||{};
+    const visibility=doc.cover?.visibility||{};
+    const visible=(key,value)=>{
+      if(Object.prototype.hasOwnProperty.call(visibility,key)){
+        return visibility[key]!==false && Boolean(String(value||'').trim());
+      }
+      if(Object.prototype.hasOwnProperty.call(legacyText,key) && String(legacyText[key]??'')===''){
+        return false;
+      }
+      return Boolean(String(value||'').trim());
+    };
+
     const logoSrc=String(doc.cover?.logo?.src||'').trim();
     if(introLogo){introLogo.src=logoSrc;introLogo.hidden=!logoSrc;}
-    introTitle.textContent = doc.title || 'Scene';
-    introTitle.hidden=Boolean(logoSrc);
-    introAuthor.textContent = doc.author || '';
-    if(introEpisode){const ep=doc.metadata?.episode||doc.episode||'';introEpisode.textContent=ep;introEpisode.hidden=!ep;}
-    if(introEpisodeTitle){const et=doc.metadata?.episodeTitle||doc.episodeTitle||'';introEpisodeTitle.textContent=et;introEpisodeTitle.hidden=!et;}
-    introDescription.textContent = doc.description || doc.metadata?.subtitle || doc.subtitle || '';
+
+    const title=cleanTitle;
+    const subtitle=String(doc.metadata?.subtitle||doc.subtitle||'');
+    const author=String(doc.author||'');
+    const ep=String(doc.metadata?.episode||doc.episode||'');
+    const et=String(doc.metadata?.episodeTitle||doc.episodeTitle||'');
+
+    introTitle.textContent=title;
+    introTitle.hidden=Boolean(logoSrc)||!visible('title',title);
+
+    introAuthor.textContent=author;
+    introAuthor.hidden=!visible('author',author);
+
+    if(introEpisode){
+      introEpisode.textContent=ep;
+      introEpisode.hidden=!visible('episode',ep);
+    }
+    if(introEpisodeTitle){
+      introEpisodeTitle.textContent=et;
+      introEpisodeTitle.hidden=!visible('episodeTitle',et);
+    }
+
+    // This node is the public cover's subtitle slot.
+    // Do not substitute the long work description here.
+    introDescription.textContent=subtitle;
+    introDescription.hidden=!visible('subtitle',subtitle);
+
     setTheme(doc);
     applyCover(doc);
+    applyPublicCoverTypography(doc);
     buildEnding(doc);
     continueButton.hidden = safeProgress() <= 0;
   }
@@ -306,6 +502,10 @@
     ScenePlayerCore.validate(doc);
     documentData = doc;
     applyDocumentMeta(doc);
+    if(!analyticsViewSent && currentWorkId()){
+      analyticsViewSent=true;
+      sendAnalytics('view');
+    }
 
     intro.hidden = false;
     host.hidden = true;
@@ -349,12 +549,20 @@
 
     host.addEventListener('sceneplayer:scenechange', onSceneChange);
     host.addEventListener('sceneplayer:end', onEnd);
+    host.addEventListener('sceneplayer:autochange', onResonanceAutoChange);
+    host.addEventListener('sceneplayer:historyopen', invalidateResonance);
   }
 
   function onSceneChange(e) {
     const index = Number(e.detail?.index);
     if (Number.isInteger(index) && index > 0) {
       localStorage.setItem(storageKey(), String(index));
+    }
+    if(e.detail?.direction==='next'){
+      analyticsSceneAdvances += 1;
+      sendAnalytics('progress',{index});
+      if(player?.auto)invalidateResonance();
+      else if(Number.isInteger(index)&&index>0)recordResonanceBoundary(index-1);
     }
 
     // Core disables Previous on Scene 1 / when author history is disabled.
@@ -367,6 +575,15 @@
 
   function onEnd() {
     localStorage.removeItem(storageKey());
+    if(resonanceSession?.valid){
+      if(player?.auto)invalidateResonance();
+      else recordResonanceBoundary((documentData?.scenes?.length||1)-1);
+    }
+    renderResonanceResult(resonanceScore());
+    if(!analyticsCompleted){
+      analyticsCompleted=true;
+      sendAnalytics('complete',{index:Array.isArray(documentData?.scenes)?documentData.scenes.length-1:0});
+    }
 
     // Keep player/audio alive underneath the ending screen.
     // This preserves BGM/Ambient as the work's afterglow unless the Scene itself
@@ -378,9 +595,13 @@
     });
   }
 
+  function onResonanceAutoChange(e){if(e.detail?.auto)invalidateResonance();}
+
   function removeShellListeners() {
     host.removeEventListener('sceneplayer:scenechange', onSceneChange);
     host.removeEventListener('sceneplayer:end', onEnd);
+    host.removeEventListener('sceneplayer:autochange', onResonanceAutoChange);
+    host.removeEventListener('sceneplayer:historyopen', invalidateResonance);
   }
 
   const PUBLIC_EXIT_FADE_MS = 1600;
@@ -468,16 +689,28 @@
 
     ending.hidden = true;
     ending.classList.remove('is-visible');
-
-    await openingBreath();
+    ending.classList.remove('has-resonance');
+    resetResonanceSession(startAt);
 
     /*
-      Make the host measurable BEFORE Core.load().
-      The opening overlay is gone only when Scene 1 is ready to begin, so the
-      first Scene keeps its own entrance animation instead of appearing already
-      settled.
+      Public Player owns the visible cover, but Core also has its own cover.
+      Previously we did:
+        openingBreath() -> Core.load() -> unlockAudio()
+      That had two side effects:
+      1) Core stayed in its internal cover state, so authored episode text leaked
+         into the reading surface as a large "第9話" at the upper-left.
+      2) The first Scene audio was never actually entered. On iPhone the later
+         unlock also happened after ~690ms of awaits, outside the trusted START
+         gesture. Scene 1 therefore became audible only after History restored it.
+
+      Build/load/begin Core synchronously, before the first await. This lets
+      Scene 1 audio receive the actual START/CONTINUE gesture and removes Core's
+      internal cover immediately. Keep the reading surface visually hidden while
+      the public opening breath plays, then replay presentation only.
     */
     host.hidden = false;
+    host.style.visibility = 'hidden';
+    host.style.pointerEvents = 'none';
 
     player = new ScenePlayerCore(host, {
       allowPrevious: true,
@@ -486,16 +719,34 @@
 
     bindPublicControls();
 
-    await new Promise(resolve => requestAnimationFrame(resolve));
-
     player.load(documentData, { startAt });
     const ep=String(documentData?.metadata?.episode||documentData?.episode||'').trim();
     const epTitle=String(documentData?.metadata?.episodeTitle||documentData?.episodeTitle||'').trim();
     if(player.els?.title)player.els.title.textContent=[ep,epTitle].filter(Boolean).join(' ・ ') || documentData.title || '';
     if(player.els?.author)player.els.author.textContent=documentData.author||'';
-    // START / CONTINUE is the trusted user gesture used to unlock iOS media.
-    player.unlockAudio(true);
+
+    // Critical: no await before this call.
+    // begin() unlocks audio and enters Scene 1/continue Scene from the same
+    // trusted user gesture that pressed START / CONTINUE.
+    player.begin();
+
+    // Use the same zero point as Scene 1 / its audio.
+    beginResonanceClock();
+
+    await openingBreath();
+
+    // The Scene's audio has already started from the trusted gesture. Reveal the
+    // Player now and replay only its visual presentation so the entrance effect
+    // is not consumed while the host was invisible.
+    host.style.visibility = '';
+    host.style.pointerEvents = '';
+    if (player) {
+      player.refreshCurrent({ preserveAudio: true });
+      if(player.els?.title)player.els.title.textContent=[ep,epTitle].filter(Boolean).join(' ・ ') || documentData.title || '';
+      if(player.els?.author)player.els.author.textContent=documentData.author||'';
+    }
   }
+
 
   function showIntro() {
     ending.classList.remove('is-visible');
@@ -546,7 +797,7 @@
   });
 
   window.ScenePublicPlayer = {
-    version: '0.3.20',
+    version: '0.3.21',
     get player(){ return player; },
     get document(){ return documentData; },
     get source(){ return source(); },

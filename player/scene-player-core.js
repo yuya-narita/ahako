@@ -25,7 +25,8 @@
     swipe: true,
     swipeThreshold: 44,
     endOnNextAction: true,
-    uiLanguage: 'ja'
+    uiLanguage: 'ja',
+    historyAllScenes: false
   });
 
   const THEMES = new Set(['light', 'dark', 'cinema']);
@@ -42,6 +43,28 @@
 
   function emit(host, name, detail) {
     host.dispatchEvent(new CustomEvent(name, { detail }));
+  }
+
+  // Chat bubbles already communicate "this is speech", so an outer Japanese
+  // quotation pair is redundant. Keep the authored text untouched in .scene
+  // and remove only a matching pair that wraps the ENTIRE displayed message.
+  //
+  // 「もしもし」        -> もしもし
+  // 『聞こえる？』      -> 聞こえる？
+  // 彼は「知らない」と言った。 -> unchanged
+  function chatDisplayText(value) {
+    const source = String(value ?? '');
+    const match = source.match(/^(\s*)([「『])([\s\S]*)([」』])(\s*)$/);
+    if (!match) return source;
+
+    const open = match[2];
+    const close = match[4];
+    const matchingPair =
+      (open === '「' && close === '」') ||
+      (open === '『' && close === '』');
+
+    if (!matchingPair) return source;
+    return `${match[1]}${match[3]}${match[5]}`;
   }
 
   function assertSceneDocument(doc) {
@@ -83,16 +106,21 @@
       this.maxVisitedIndex = -1;
       this.historyOpen = false;
       this.historyScrollRaf = 0;
+      this.historyMetrics = null;
+      this.historyDepthItems = new Set();
       this.destroyed = false;
       this._bound = [];
       this.presentationTimers = [];
       this.layoutTimers = [];
       this.typingState = null;
       this.backgroundState = null;
+      // Prefix cache for inherited background state. Without this, every Scene
+      // advance rescans Scene 1..N, which becomes O(n²) over a long work.
+      this._backgroundStateCache = [];
+      this._backgroundStateCacheDocument = null;
       this.backgroundLayerIndex = 0;
       this.backgroundTimers = [];
       this.audioUnlocked = false;
-      this.muted = false;
       // AudioContext unlock and story playback are separate states.
       // A restarted story must wait for the reader's next stage gesture even
       // when the AudioContext itself is already unlocked.
@@ -109,11 +137,11 @@
         ambient: this._createAudioElement('ambient')
       };
       this.oneshots = new Set();
+      this.muted = false;
       this._audioRenderMode = 'restore';
 
       this._buildShell();
       this._bindControls();
-      this._bindPageLifecycle();
     }
 
     _buildShell() {
@@ -126,8 +154,25 @@
         <div class="sp-bg-textures" aria-hidden="true"></div>
         <div class="sp-bg-flash" aria-hidden="true"></div>
         <div class="sp-veil" aria-hidden="true"></div>
+        <section class="sp-cover" hidden>
+          <div class="sp-cover-bg" aria-hidden="true"></div>
+          <div class="sp-cover-dim" aria-hidden="true"></div>
+          <div class="sp-cover-copy">
+            <div class="sp-cover-work-block">
+              <img class="sp-cover-logo" alt="" hidden>
+              <strong class="sp-cover-title"></strong>
+              <span class="sp-cover-subtitle"></span>
+              <small class="sp-cover-author"></small>
+            </div>
+            <div class="sp-cover-episode-block">
+              <span class="sp-cover-episode"></span>
+              <strong class="sp-cover-episode-title"></strong>
+            </div>
+          </div>
+          <button class="sp-cover-start" type="button">はじめる</button>
+        </section>
         <header class="sp-header">
-          <button class="sp-button sp-prev" type="button" aria-label="Past scenes">‹</button>
+          <button class="sp-button sp-prev" type="button" aria-label="Previous scene">‹</button>
           <div class="sp-meta">
             <span class="sp-author"></span>
             <strong class="sp-title"></strong>
@@ -157,14 +202,27 @@
           <div class="sp-ending-copy">
             <span class="sp-ending-kicker">END</span>
             <strong class="sp-ending-title">読了</strong>
-            <p class="sp-ending-text">最後まで読みました。</p>
+            <p class="sp-ending-text"></p>
           </div>
-          <button class="sp-ending-restart" type="button">最初から読む</button>
+          <div class="sp-ending-three">
+            <button class="sp-ending-slot sp-ending-left" type="button" hidden><small></small><strong></strong></button>
+            <button class="sp-ending-slot sp-ending-cover" type="button"><small>COVER</small><strong>表紙に戻る</strong></button>
+            <button class="sp-ending-slot sp-ending-right" type="button" hidden><small></small><strong></strong></button>
+          </div>
         </section>
       `;
 
       const q = (s) => this.host.querySelector(s);
       this.els = {
+        cover: q('.sp-cover'),
+        coverBg: q('.sp-cover-bg'),
+        coverAuthor: q('.sp-cover-author'),
+        coverLogo: q('.sp-cover-logo'),
+        coverEpisode: q('.sp-cover-episode'),
+        coverEpisodeTitle: q('.sp-cover-episode-title'),
+        coverTitle: q('.sp-cover-title'),
+        coverSubtitle: q('.sp-cover-subtitle'),
+        coverStart: q('.sp-cover-start'),
         background: q('.sp-background'),
         bgA: q('.sp-bg-a'),
         bgB: q('.sp-bg-b'),
@@ -189,7 +247,9 @@
         bar: q('.sp-progress-bar'),
         ending: q('.sp-ending'),
         endingTitle: q('.sp-ending-title'),
-        endingRestart: q('.sp-ending-restart'),
+        endingCover: q('.sp-ending-cover'),
+        endingLeft: q('.sp-ending-left'),
+        endingRight: q('.sp-ending-right'),
         endingText: q('.sp-ending-text'),
         historyHelp: q('.sp-history-help'),
         historyClose: q('.sp-history-close'),
@@ -208,11 +268,11 @@
       const fallback = {
         ja:{
           'player.previous':'過去Scene','player.restart':'最初から','player.history':'過去Sceneをスクロール','player.history.close':'履歴を閉じる',
-          'player.ending.title':'読了','player.ending.text':'最後まで読みました。','player.ending.restart':'最初から読む'
+          'player.ending.title':'読了','player.ending.text':'最後まで読みました。','player.ending.restart':'もう一度読む','player.ending.cover':'表紙に戻る'
         },
         en:{
           'player.previous':'Past Scenes','player.restart':'Restart','player.history':'Scroll past Scenes','player.history.close':'Close history',
-          'player.ending.title':'Finished','player.ending.text':'You reached the end.','player.ending.restart':'Read from start'
+          'player.ending.title':'Finished','player.ending.text':'You reached the end.','player.ending.restart':'Read again','player.ending.cover':'Back to cover'
         }
       };
       return fallback[this.uiLanguage]?.[key] || fallback.ja[key] || key;
@@ -226,7 +286,11 @@
       this.els.historyHelp.textContent = this._uiText('player.history');
       this.els.historyClose.setAttribute('aria-label', this._uiText('player.history.close'));
       this.els.endingText.textContent = this._uiText('player.ending.text');
-      this.els.endingRestart.textContent = this._uiText('player.ending.restart');
+      if(this.els.endingCover){
+        const coverLabel = this.uiLanguage==='en' ? 'Back to cover' : '表紙に戻る';
+        this.els.endingCover.innerHTML = `<small>COVER</small><strong>${coverLabel}</strong>`;
+      }
+      if(this.els.coverStart)this.els.coverStart.textContent = this.uiLanguage==='en' ? 'Start' : 'はじめる';
       if (!this.document) this.els.endingTitle.textContent = this._uiText('player.ending.title');
       return this.uiLanguage;
     }
@@ -236,63 +300,6 @@
       this._bound.push([el, event, fn, options]);
     }
 
-
-    _bindPageLifecycle() {
-      const suspend = () => this._suspendForBackground();
-      this._on(document, 'visibilitychange', () => {
-        if (document.hidden) suspend();
-      }, { passive: true });
-      this._on(global, 'pagehide', suspend, { passive: true });
-      // Supported by some Chromium/WebKit lifecycle implementations.
-      this._on(global, 'freeze', suspend, { passive: true });
-      // iOS fallback: lock/home may blur before visibilitychange settles.
-      this._on(global, 'blur', () => {
-        setTimeout(() => {
-          if (document.hidden || !document.hasFocus()) suspend();
-        }, 0);
-      }, { passive: true });
-    }
-
-    _suspendForBackground() {
-      if (this.destroyed || this._backgroundSuspended) return;
-      this._backgroundSuspended = true;
-
-      // AUTO must not advance Scenes while the browser/app is in background.
-      this.stopAuto();
-
-      // Pause persistent channels in-place so currentTime is preserved.
-      Object.values(this.audioEls || {}).forEach((audio) => {
-        try { audio.pause(); } catch (_) {}
-      });
-
-      // One-shots/SE should never continue in background and should not replay.
-      this.oneshots.forEach((audio) => {
-        try { audio.pause(); } catch (_) {}
-      });
-      this.oneshots.clear();
-
-      // Also suspend WebAudio if available; this is important on iOS lock.
-      if (this.audioContext?.state === 'running') {
-        try { this.audioContext.suspend(); } catch (_) {}
-      }
-
-      emit(this.host, 'sceneplayer:backgroundsuspend', { index: this.index });
-    }
-
-    _resumeAudioAfterBackgroundGesture() {
-      if (!this._backgroundSuspended) return;
-      this._backgroundSuspended = false;
-
-      // Resume only persistent channels that are still logically active.
-      ['bgm', 'ambient'].forEach((channel) => {
-        if (!this.audioState?.[channel]) return;
-        const audio = this.audioEls?.[channel];
-        if (!audio) return;
-        this._safePlay(audio);
-      });
-
-      emit(this.host, 'sceneplayer:backgroundresume', { index: this.index });
-    }
 
     _bindControls() {
       // iOS/WebKit: the reading gesture unlocks Web Audio and arms playback.
@@ -310,13 +317,14 @@
       if ('PointerEvent' in global) this._on(this.els.stage, 'pointerdown', armFromStageGesture, { passive: true });
       else this._on(this.els.stage, 'touchstart', armFromStageGesture, { passive: true });
 
-      // Previous is no longer a one-scene step. It opens the continuous History Scroll.
+      // Header back arrow returns to the cover. History remains available by downward gesture.
       this._on(this.els.prev, 'click', (e) => {
         e.stopPropagation();
-        this.openHistory();
+        this.showCover({restart:true});
       });
       this._on(this.els.restart, 'click', (e) => { e.stopPropagation(); this.restart(); });
-      this._on(this.els.endingRestart, 'click', () => this.restart());
+      if(this.els.coverStart)this._on(this.els.coverStart,'click',(e)=>{e.stopPropagation();this._beginFromCover();});
+      if(this.els.endingCover)this._on(this.els.endingCover,'click',()=>this.showCover({restart:true}));
       this._on(this.els.auto, 'click', (e) => {
         e.stopPropagation();
         this.unlockAudio(true);
@@ -332,21 +340,36 @@
         if (!item) return;
         const nextIndex = Number(item.dataset.index);
         if (!Number.isInteger(nextIndex)) return;
-
-        // A swipe used to open History sets suppressNextClick so the synthetic
-        // click following that gesture cannot advance the story accidentally.
-        // Once the reader deliberately chooses a History item, that protection
-        // has served its purpose. Leaving it armed would swallow the first
-        // intentional tap after returning to the selected Scene.
-        this.suppressNextClick = false;
-
         this.closeHistory({ keepVisualState: true });
         this.goToVisited(nextIndex);
+        // The swipe that opened History arms suppressNextClick so its synthetic
+        // click cannot advance a Scene. Once the author explicitly selects a
+        // History Scene, that protection is stale; clear it so the very next tap
+        // advances normally.
+        this.suppressNextClick = false;
       });
       this._on(this.els.historyScroll, 'scroll', () => this._scheduleHistoryDepth(), { passive: true });
 
       this._on(this.els.stage, 'click', (e) => {
         if (e.target.closest('button')) return;
+
+        // Foreground Scene images are interactive content, not the stage's
+        // generic "next Scene" tap surface. Handle them here at the same level
+        // as navigation so Studio and the public Player behave identically.
+        const imageTarget = e.target.closest('.sp-scene-image.is-zoomable');
+        if (imageTarget) {
+          e.preventDefault();
+          e.stopPropagation();
+          const currentScene = this.document?.scenes?.[this.index];
+          const sceneImage = currentScene?.presentation?.image;
+          if (sceneImage?.src) this._openSceneImage(sceneImage.src, sceneImage.alt || '');
+          return;
+        }
+
+        if (this.host.classList.contains('live-edit-enabled')
+            && e.target.closest('.sp-scene.is-active .sp-text, .sp-scene.is-active .sp-subtext')) {
+          return;
+        }
         if (this.suppressNextClick) {
           this.suppressNextClick = false;
           return;
@@ -400,12 +423,14 @@
           if (Math.max(Math.abs(dx), Math.abs(dy)) < this.options.swipeThreshold) return;
           this.suppressNextClick = true;
 
-          // Navigation is intentionally vertical on mobile:
-          // pull down = Past Scenes (only when the author allows it),
-          // push up = next Scene. Horizontal swipes do nothing.
+          // Pulling down/right enters History Scroll. Pushing up/left still advances
+          // only one unread Scene at a time.
           if (Math.abs(dy) >= Math.abs(dx)) {
             if (dy > 0 && this.options.allowPrevious) this.openHistory({ dragDistance: dy });
             else if (dy < 0) this.next();
+          } else {
+            if (dx > 0 && this.options.allowPrevious) this.openHistory({ dragDistance: dx });
+            else this.next();
           }
         }, { passive: true });
       }
@@ -415,21 +440,45 @@
       return /^https?:\/\//i.test(String(src || '').trim());
     }
 
+    _isCorsWebAudioAsset(src) {
+      const value = String(src || '').trim();
+      if (!this._isExternalHttpAudio(value)) return false;
+      try {
+        const url = new URL(value, global.location?.href || undefined);
+        // Scene Studio's R2 asset endpoint explicitly returns
+        // Access-Control-Allow-Origin: *. These files can therefore be routed
+        // through Web Audio safely, which is required for programmable volume
+        // and fades on iPhone/iPad Safari (HTMLMediaElement.volume is effectively
+        // system-controlled there). Keep arbitrary external URLs on the native
+        // path so a third-party server without CORS never turns silent.
+        return url.hostname === 'scene-studio-api.a-hako.workers.dev'
+          && url.pathname.startsWith('/asset/');
+      } catch (_) {
+        return false;
+      }
+    }
+
     _prepareAudioTransport(audio, src) {
       if (!audio) return;
-      // Absolute HTTP(S) assets are intentionally played through the native
-      // HTMLMediaElement path. Routing them into MediaElementSource can become
-      // silent when the remote server/browser CORS combination is not suitable
-      // for Web Audio, even though the media element itself is perfectly able
-      // to play the file.
-      audio.__spNativeOnly = this._isExternalHttpAudio(src);
+      const externalHttp = this._isExternalHttpAudio(src);
+      const corsWebAudioAsset = this._isCorsWebAudioAsset(src);
+
+      // Arbitrary absolute HTTP(S) audio stays on the native media path because
+      // cross-origin MediaElementSource may be silenced without CORS. Assets
+      // hosted by Scene Studio are served with permissive CORS, so use Web Audio
+      // for them. This is especially important on iOS: native media playback does
+      // not provide reliable script-controlled volume/fades, while GainNode does.
+      audio.__spNativeOnly = externalHttp && !corsWebAudioAsset;
       audio.__spTransportSrc = src || '';
-      if (audio.__spNativeOnly) {
+      if (corsWebAudioAsset) {
+        try { audio.crossOrigin = 'anonymous'; } catch (_) {}
+      } else if (audio.__spNativeOnly) {
         try { audio.crossOrigin = null; } catch (_) {}
       }
       emit(this.host, 'sceneplayer:audiotransport', {
         src: src || '',
-        transport: audio.__spNativeOnly ? 'native-media' : 'web-audio'
+        transport: audio.__spNativeOnly ? 'native-media' : 'web-audio',
+        corsWebAudioAsset
       });
     }
 
@@ -609,10 +658,6 @@
       // Flush now so HTMLMediaElement.play() itself is still called from the
       // user's gesture. _safePlay handles delayed graph attachment.
       this._flushPendingAudio();
-
-      // If iOS/backgrounding paused media, only a new trusted reader gesture
-      // is allowed to resume the persistent BGM/Ambient channels.
-      if (armPlayback) this._resumeAudioAfterBackgroundGesture();
 
       emit(this.host, 'sceneplayer:audiounlock', {
         webAudio: !!ctx,
@@ -848,8 +893,6 @@
       const audio = new Audio();
       audio.preload = 'auto';
       audio.playsInline = true;
-      audio.muted = Boolean(this.muted);
-      audio.muted = Boolean(this.muted);
       this._prepareAudioTransport(audio, command.src);
       audio.src = command.src;
       try { audio.load(); } catch (_) {}
@@ -1048,6 +1091,8 @@
 
       this.audioPlaybackArmed = false;
       this.document = assertSceneDocument(doc);
+      this._backgroundStateCache = [];
+      this._backgroundStateCacheDocument = this.document;
 
       // Scene Format v1: author-level navigation policy.
       // Constructor options remain the fallback for older documents.
@@ -1075,13 +1120,27 @@
       this.els.author.textContent = doc.author || '';
       this.els.total.textContent = String(doc.scenes.length);
       this.refreshDocumentChrome({document:doc});
+      const authoredEndingLabel=String(doc.ending?.label || doc.ending?.title || '').trim();
+      this.els.endingTitle.textContent = authoredEndingLabel || this._uiText('player.ending.title');
+      const endingFamilies={serif:'var(--sp-font-serif)',sans:'var(--sp-font-sans)',mono:'var(--sp-font-mono)'};
+      this.els.endingTitle.style.setProperty('font-family', endingFamilies[doc.ending?.fontFamily]||endingFamilies.serif, 'important');
+      this.els.endingText.textContent = '';
+      const endingLinks=Array.isArray(doc.ending?.links)?doc.ending.links:[];
+      const endingHasPositions=endingLinks.some(x=>x?.position==='left'||x?.position==='right');
+      const left=endingHasPositions?(endingLinks.find(x=>x?.position==='left')||null):(endingLinks[0]||null);
+      const right=endingHasPositions?(endingLinks.find(x=>x?.position==='right')||null):(endingLinks.length>1?endingLinks[1]:null);
+      const applyEndingSlot=(button,item)=>{if(!button)return;const label=String(item?.label||item?.title||'').trim();const kicker=String(item?.kicker||'').trim();button.hidden=!label;const s=button.querySelector('small'),b=button.querySelector('strong');if(s){s.textContent=kicker;s.hidden=!kicker;}if(b)b.textContent=label;button.dataset.previewUrl=String(item?.url||item?.href||'').trim();};
+      applyEndingSlot(this.els.endingLeft,left); applyEndingSlot(this.els.endingRight,right);
       this.els.ending.hidden = true;
       this.backgroundState = null;
       this.backgroundLayerIndex = 0;
       this._resetBackgroundLayers();
-      this._audioRenderMode = 'load';
+      // Studio loads Scene 1 underneath the cover for layout/background,
+      // but Cover is not a Scene and must not execute Scene audio.
+      this._audioRenderMode = 'cover';
 
       this._render();
+      this.showCover();
       emit(this.host, 'sceneplayer:load', { document: doc, index: this.index });
       return this;
     }
@@ -1091,18 +1150,115 @@
       if (nextDocument) this.document = nextDocument;
       const doc = this.document;
       if (!doc) return false;
-      if (this.els.title) this.els.title.textContent = doc.title || '';
-      if (this.els.author) this.els.author.textContent = doc.author || '';
+
       const families = {
         serif: 'var(--sp-font-serif)',
         sans: 'var(--sp-font-sans)',
         mono: 'var(--sp-font-mono)'
       };
+      const coverFamily = families[doc.cover?.fontFamily] || families.serif;
+      const endingFamily = families[doc.ending?.fontFamily] || families.serif;
+      this.host.style.setProperty('--sp-cover-font', coverFamily);
+
+      const canonicalTitle = String(doc.title || '').trim()==='Untitled' ? '' : String(doc.title || '');
+      if (this.els.title) this.els.title.textContent = canonicalTitle;
+      if (this.els.author) this.els.author.textContent = doc.author || '';
+
+      const logoSrc = String(doc.cover?.logo?.src || '').trim();
+      if (this.els.coverLogo) {
+        this.els.coverLogo.src = logoSrc;
+        this.els.coverLogo.hidden = !logoSrc;
+      }
+      const coverText = doc.cover?.text || {}; // legacy read-only fallback
+      const visibility = doc.cover?.visibility || {};
+      const canonicalValue = (key, fallback='') => {
+        const clean=String(fallback??'');
+        if(clean.trim() && !(key==='title' && clean.trim()==='Untitled')) return clean;
+        return Object.prototype.hasOwnProperty.call(coverText,key) ? String(coverText[key] ?? '') : '';
+      };
+      const coverVisible = (key,value) => {
+        if(Object.prototype.hasOwnProperty.call(visibility,key)) return visibility[key]!==false && Boolean(String(value||'').trim());
+        if(Object.prototype.hasOwnProperty.call(coverText,key) && String(coverText[key]??'')==='') return false;
+        return Boolean(String(value||'').trim());
+      };
+      if (this.els.coverTitle) { const title=canonicalValue('title',doc.title||''); this.els.coverTitle.textContent=title; this.els.coverTitle.hidden=Boolean(logoSrc)||!coverVisible('title',title); }
+      if (this.els.coverAuthor) { const author=canonicalValue('author',doc.author||''); this.els.coverAuthor.textContent=author; this.els.coverAuthor.hidden=!coverVisible('author',author); }
+      if (this.els.coverSubtitle) { const subtitle=canonicalValue('subtitle',doc.metadata?.subtitle||doc.subtitle||''); this.els.coverSubtitle.textContent=subtitle; this.els.coverSubtitle.hidden=!coverVisible('subtitle',subtitle); }
+      if (this.els.coverEpisode) { const episode=canonicalValue('episode',doc.metadata?.episode||doc.episode||''); this.els.coverEpisode.textContent=episode; this.els.coverEpisode.hidden=!coverVisible('episode',episode); }
+      if (this.els.coverEpisodeTitle) { const episodeTitle=canonicalValue('episodeTitle',doc.metadata?.episodeTitle||doc.episodeTitle||''); this.els.coverEpisodeTitle.textContent=episodeTitle; this.els.coverEpisodeTitle.hidden=!coverVisible('episodeTitle',episodeTitle); }
+
+      const coverStyles = doc.cover?.styles || {};
+      const coverStyleMap = [
+        [this.els.coverTitle,'title'],
+        [this.els.coverSubtitle,'subtitle'],
+        [this.els.coverAuthor,'author'],
+        [this.els.coverEpisode,'episode'],
+        [this.els.coverEpisodeTitle,'episodeTitle']
+      ];
+      const coverSizeScale = { small:.78, normal:1, large:1.28, xl:1.6 };
+      const coverFontMap = {
+        serif:'var(--sp-font-serif)',
+        sans:'var(--sp-font-sans)',
+        mono:'var(--sp-font-mono)'
+      };
+      for (const [el,key] of coverStyleMap) {
+        if (!el) continue;
+        const st = coverStyles[key] || {};
+        el.style.removeProperty('color');
+        el.style.removeProperty('font-size');
+        el.style.removeProperty('font-family');
+        // Resolve size from this field's native CSS size. Do this only after
+        // removing the prior inline value, otherwise repeated refreshes compound.
+        const baseSize=parseFloat(getComputedStyle(el).fontSize)||16;
+        if (st.color) el.style.setProperty('color',String(st.color),'important');
+        if (st.size && st.size !== 'auto') {
+          const resolved=typeof st.size==='number'
+            ? Number(st.size)
+            : baseSize*(coverSizeScale[String(st.size)]||1);
+          if(Number.isFinite(resolved))el.style.setProperty('font-size',`${resolved}px`,'important');
+        }
+        if (st.fontFamily && st.fontFamily !== 'inherit') {
+          const fam=coverFontMap[st.fontFamily];
+          if (fam) el.style.setProperty('font-family',fam,'important');
+        }
+      }
+
       const authoredEndingLabel = String(doc.ending?.label || doc.ending?.title || '').trim();
       if (this.els.endingTitle) {
         this.els.endingTitle.textContent = authoredEndingLabel || this._uiText('player.ending.title');
-        this.els.endingTitle.style.fontFamily = families[doc.ending?.fontFamily] || families.serif;
+        this.els.endingTitle.style.setProperty('font-family', endingFamily, 'important');
+        const endingStyle=doc.ending?.style||{};
+        const sizeMap={small:'clamp(15px,3.5vw,22px)',normal:'clamp(18px,4.6vw,30px)',large:'clamp(24px,6.2vw,42px)',xl:'clamp(30px,8vw,56px)'};
+        const fontMap={serif:'var(--sp-font-serif)',sans:'var(--sp-font-sans)',mono:'var(--sp-font-mono)'};
+        this.els.endingTitle.style.removeProperty('color');
+        this.els.endingTitle.style.removeProperty('font-size');
+        if(endingStyle.color)this.els.endingTitle.style.setProperty('color',String(endingStyle.color),'important');
+        if(endingStyle.size&&endingStyle.size!=='auto'){
+          const size=typeof endingStyle.size==='number'?`${endingStyle.size}px`:sizeMap[endingStyle.size];
+          if(size)this.els.endingTitle.style.setProperty('font-size',size,'important');
+        }
+        if(endingStyle.fontFamily&&endingStyle.fontFamily!=='inherit'){
+          const fam=fontMap[endingStyle.fontFamily];
+          if(fam)this.els.endingTitle.style.setProperty('font-family',fam,'important');
+        }
       }
+      const endingLinks = Array.isArray(doc.ending?.links) ? doc.ending.links : [];
+      const hasPositions = endingLinks.some((x) => x?.position === 'left' || x?.position === 'right');
+      const left = hasPositions ? (endingLinks.find((x) => x?.position === 'left') || null) : (endingLinks[0] || null);
+      const right = hasPositions ? (endingLinks.find((x) => x?.position === 'right') || null) : (endingLinks.length > 1 ? endingLinks[1] : null);
+      const applySlot = (button, item) => {
+        if (!button) return;
+        const label = String(item?.label || item?.title || '').trim();
+        const kicker = String(item?.kicker || '').trim();
+        button.hidden = !label;
+        const small = button.querySelector('small');
+        const strong = button.querySelector('strong');
+        if (small) { small.textContent = kicker; small.hidden = !kicker; }
+        if (strong) strong.textContent = label;
+        button.dataset.previewUrl = String(item?.url || item?.href || '').trim();
+      };
+      applySlot(this.els.endingLeft, left);
+      applySlot(this.els.endingRight, right);
       return true;
     }
 
@@ -1152,7 +1308,7 @@
     }
 
     openHistory(options = {}) {
-      if (!this.document || !this.options.allowPrevious || this.maxVisitedIndex <= 0) return false;
+      if (!this.document || !this.options.allowPrevious || (!this.options.historyAllScenes && this.maxVisitedIndex <= 0)) return false;
       this.stopAuto();
       this._clearPresentationTimers();
       this.historyOpen = true;
@@ -1194,7 +1350,6 @@
     closeHistory(options = {}) {
       if (!this.historyOpen) return false;
       this.historyOpen = false;
-      this.suppressNextClick = false;
       this.host.classList.remove('sp-history-open');
       this.els.history.hidden = true;
       if (!options.keepVisualState) this.els.stage.focus({ preventScroll: true });
@@ -1205,41 +1360,13 @@
       return true;
     }
 
-    _applyHistoryTypography(node, scene) {
-      if (!node || !scene) return;
-
-      const sceneTextStyle = scene?.presentation?.text || {};
-      const workTypography = this.document?.appearance?.typography || {};
-
-      const family = sceneTextStyle.fontFamily || workTypography.fontFamily || 'serif';
-      const families = {
-        serif: 'var(--sp-font-serif)',
-        sans: 'var(--sp-font-sans)',
-        mono: 'var(--sp-font-mono)'
-      };
-
-      node.style.fontFamily = families[family] || families.serif;
-
-      if (sceneTextStyle.fontWeight != null) {
-        node.style.fontWeight = String(sceneTextStyle.fontWeight);
-      }
-
-      if (sceneTextStyle.fontStyle) {
-        node.style.fontStyle = String(sceneTextStyle.fontStyle);
-      }
-
-      if (sceneTextStyle.letterSpacing != null) {
-        const v = sceneTextStyle.letterSpacing;
-        node.style.letterSpacing = typeof v === 'number' ? `${v}em` : String(v);
-      }
-    }
-
     _renderHistory() {
       if (!this.document) return;
       const fragment = document.createDocumentFragment();
       this.els.historyList.innerHTML = '';
 
-      for (let i = 0; i <= this.maxVisitedIndex; i += 1) {
+      const historyLastIndex = this.options.historyAllScenes ? this.document.scenes.length - 1 : this.maxVisitedIndex;
+      for (let i = 0; i <= historyLastIndex; i += 1) {
         const scene = this.document.scenes[i];
         const item = document.createElement('button');
         item.type = 'button';
@@ -1255,32 +1382,91 @@
         const body = document.createElement('span');
         body.className = 'sp-history-body';
 
-        if (scene.type === 'sound' && !scene.text) {
+        const historyPresentation = scene.presentation || {};
+        if (historyPresentation.view === 'chat' && (scene.text || scene.subText)) {
+          item.classList.add('sp-history-chat');
+          const align = historyPresentation.text?.align === 'right' ? 'right' : 'left';
+          item.dataset.chatSide = align;
+
+          const chatRow = document.createElement('span');
+          chatRow.className = 'sp-history-chat-row';
+
+          const icon = document.createElement('span');
+          icon.className = 'sp-history-chat-icon';
+          const iconSrc = historyPresentation.chat?.icon || '';
+          if (iconSrc) {
+            const img = document.createElement('img');
+            img.src = iconSrc;
+            img.alt = '';
+            icon.appendChild(img);
+          } else {
+            icon.textContent = historyPresentation.chat?.iconText || '●';
+          }
+
+          const chatBody = document.createElement('span');
+          chatBody.className = 'sp-history-chat-body';
+
+          if (scene.subText) {
+            const speaker = document.createElement('span');
+            speaker.className = 'sp-history-chat-speaker';
+            speaker.textContent = scene.subText;
+            this._applyTextStyle(speaker, historyPresentation.subText || {}, true);
+            chatBody.appendChild(speaker);
+          }
+
+          if (scene.text) {
+            const bubble = document.createElement('span');
+            bubble.className = 'sp-history-chat-bubble';
+            if (historyPresentation.chat?.bubbleColor) {
+              bubble.style.background = historyPresentation.chat.bubbleColor;
+            }
+
+            const text = document.createElement('span');
+            text.className = 'sp-history-chat-text';
+            text.textContent = chatDisplayText(scene.text);
+            this._applyTextStyle(text, historyPresentation.text || {}, false);
+            if (historyPresentation.chat?.bubbleTextColor) {
+              text.style.setProperty('color', String(historyPresentation.chat.bubbleTextColor), 'important');
+            }
+            bubble.appendChild(text);
+            chatBody.appendChild(bubble);
+          }
+
+          chatRow.append(icon, chatBody);
+          body.appendChild(chatRow);
+        } else if (scene.type === 'sound' && !scene.text) {
           const mark = document.createElement('span');
           mark.className = 'sp-history-text';
           mark.textContent = '♪';
-          this._applyHistoryTypography(mark, scene);
           body.appendChild(mark);
         } else {
           const text = document.createElement('span');
           text.className = 'sp-history-text';
           text.textContent = scene.text || '';
-          this._applyHistoryTypography(text, scene);
+          // History is still a navigator, but typography should identify the
+          // actual Scene the author is reviewing.
+          this._applyTextStyle(text, scene.presentation?.text || {}, false);
           body.appendChild(text);
+
+          if (scene.subText) {
+            const sub = document.createElement('span');
+            sub.className = 'sp-history-subtext';
+            sub.textContent = scene.subText;
+            this._applyTextStyle(sub, scene.presentation?.subText || {}, true);
+            body.appendChild(sub);
+          }
         }
 
-        if (scene.subText) {
-          const sub = document.createElement('span');
-          sub.className = 'sp-history-subtext';
-          sub.textContent = scene.subText;
-          this._applyHistoryTypography(sub, scene);
-          body.appendChild(sub);
-        }
+        this._appendSceneImage(body, scene, historyPresentation, { history:true });
 
         item.append(num, body);
         fragment.appendChild(item);
       }
       this.els.historyList.appendChild(fragment);
+      // Measure the drum once after rebuilding it. Scroll-time depth updates can
+      // then use cached centers instead of forcing layout for every Scene.
+      this.historyMetrics = null;
+      this.historyDepthItems.clear();
     }
 
     _scheduleHistoryDepth() {
@@ -1293,25 +1479,54 @@
 
     _updateHistoryDepth() {
       if (!this.historyOpen) return;
-      const viewport = this.els.historyScroll.getBoundingClientRect();
-      const center = viewport.top + viewport.height / 2;
-      let nearest = null;
-      let nearestDistance = Infinity;
+      const scroll = this.els.historyScroll;
+      const items = Array.from(this.els.historyList.querySelectorAll('.sp-history-item'));
+      if (!items.length) return;
 
-      this.els.historyList.querySelectorAll('.sp-history-item').forEach((item) => {
-        const rect = item.getBoundingClientRect();
-        const itemCenter = rect.top + rect.height / 2;
-        const distance = Math.abs(itemCenter - center);
-        const normalized = clamp(distance / Math.max(1, viewport.height * 0.58), 0, 1);
-        item.style.setProperty('--sp-history-depth', String(normalized));
-        if (distance < nearestDistance) {
-          nearestDistance = distance;
-          nearest = item;
-        }
+      // Building this cache may read layout once, when History opens/rebuilds.
+      // The hot scroll path below does not call getBoundingClientRect() per Scene.
+      if (!this.historyMetrics || this.historyMetrics.length !== items.length) {
+        this.historyMetrics = items.map((item) => ({
+          item,
+          center: item.offsetTop + item.offsetHeight / 2
+        }));
+      }
+
+      const metrics = this.historyMetrics;
+      const center = scroll.scrollTop + scroll.clientHeight / 2;
+
+      // Binary-search the nearest cached Scene center.
+      let lo = 0, hi = metrics.length - 1;
+      while (lo < hi) {
+        const mid = (lo + hi) >> 1;
+        if (metrics[mid].center < center) lo = mid + 1;
+        else hi = mid;
+      }
+      let nearestIndex = lo;
+      if (nearestIndex > 0 && Math.abs(metrics[nearestIndex - 1].center - center) <= Math.abs(metrics[nearestIndex].center - center)) {
+        nearestIndex -= 1;
+      }
+
+      // Only the small visible neighbourhood needs the drum depth effect.
+      // Clear the previously touched nodes, then update roughly ±6 Scenes.
+      this.historyDepthItems.forEach((item) => {
+        item.style.removeProperty('--sp-history-depth');
+        item.classList.remove('is-nearest');
       });
+      this.historyDepthItems.clear();
 
-      this.els.historyList.querySelectorAll('.is-nearest').forEach((el) => el.classList.remove('is-nearest'));
-      if (nearest) nearest.classList.add('is-nearest');
+      const radius = 6;
+      const start = Math.max(0, nearestIndex - radius);
+      const end = Math.min(metrics.length - 1, nearestIndex + radius);
+      const depthRange = Math.max(1, scroll.clientHeight * 0.58);
+      for (let i = start; i <= end; i += 1) {
+        const entry = metrics[i];
+        const distance = Math.abs(entry.center - center);
+        const normalized = clamp(distance / depthRange, 0, 1);
+        entry.item.style.setProperty('--sp-history-depth', String(normalized));
+        if (i === nearestIndex) entry.item.classList.add('is-nearest');
+        this.historyDepthItems.add(entry.item);
+      }
     }
 
     refreshCurrent(options = {}) {
@@ -1331,6 +1546,14 @@
       if (this.els?.ending) this.els.ending.hidden = true;
       this.index = nextIndex;
       this.maxVisitedIndex = Math.max(this.maxVisitedIndex, nextIndex);
+      // Authoring may mutate the current Scene's background while retaining the
+      // same document object. Keep earlier prefixes, invalidate this Scene onward.
+      if (this._backgroundStateCacheDocument !== this.document) {
+        this._backgroundStateCacheDocument = this.document;
+        this._backgroundStateCache = [];
+      } else if (Array.isArray(this._backgroundStateCache)) {
+        this._backgroundStateCache.length = Math.min(this._backgroundStateCache.length, nextIndex);
+      }
 
       // Live-authoring refresh: redraw the current Scene through the real Player
       // renderer and replay its presentation immediately, but do not seek/restart
@@ -1350,7 +1573,7 @@
       let nextIndex = -1;
       if (typeof sceneOrIndex === 'number') nextIndex = sceneOrIndex;
       else if (typeof sceneOrIndex === 'string') nextIndex = this.document.scenes.findIndex((s) => s.id === sceneOrIndex);
-      if (nextIndex < 0 || nextIndex > this.maxVisitedIndex) return false;
+      if (nextIndex < 0 || nextIndex > (this.options.historyAllScenes ? this.document.scenes.length - 1 : this.maxVisitedIndex)) return false;
       return this.goTo(nextIndex, { audioMode: 'history' });
     }
 
@@ -1373,6 +1596,114 @@
       return true;
     }
 
+    showCover(options = {}) {
+      if (!this.document || !this.els?.cover) return false;
+      if (options.restart) {
+        this._finishVisibleEntranceEffects();
+        this._clearAutoTimer();
+        this._resetPresentationRuntime();
+        this._resetBackgroundRuntime();
+        this._stopAllAudio(true);
+        this.audioPlaybackArmed = false;
+        this.index = 0;
+        this.maxVisitedIndex = 0;
+        this.closeHistory({ keepVisualState: true });
+        this.ended = false;
+        this.els.ending.hidden = true;
+        this._audioRenderMode = 'restore';
+        this._render();
+      }
+      this.refreshDocumentChrome();
+
+      // Public Player parity:
+      // Cover can be reopened/re-rendered after load, so explicitly reapply
+      // authored per-field typography here as well. This prevents CSS defaults
+      // from restoring the original cover sizes after publication.
+      const coverStyles=this.document.cover?.styles||{};
+      const coverSizeScale={small:.78,normal:1,large:1.28,xl:1.6};
+      const coverFontMap={
+        serif:'var(--sp-font-serif)',
+        sans:'var(--sp-font-sans)',
+        mono:'var(--sp-font-mono)'
+      };
+      const coverStyleTargets=[
+        [this.els.coverTitle,'title'],
+        [this.els.coverSubtitle,'subtitle'],
+        [this.els.coverAuthor,'author'],
+        [this.els.coverEpisode,'episode'],
+        [this.els.coverEpisodeTitle,'episodeTitle']
+      ];
+      for(const [el,key] of coverStyleTargets){
+        if(!el)continue;
+        const st=coverStyles[key]||{};
+        el.style.removeProperty('font-size');
+        el.style.removeProperty('font-family');
+        el.style.removeProperty('color');
+        const baseSize=parseFloat(getComputedStyle(el).fontSize)||16;
+
+        if(st.color){
+          el.style.setProperty('color',String(st.color),'important');
+        }
+        if(st.size && st.size!=='auto'){
+          const resolved=typeof st.size==='number'
+            ? Number(st.size)
+            : baseSize*(coverSizeScale[String(st.size)]||1);
+          if(Number.isFinite(resolved))el.style.setProperty('font-size',`${resolved}px`,'important');
+        }
+        if(st.fontFamily && st.fontFamily!=='inherit'){
+          const family=coverFontMap[String(st.fontFamily)];
+          if(family)el.style.setProperty('font-family',family,'important');
+        }
+      }
+
+      const cover=this.document.cover||{};
+      const src=String(cover.src||cover.url||cover.image||'').trim();
+      if(this.els.coverBg){
+        this.els.coverBg.style.backgroundImage=src?`url("${src.replace(/"/g,'\\"')}")`:'none';
+        this.els.coverBg.style.backgroundSize=cover.fit==='contain'?'contain':'cover';
+        this.els.coverBg.style.backgroundPosition=cover.position||'center center';
+      }
+      const coverText=this.document.cover?.text||{}; // legacy fallback only
+      const visibility=this.document.cover?.visibility||{};
+      const coverValue=(key,fallback='')=>{
+        const clean=String(fallback??'');
+        if(clean.trim() && !(key==='title'&&clean.trim()==='Untitled'))return clean;
+        return Object.prototype.hasOwnProperty.call(coverText,key)?String(coverText[key]??''):'';
+      };
+      const coverVisible=(key,value)=>{
+        if(Object.prototype.hasOwnProperty.call(visibility,key))return visibility[key]!==false&&Boolean(String(value||'').trim());
+        if(Object.prototype.hasOwnProperty.call(coverText,key)&&String(coverText[key]??'')==='')return false;
+        return Boolean(String(value||'').trim());
+      };
+      const logoSrc=String(this.document.cover?.logo?.src||'').trim();
+      if(this.els.coverLogo){this.els.coverLogo.src=logoSrc;this.els.coverLogo.hidden=!logoSrc;}
+      if(this.els.coverAuthor){const author=coverValue('author',this.document.author||'');this.els.coverAuthor.textContent=author;this.els.coverAuthor.hidden=!coverVisible('author',author);}
+      if(this.els.coverEpisode){const ep=coverValue('episode',this.document.metadata?.episode||this.document.episode||'');this.els.coverEpisode.textContent=ep;this.els.coverEpisode.hidden=!coverVisible('episode',ep);}
+      if(this.els.coverEpisodeTitle){const epTitle=coverValue('episodeTitle',this.document.metadata?.episodeTitle||this.document.episodeTitle||'');this.els.coverEpisodeTitle.textContent=epTitle;this.els.coverEpisodeTitle.hidden=!coverVisible('episodeTitle',epTitle);}
+      if(this.els.coverTitle){const title=coverValue('title',this.document.title||'');this.els.coverTitle.textContent=title;this.els.coverTitle.hidden=Boolean(logoSrc)||!coverVisible('title',title);}
+      if(this.els.coverSubtitle){const sub=coverValue('subtitle',this.document.metadata?.subtitle||this.document.subtitle||'');this.els.coverSubtitle.textContent=sub;this.els.coverSubtitle.hidden=!coverVisible('subtitle',sub);}
+      this.els.cover.hidden=false;
+      this.host.classList.add('sp-cover-open');
+      return true;
+    }
+
+    _beginFromCover() {
+      if(!this.document || !this.els?.cover)return false;
+      this.unlockAudio(true);
+      this.els.cover.hidden=true;
+      this.host.classList.remove('sp-cover-open');
+      this._audioRenderMode='restore';
+      this._render();
+      emit(this.host,'sceneplayer:coverstart',{document:this.document,index:this.index});
+      return true;
+    }
+
+    // External shells (Public Player / future Local Player) can own their own
+    // cover UI while still starting Core from the same trusted user gesture.
+    begin() {
+      return this._beginFromCover();
+    }
+
     restart() {
       if (!this.document) return;
       this._finishVisibleEntranceEffects();
@@ -1393,6 +1724,7 @@
       this.els.ending.hidden = true;
       this._audioRenderMode = 'restore';
       this._render();
+      this.showCover();
       emit(this.host, 'sceneplayer:restart', { scene: this.currentScene });
     }
 
@@ -1402,42 +1734,17 @@
       this._resetPresentationRuntime();
       this._resetBackgroundRuntime();
       this.ended = true;
+      this.els.ending.classList.remove('is-visible');
       this.els.ending.hidden = false;
-      emit(this.host, 'sceneplayer:end', { document: this.document, index: this.index });
-    }
 
-    fadeOutAudio(duration = 1600, { includeOneShots = true } = {}) {
-      const ms = Math.max(0, Number(duration) || 0);
-      this._clearAudioTimers();
-
-      ['bgm', 'ambient'].forEach((channel) => {
-        this._stopPersistentChannel(channel, ms);
+      // Match the Public Player ending timing:
+      // - ending copy begins its own 280ms-delayed fade immediately
+      // - action boxes keep their CSS 3000ms afterglow delay
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => this.els.ending?.classList.add('is-visible'));
       });
 
-      if (includeOneShots) {
-        this.oneshots.forEach((audio) => {
-          if (!audio || audio.paused) return;
-          const startVolume = Number.isFinite(audio.volume) ? audio.volume : 1;
-          const startedAt = performance.now();
-          const step = (now) => {
-            if (!this.oneshots.has(audio)) return;
-            const t = Math.min(1, (now - startedAt) / Math.max(1, ms));
-            try { audio.volume = Math.max(0, startVolume * (1 - t)); } catch (_) {}
-            if (t < 1) requestAnimationFrame(step);
-            else {
-              try { audio.pause(); } catch (_) {}
-              this.oneshots.delete(audio);
-            }
-          };
-          if (ms > 0) requestAnimationFrame(step);
-          else {
-            try { audio.pause(); } catch (_) {}
-            this.oneshots.delete(audio);
-          }
-        });
-      }
-
-      return ms;
+      emit(this.host, 'sceneplayer:end', { document: this.document, index: this.index });
     }
 
     setMuted(muted = true) {
@@ -1733,8 +2040,12 @@
 
       this._applyCorePresentation(active);
       this._applyBackgroundForIndex(this.index);
+
       if (this._audioRenderMode === 'preview') {
         // Authoring refresh leaves the currently playing transport untouched.
+      } else if (this._audioRenderMode === 'cover') {
+        // Cover preload: visuals only. Scene BGM / Ambient / SE must remain silent.
+        this._stopAllAudio(true);
       } else if (this._audioRenderMode === 'advance') {
         this._applySceneAudio(active, false);
       } else {
@@ -1751,11 +2062,12 @@
       const scenes = this.document.scenes;
       if (display === 'solo') return [{ scene: scenes[this.index], index: this.index }];
 
-      // A previous solo scene is a visual barrier: stack starts after it.
+      // A previous solo scene resets the visual stack, but that solo Scene itself
+      // becomes the new base. Later `stack` Scenes must build on top of it.
       let start = 0;
       for (let i = this.index - 1; i >= 0; i -= 1) {
         if ((scenes[i].presentation?.display || 'stack') === 'solo') {
-          start = i + 1;
+          start = i;
           break;
         }
       }
@@ -1781,7 +2093,20 @@
     }
 
     _backgroundStateAt(index) {
-      const state = {
+      const doc = this.document;
+      const scenes = doc?.scenes || [];
+      const target = Math.max(0, Math.min(Number(index) || 0, Math.max(0, scenes.length - 1)));
+
+      // A different document must never inherit cached state from the old one.
+      if (this._backgroundStateCacheDocument !== doc) {
+        this._backgroundStateCacheDocument = doc;
+        this._backgroundStateCache = [];
+      }
+
+      const cache = this._backgroundStateCache || (this._backgroundStateCache = []);
+      if (cache[target]) return { ...cache[target] };
+
+      const defaults = {
         src: '',
         transition: 'fade',
         dim: null,
@@ -1792,17 +2117,31 @@
         motion: null,
         textures: null
       };
-      for (let i = 0; i <= index; i += 1) {
-        const bg = this.document?.scenes?.[i]?.presentation?.background;
-        if (!bg || typeof bg !== 'object') continue;
-        Object.keys(bg).forEach((key) => {
-          const value = bg[key];
-          if (value !== undefined) state[key] = (value && typeof value === 'object' && !Array.isArray(value))
-            ? { ...(state[key] && typeof state[key] === 'object' ? state[key] : {}), ...value }
-            : value;
-        });
+
+      // Continue from the nearest cached prefix instead of rescanning Scene 1.
+      let start = 0;
+      let state = { ...defaults };
+      for (let i = target - 1; i >= 0; i -= 1) {
+        if (cache[i]) {
+          state = { ...cache[i] };
+          start = i + 1;
+          break;
+        }
       }
-      return state;
+
+      for (let i = start; i <= target; i += 1) {
+        const bg = scenes[i]?.presentation?.background;
+        if (bg && typeof bg === 'object') {
+          Object.keys(bg).forEach((key) => {
+            const value = bg[key];
+            if (value !== undefined) state[key] = (value && typeof value === 'object' && !Array.isArray(value))
+              ? { ...(state[key] && typeof state[key] === 'object' ? state[key] : {}), ...value }
+              : value;
+          });
+        }
+        cache[i] = { ...state };
+      }
+      return { ...cache[target] };
     }
 
     _applyBackgroundForIndex(index) {
@@ -1908,10 +2247,13 @@
       const type = ['parallax','breath','slowZoom','panLeft','panRight','panUp','panDown'].includes(motion.type) ? motion.type : null;
       if (!type) return;
       layer.classList.add(`sp-motion-${type}`);
-      layer.style.setProperty('--sp-bg-duration', `${Math.max(250, asNumber(motion.duration, 12000))}ms`);
-      layer.style.setProperty('--sp-bg-scale-from', String(asNumber(motion.scaleFrom, 1)));
-      layer.style.setProperty('--sp-bg-scale-to', String(asNumber(motion.scaleTo, type === 'slowZoom' ? 1.08 : 1.04)));
-      layer.style.setProperty('--sp-bg-pan', `${asNumber(motion.pan, 4)}%`);
+      const defaultDuration = type === 'breath' ? 4200 : 6500;
+      const defaultFrom = type === 'slowZoom' ? 1.0 : 1.06;
+      const defaultTo = type === 'slowZoom' ? 1.14 : (type === 'breath' ? 1.11 : 1.08);
+      layer.style.setProperty('--sp-bg-duration', `${Math.max(250, asNumber(motion.duration, defaultDuration))}ms`);
+      layer.style.setProperty('--sp-bg-scale-from', String(asNumber(motion.scaleFrom, defaultFrom)));
+      layer.style.setProperty('--sp-bg-scale-to', String(asNumber(motion.scaleTo, defaultTo)));
+      layer.style.setProperty('--sp-bg-pan', `${asNumber(motion.pan, 9)}%`);
     }
 
     _applyBackgroundOverlays(state) {
@@ -1920,6 +2262,7 @@
       const useLightWash = sceneTone ? sceneTone === 'light' : isCinemaLight;
       const themeDefaultDim = this.document?.theme === 'cinema' ? (useLightWash ? 0.72 : 0.34) : (useLightWash ? 0.64 : 0);
       const dim = clamp(asNumber(state.dim, themeDefaultDim), 0, 1);
+      // A Scene may explicitly choose a light paper wash or a dark veil.
       this.els.veil.style.background = useLightWash
         ? `rgba(250,247,240,${dim})`
         : `rgba(0,0,0,${dim})`;
@@ -1961,6 +2304,422 @@
       }
     }
 
+    _openSceneImage(src, alt='') {
+      if (!src) return;
+      let viewer = document.querySelector('.sp-scene-image-viewer');
+      if (!viewer) {
+        viewer = document.createElement('div');
+        viewer.className = 'sp-scene-image-viewer';
+        viewer.hidden = true;
+        viewer.setAttribute('role','dialog');
+        viewer.setAttribute('aria-modal','true');
+
+        const shade = document.createElement('button');
+        shade.type = 'button';
+        shade.className = 'sp-scene-image-viewer-shade';
+        shade.setAttribute('aria-label','Close image');
+
+        const frame = document.createElement('div');
+        frame.className = 'sp-scene-image-viewer-frame';
+
+        const close = document.createElement('button');
+        close.type = 'button';
+        close.className = 'sp-scene-image-viewer-close';
+        close.setAttribute('aria-label','Close image');
+        close.textContent = '×';
+
+        const img = document.createElement('img');
+        img.className = 'sp-scene-image-viewer-img';
+        img.alt = '';
+
+        // Custom image pan / pinch zoom.
+        // Native pinch was able to enlarge the image, but the enlarged image
+        // stayed visually pinned.  We keep our own transform so a zoomed image
+        // can be dragged left/right/up/down on iPhone as well.
+        const viewState = {
+          scale: 1,
+          x: 0,
+          y: 0,
+          startScale: 1,
+          startX: 0,
+          startY: 0,
+          startDistance: 0,
+          startCenterX: 0,
+          startCenterY: 0,
+          dragging: false,
+          moved: false,
+          lastX: 0,
+          lastY: 0,
+          touchStartX: 0,
+          touchStartY: 0,
+          touchStartTime: 0,
+          lastTapTime: 0,
+          lastTapX: 0,
+          lastTapY: 0
+        };
+
+        const viewportSize = () => ({
+          w: Math.max(1, frame.clientWidth),
+          h: Math.max(1, frame.clientHeight)
+        });
+
+        const panBounds = () => {
+          const vp = viewportSize();
+          const baseW = Math.max(1, img.clientWidth);
+          const baseH = Math.max(1, img.clientHeight);
+          const scaledW = baseW * viewState.scale;
+          const scaledH = baseH * viewState.scale;
+
+          // Keep at least one edge of the image visible at all times and never
+          // allow a zoomed image to be thrown completely off-screen.
+          const maxX = Math.max(0, (scaledW - vp.w) / 2);
+          const maxY = Math.max(0, (scaledH - vp.h) / 2);
+          return { maxX, maxY };
+        };
+
+        const clampPan = () => {
+          const { maxX, maxY } = panBounds();
+          viewState.x = Math.max(-maxX, Math.min(maxX, viewState.x));
+          viewState.y = Math.max(-maxY, Math.min(maxY, viewState.y));
+        };
+
+        let viewAnimTimer = 0;
+
+        const applyView = ({animate=false} = {}) => {
+          clampPan();
+          clearTimeout(viewAnimTimer);
+          img.classList.toggle('is-animating', animate);
+
+          img.style.transform =
+            `translate3d(${viewState.x}px, ${viewState.y}px, 0) scale(${viewState.scale})`;
+          frame.classList.toggle('is-zoomed', viewState.scale > 1.01);
+
+          if (animate) {
+            viewAnimTimer = setTimeout(() => {
+              img.classList.remove('is-animating');
+            }, 280);
+          }
+        };
+
+        const resetView = ({animate=false} = {}) => {
+          viewState.scale = 1;
+          viewState.x = 0;
+          viewState.y = 0;
+          viewState.dragging = false;
+          viewState.moved = false;
+          applyView({animate});
+        };
+
+        const distance = (a,b) => Math.hypot(b.clientX-a.clientX,b.clientY-a.clientY);
+        const center = (a,b) => ({
+          x:(a.clientX+b.clientX)/2,
+          y:(a.clientY+b.clientY)/2
+        });
+
+        const clampScale = (s) => Math.max(1, Math.min(5, s));
+
+        const zoomAt = (clientX, clientY, nextScale, {animate=false} = {}) => {
+          const vp = viewportSize();
+          const oldScale = viewState.scale;
+          const scale = clampScale(nextScale);
+          if (Math.abs(scale - oldScale) < 0.001) return;
+
+          // Preserve the image point under the finger while zooming.
+          const dx = clientX - vp.w / 2;
+          const dy = clientY - vp.h / 2;
+          const ratio = scale / oldScale;
+          viewState.x = dx - (dx - viewState.x) * ratio;
+          viewState.y = dy - (dy - viewState.y) * ratio;
+          viewState.scale = scale;
+          applyView({animate});
+        };
+
+        frame.addEventListener('touchstart',(event)=>{
+          if(event.touches.length===2){
+            event.preventDefault();
+            const c=center(event.touches[0],event.touches[1]);
+            viewState.startDistance=distance(event.touches[0],event.touches[1]);
+            viewState.startScale=viewState.scale;
+            viewState.startX=viewState.x;
+            viewState.startY=viewState.y;
+            viewState.startCenterX=c.x;
+            viewState.startCenterY=c.y;
+            viewState.dragging=false;
+            viewState.moved=true;
+          }else if(event.touches.length===1){
+            const t=event.touches[0];
+            viewState.touchStartX=t.clientX;
+            viewState.touchStartY=t.clientY;
+            viewState.touchStartTime=performance.now();
+            viewState.moved=false;
+            if(viewState.scale>1.01){
+              event.preventDefault();
+              viewState.dragging=true;
+              viewState.lastX=t.clientX;
+              viewState.lastY=t.clientY;
+            }
+          }
+        },{passive:false});
+
+        frame.addEventListener('touchmove',(event)=>{
+          if(event.touches.length===2){
+            event.preventDefault();
+            const nowDistance=distance(event.touches[0],event.touches[1]);
+            const c=center(event.touches[0],event.touches[1]);
+            const nextScale=clampScale(
+              viewState.startScale * (nowDistance / Math.max(1,viewState.startDistance))
+            );
+            viewState.scale=nextScale;
+            viewState.x=viewState.startX + (c.x-viewState.startCenterX);
+            viewState.y=viewState.startY + (c.y-viewState.startCenterY);
+            viewState.moved=true;
+            applyView();
+          }else if(event.touches.length===1){
+            const t=event.touches[0];
+            const totalDx=t.clientX-viewState.touchStartX;
+            const totalDy=t.clientY-viewState.touchStartY;
+            if(Math.hypot(totalDx,totalDy)>6)viewState.moved=true;
+
+            if(viewState.scale>1.01){
+              event.preventDefault();
+              viewState.x += t.clientX-viewState.lastX;
+              viewState.y += t.clientY-viewState.lastY;
+              viewState.lastX=t.clientX;
+              viewState.lastY=t.clientY;
+              applyView();
+            }
+          }
+        },{passive:false});
+
+        frame.addEventListener('touchend',(event)=>{
+          if(event.touches.length===0){
+            const now=performance.now();
+            const duration=now-viewState.touchStartTime;
+            const wasMoved=viewState.moved;
+            const endTouch=event.changedTouches?.[0];
+            const x=endTouch?.clientX ?? viewState.touchStartX;
+            const y=endTouch?.clientY ?? viewState.touchStartY;
+            const vertical=y-viewState.touchStartY;
+
+            viewState.dragging=false;
+
+            // Downward flick closes only at 1×, so it never fights with image panning.
+            if(viewState.scale<=1.01 && !wasMoved && false){
+              // reserved
+            } else if(viewState.scale<=1.01 && vertical>90 && duration<700){
+              const closeButton=viewer.querySelector('.sp-scene-image-viewer-close');
+              closeButton?.click();
+              return;
+            }
+
+            // Touch double-tap: zoom around the tapped point; second double-tap resets.
+            if(!wasMoved && duration<320){
+              const dt=now-viewState.lastTapTime;
+              const near=Math.hypot(x-viewState.lastTapX,y-viewState.lastTapY)<42;
+              if(dt<340 && near){
+                event.preventDefault();
+                if(viewState.scale>1.01) resetView({animate:true});
+                else zoomAt(x,y,2.5,{animate:true});
+                viewState.lastTapTime=0;
+                return;
+              }
+              viewState.lastTapTime=now;
+              viewState.lastTapX=x;
+              viewState.lastTapY=y;
+            }
+
+            if(viewState.scale<=1.01) resetView();
+          }else if(event.touches.length===1 && viewState.scale>1.01){
+            viewState.dragging=true;
+            viewState.lastX=event.touches[0].clientX;
+            viewState.lastY=event.touches[0].clientY;
+          }
+        },{passive:false});
+
+        // Desktop convenience: wheel to zoom, drag to pan while zoomed.
+        frame.addEventListener('wheel',(event)=>{
+          event.preventDefault();
+          const next=viewState.scale * (event.deltaY<0 ? 1.12 : 0.89);
+          zoomAt(event.clientX,event.clientY,next);
+          if(viewState.scale<=1.01) resetView();
+        },{passive:false});
+
+        frame.addEventListener('pointerdown',(event)=>{
+          if(event.pointerType==='touch' || viewState.scale<=1.01) return;
+          viewState.dragging=true;
+          viewState.moved=false;
+          viewState.lastX=event.clientX;
+          viewState.lastY=event.clientY;
+          frame.setPointerCapture?.(event.pointerId);
+          event.preventDefault();
+        });
+        frame.addEventListener('pointermove',(event)=>{
+          if(!viewState.dragging || event.pointerType==='touch' || viewState.scale<=1.01) return;
+          const dx=event.clientX-viewState.lastX;
+          const dy=event.clientY-viewState.lastY;
+          if(Math.hypot(dx,dy)>1)viewState.moved=true;
+          viewState.x += dx;
+          viewState.y += dy;
+          viewState.lastX=event.clientX;
+          viewState.lastY=event.clientY;
+          applyView();
+          event.preventDefault();
+        });
+        const endPointer=(event)=>{
+          if(event.pointerType!=='touch') viewState.dragging=false;
+        };
+        frame.addEventListener('pointerup',endPointer);
+        frame.addEventListener('pointercancel',endPointer);
+
+        img.addEventListener('dblclick',(event)=>{
+          event.preventDefault();
+          event.stopPropagation();
+          if(viewState.scale>1.01) resetView({animate:true});
+          else zoomAt(event.clientX,event.clientY,2.5,{animate:true});
+        });
+
+        // Tap empty black area to close at 1×. At zoom > 1 the same gesture is
+        // reserved for panning, avoiding accidental dismissal.
+        frame.addEventListener('click',(event)=>{
+          if(event.target===frame && viewState.scale<=1.01){
+            event.preventDefault();
+            event.stopPropagation();
+            viewer.querySelector('.sp-scene-image-viewer-close')?.click();
+          }
+        });
+
+        window.addEventListener('resize',()=>{ if(!viewer.hidden) applyView(); });
+
+        frame._sceneImageReset = resetView;
+
+        frame.append(close,img);
+        viewer.append(shade,frame);
+        document.body.appendChild(viewer);
+
+        const shut = (event) => {
+          event?.preventDefault?.();
+          event?.stopPropagation?.();
+          viewer.hidden = true;
+          document.documentElement.classList.remove('sp-scene-image-open');
+        };
+        shade.addEventListener('click',shut);
+        close.addEventListener('click',shut);
+        viewer.addEventListener('click',(event)=>{
+          if(event.target===viewer)shut(event);
+        });
+        document.addEventListener('keydown',(event)=>{
+          if(event.key==='Escape' && !viewer.hidden)shut(event);
+        });
+      }
+
+      const img = viewer.querySelector('.sp-scene-image-viewer-img');
+      const frame = viewer.querySelector('.sp-scene-image-viewer-frame');
+      frame?._sceneImageReset?.();
+      img.src = src;
+      img.alt = alt || '';
+      viewer.hidden = false;
+      document.documentElement.classList.add('sp-scene-image-open');
+      viewer.querySelector('.sp-scene-image-viewer-close')?.focus({preventScroll:true});
+    }
+
+    _appendSceneImage(container, scene, presentation, { history=false } = {}) {
+      const image = presentation?.image;
+      if (!image?.src || !container) return;
+
+      const wrap = document.createElement(history ? 'span' : 'div');
+      wrap.className = history ? 'sp-history-scene-image' : 'sp-scene-image';
+      wrap.dataset.imageSize = ['small','large'].includes(image.size)
+        ? image.size
+        : ((presentation?.view==='chat') ? 'small' : 'large');
+
+      let imageAlign=image.align||((presentation?.view==='chat')?'speaker':'center');
+      if(imageAlign==='speaker'){
+        const speakerSide=(presentation?.text?.align==='right')?'right':'left';
+        imageAlign=speakerSide;
+      }
+      wrap.dataset.imageAlign=['left','center','right'].includes(imageAlign)?imageAlign:'center';
+
+      const media = document.createElement(history ? 'span' : 'div');
+      media.className = history ? 'sp-history-scene-image-media' : 'sp-scene-image-media';
+
+      const img = document.createElement('img');
+      img.alt = image.alt || '';
+      img.loading = history ? 'lazy' : 'eager';
+      img.decoding = 'async';
+
+      // On the first visit an uncached image has no intrinsic height when the
+      // Scene stack is initially measured. The Player therefore centers the
+      // text-only height, then the image expands downward after loading.
+      // Re-measure the current stack as soon as the foreground image becomes
+      // measurable. Cached/revisited Scenes already have the correct geometry.
+      const relayoutAfterImageLoad = () => {
+        if (history) return;
+        const activeNode = wrap.closest('.sp-scene');
+        if (!activeNode || !activeNode.isConnected || !activeNode.classList.contains('is-active')) return;
+
+        const run = () => {
+          const activeScene = this.document?.scenes?.[this.index];
+          if (!activeScene || activeScene.id !== scene.id) return;
+          const display = activeScene.presentation?.display || 'stack';
+          const visible = this._visibleScenes(display);
+          const nodeMap = new Map(
+            [...this.els.scenes.querySelectorAll('.sp-scene')]
+              .filter(node => !node.classList.contains('sp-layout-leaving'))
+              .map(node => [node.dataset.sceneId, node])
+          );
+          const nodes = visible.map(entry => nodeMap.get(entry.scene.id)).filter(Boolean);
+          if (nodes.length === visible.length) this._positionSceneNodes(nodes, visible, 0);
+        };
+
+        // Give Safari one painted frame to apply the decoded image dimensions.
+        requestAnimationFrame(() => requestAnimationFrame(run));
+      };
+
+      img.addEventListener('load', relayoutAfterImageLoad, {once:true});
+
+      // History drum centers are cached for scroll performance. Foreground
+      // images can change a history item's height after that cache is built,
+      // which makes the visual "focus" point drift to the wrong Scene.
+      // Invalidate/rebuild the drum geometry whenever a history image resolves.
+      const refreshHistoryGeometryAfterImageLoad = () => {
+        if (!history) return;
+        this.historyMetrics = null;
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => this._scheduleHistoryDepth());
+        });
+      };
+      img.addEventListener('load', refreshHistoryGeometryAfterImageLoad, {once:true});
+
+      img.src = image.src;
+      media.appendChild(img);
+      wrap.appendChild(media);
+
+      // Data/blob/cached images can already be complete before the load event
+      // is observed by this render pass.
+      if (img.complete && img.naturalWidth > 0) {
+        relayoutAfterImageLoad();
+        refreshHistoryGeometryAfterImageLoad();
+      }
+
+      if (image.fullscreen !== false) {
+        wrap.classList.add('is-zoomable');
+        wrap.setAttribute('role','button');
+        wrap.setAttribute('tabindex','0');
+        wrap.setAttribute('aria-label', image.alt ? `Open image: ${image.alt}` : 'Open image fullscreen');
+        const open = (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          this._openSceneImage(image.src, image.alt || '');
+        };
+        wrap.addEventListener('click',open);
+        wrap.addEventListener('keydown',(event)=>{
+          if(event.key==='Enter' || event.key===' '){ open(event); }
+        });
+      }
+
+      container.appendChild(wrap);
+    }
+
     _sceneNode(scene, active, age) {
       const article = document.createElement('article');
       article.className = `sp-scene sp-type-${scene.type}`;
@@ -1987,21 +2746,66 @@
       article.dataset.entryMotion = entryMotion;
       article.dataset.fit = this._resolveAutoFit(scene, presentation.text || {});
 
-      if (typeof scene.text === 'string' && scene.text.length) {
-        const text = document.createElement('div');
-        text.className = 'sp-text';
-        text.textContent = scene.text;
-        this._applyTextStyle(text, presentation.text || {}, false);
-        article.appendChild(text);
+      if (presentation.view === 'chat' && (scene.text || scene.subText)) {
+        article.classList.add('sp-chat-scene');
+        const align = presentation.text?.align === 'right' ? 'right' : 'left';
+        article.dataset.chatSide = align;
+        const row = document.createElement('div');
+        row.className = 'sp-chat-row';
+
+        const icon = document.createElement('div');
+        icon.className = 'sp-chat-icon';
+        const iconSrc = presentation.chat?.icon || '';
+        if (iconSrc) {
+          const img = document.createElement('img');
+          img.src = iconSrc; img.alt = '';
+          icon.appendChild(img);
+        } else {
+          icon.textContent = presentation.chat?.iconText || '●';
+        }
+
+        const body = document.createElement('div');
+        body.className = 'sp-chat-body';
+        if (typeof scene.subText === 'string' && scene.subText.length) {
+          const speaker = document.createElement('div');
+          speaker.className = 'sp-chat-speaker sp-subtext';
+          speaker.textContent = scene.subText;
+          this._applyTextStyle(speaker, presentation.subText || {}, true);
+          body.appendChild(speaker);
+        }
+        if (typeof scene.text === 'string' && scene.text.length) {
+          const bubble = document.createElement('div');
+          bubble.className = 'sp-chat-bubble';
+          if (presentation.chat?.bubbleColor) bubble.style.background = presentation.chat.bubbleColor;
+          const text = document.createElement('div');
+          text.className = 'sp-text';
+          text.textContent = chatDisplayText(scene.text);
+          this._applyTextStyle(text, presentation.text || {}, false);
+          if (presentation.chat?.bubbleTextColor) text.style.setProperty('color', String(presentation.chat.bubbleTextColor), 'important');
+          bubble.appendChild(text);
+          body.appendChild(bubble);
+        }
+        row.append(icon, body);
+        article.appendChild(row);
+      } else {
+        if (typeof scene.text === 'string' && scene.text.length) {
+          const text = document.createElement('div');
+          text.className = 'sp-text';
+          text.textContent = scene.text;
+          this._applyTextStyle(text, presentation.text || {}, false);
+          article.appendChild(text);
+        }
+
+        if (typeof scene.subText === 'string' && scene.subText.length) {
+          const sub = document.createElement('div');
+          sub.className = 'sp-subtext';
+          sub.textContent = scene.subText;
+          this._applyTextStyle(sub, presentation.subText || {}, true);
+          article.appendChild(sub);
+        }
       }
 
-      if (typeof scene.subText === 'string' && scene.subText.length) {
-        const sub = document.createElement('div');
-        sub.className = 'sp-subtext';
-        sub.textContent = scene.subText;
-        this._applyTextStyle(sub, presentation.subText || {}, true);
-        article.appendChild(sub);
-      }
+      this._appendSceneImage(article, scene, presentation);
 
       if (scene.type === 'sound' && !scene.text && !scene.subText) {
         const mark = document.createElement('span');
@@ -2181,39 +2985,26 @@
       this.typingState = { timer, node, text: scene.text, sceneId: scene.id };
     }
 
-    destroy(options = {}) {
+    destroy() {
       if (this.destroyed) return;
-      const preserveHost = Boolean(options?.preserveHost);
-
       this.stopAuto();
       this._resetPresentationRuntime();
       this._resetBackgroundRuntime();
       this._stopAllAudio(true);
-
       if (this.audioContext && typeof this.audioContext.close === 'function') {
         try { this.audioContext.close(); } catch (_) {}
       }
-
       this.audioGainNodes.clear();
       this.audioSourceNodes.clear();
-      this._bound.forEach(([el, event, fn, eventOptions]) => {
-        el.removeEventListener(event, fn, eventOptions);
-      });
+      this._bound.forEach(([el, event, fn, options]) => el.removeEventListener(event, fn, options));
       this._bound.length = 0;
-
-      // Public Player may keep an old instance alive briefly only so its audio
-      // can fade out. A newer instance can already be using the SAME host.
-      // Never let delayed cleanup of the old instance erase the new DOM.
-      if (!preserveHost) {
-        this.host.innerHTML = '';
-        this.host.classList.remove('sp-core');
-      }
-
+      this.host.innerHTML = '';
+      this.host.classList.remove('sp-core');
       this.destroyed = true;
     }
   }
 
-  ScenePlayerCore.VERSION = '1.12.15-public.19-entry-motion';
+  ScenePlayerCore.VERSION = '1.4.2-entry-motion';
   ScenePlayerCore.FORMAT_VERSION = '1.0';
   ScenePlayerCore.validate = assertSceneDocument;
 

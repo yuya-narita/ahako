@@ -782,16 +782,196 @@ body{
   z-index:20!important;
 }
 .public-report-card{isolation:isolate}
+\n\n/* =========================================================
+   Resonance v1.4 — ending result / mobile layout fix
+   ========================================================= */
+.public-resonance-result{
+  margin:0 auto 18px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  color:var(--public-text);
+  opacity:0;
+  transform:translateY(8px);
+  transition:opacity .8s ease 1.1s,transform .8s ease 1.1s;
+}
+.public-ending.is-visible .public-resonance-result{
+  opacity:1;
+  transform:translateY(0);
+}
+.public-resonance-result[hidden]{display:none!important}
+.public-resonance-result small{
+  display:block;
+  margin:0;
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:10px;
+  font-weight:700;
+  line-height:1;
+  letter-spacing:.28em;
+  color:var(--public-sub);
+}
+.public-resonance-result strong{
+  display:block;
+  margin:0;
+  font-family:Georgia,"Times New Roman","Yu Mincho","Hiragino Mincho ProN",serif;
+  font-size:clamp(38px,11vw,58px);
+  font-weight:400;
+  line-height:1.05;
+  letter-spacing:.01em;
+  color:var(--public-text);
+}
+.public-resonance-result p{
+  display:block;
+  margin:2px 0 0;
+  font-family:"Yu Mincho","Hiragino Mincho ProN","Hiragino Mincho Pro",serif;
+  font-size:12px;
+  font-weight:400;
+  line-height:1.5;
+  letter-spacing:.02em;
+  color:var(--public-sub);
+}
 
-/* Demo site only — hide rights/report UI in embedded Public Player. */
-.public-report-trigger,
-.public-report-dialog {
-  display: none !important;
+/* With Resonance enabled, rebalance the existing ending instead of adding
+   extra document height. This keeps the authored ending sentence, action row,
+   and 「もう一度読む」 inside one phone viewport. */
+.public-ending.has-resonance .public-ending-inner{
+  min-height:100dvh!important;
+  height:100dvh!important;
+  max-height:100dvh!important;
+  overflow:hidden!important;
+  justify-content:flex-start!important;
+  padding-top:max(42px,calc(env(safe-area-inset-top) + 18px))!important;
+  padding-bottom:max(18px,calc(env(safe-area-inset-bottom) + 8px))!important;
+  gap:0!important;
+}
+.public-ending.has-resonance .public-ending-label,
+.public-ending.has-resonance .public-ending-label[hidden]{
+  flex:1 1 auto!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:3vh 0 10px!important;
+  display:grid!important;
+  place-items:center!important;
+}
+.public-ending.has-resonance .public-resonance-result{
+  flex:0 0 auto!important;
+}
+.public-ending.has-resonance .public-ending-actions.public-ending-three{
+  flex:0 0 auto!important;
+  margin:0 auto!important;
+}
+.public-ending.has-resonance .public-reread{
+  flex:0 0 auto!important;
+  display:block!important;
+  margin:14px auto 0!important;
+  padding:8px 10px!important;
+}
+
+@media(max-width:520px){
+  .public-ending.has-resonance .public-ending-inner{
+    padding-left:18px!important;
+    padding-right:18px!important;
+  }
+  .public-ending.has-resonance .public-ending-label,
+  .public-ending.has-resonance .public-ending-label[hidden]{
+    padding-top:1.5vh!important;
+    padding-bottom:8px!important;
+  }
+  .public-ending.has-resonance .public-resonance-result{
+    margin-bottom:14px!important;
+    gap:6px!important;
+  }
+  .public-ending.has-resonance .public-resonance-result small{font-size:9px!important}
+  .public-ending.has-resonance .public-resonance-result strong{font-size:clamp(36px,12vw,50px)!important}
+  .public-ending.has-resonance .public-resonance-result p{font-size:11px!important}
+  .public-ending.has-resonance .public-ending-box,
+  .public-ending.has-resonance .public-ending-cover{
+    min-height:86px!important;
+  }
+  .public-ending.has-resonance .public-reread{
+    margin-top:10px!important;
+    margin-bottom:0!important;
+  }
 }
 
 
-/* Demo embed: avoid duplicate replay control when ending coverButton is present. */
-.public-reread,
-#publicRestart {
-  display: none !important;
+/* =========================================================
+   Resonance v1.5 — center alignment + restrained score size
+   Keep the whole resonance block visually centered while preserving
+   the v1.4 single-screen ending layout.
+   ========================================================= */
+.public-ending.has-resonance .public-resonance-result{
+  width:100%!important;
+  max-width:360px!important;
+  margin:0 auto 14px!important;
+  text-align:center!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+
+.public-ending.has-resonance .public-resonance-result small,
+.public-ending.has-resonance .public-resonance-result strong,
+.public-ending.has-resonance .public-resonance-result p{
+  width:100%!important;
+  text-align:center!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+.public-ending.has-resonance .public-resonance-result strong{
+  font-size:clamp(30px,8vw,40px)!important;
+  line-height:1!important;
+}
+
+.public-ending.has-resonance .public-resonance-result p{
+  font-size:11px!important;
+  line-height:1.45!important;
+}
+
+@media(max-width:520px){
+  .public-ending.has-resonance .public-resonance-result{
+    max-width:320px!important;
+    margin-bottom:12px!important;
+  }
+  .public-ending.has-resonance .public-resonance-result strong{
+    font-size:clamp(30px,8.5vw,38px)!important;
+  }
+}
+
+
+/* =========================================================
+   Resonance v1.6 — vertical rhythm / slightly higher placement
+   ========================================================= */
+.public-ending.has-resonance .public-resonance-result{
+  gap:0!important;
+  margin:0 auto 24px!important;
+  transform:translateY(-12px)!important;
+}
+
+.public-ending.has-resonance .public-resonance-result small{
+  margin:0 0 10px!important;
+}
+
+.public-ending.has-resonance .public-resonance-result strong{
+  margin:0 0 10px!important;
+}
+
+.public-ending.has-resonance .public-resonance-result p{
+  margin:0!important;
+}
+
+@media(max-width:520px){
+  .public-ending.has-resonance .public-resonance-result{
+    margin-bottom:22px!important;
+    transform:translateY(-14px)!important;
+  }
+  .public-ending.has-resonance .public-resonance-result small{
+    margin-bottom:9px!important;
+  }
+  .public-ending.has-resonance .public-resonance-result strong{
+    margin-bottom:9px!important;
+  }
 }
