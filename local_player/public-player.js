@@ -260,7 +260,6 @@
   // It is intentionally NOT shared across different works/copies, so the backend cannot
   // use it as a general-purpose browser identifier. No filename, URL, title, body text,
   // account information, or buyer information is sent.
-  const DISTRIBUTION_OBSERVATION_CONSENT_KEY='ahako:distribution-observation-consent:v1';
   let distributionObservationSessionId='';
   let distributionObservationStarted=false;
   let distributionObservationEnabled=false;
@@ -293,16 +292,11 @@
   function prepareDistributionObservation(){
     distributionObservationSessionId=randomObservationId('session');
     distributionObservationStarted=false;
-    distributionObservationEnabled=false;
-    if(!LOCAL_MODE||!distributionIdentity())return;
-    let consent='';
-    try{consent=String(localStorage.getItem(DISTRIBUTION_OBSERVATION_CONSENT_KEY)||'');}catch(_){}
-    if(consent!=='yes'&&consent!=='no'){
-      const allow=window.confirm('この配布版には匿名の読書観測機能があります。\n\n観測を許可すると、作品ID・copyId・匿名のcopy別ID・読書開始/進行/読了だけをあ箱APIへ送信します。氏名、購入者情報、ファイル名、本文は送信しません。\n\nOK：観測を許可する\nキャンセル：オフラインで読む');
-      consent=allow?'yes':'no';
-      try{localStorage.setItem(DISTRIBUTION_OBSERVATION_CONSENT_KEY,consent);}catch(_){}
-    }
-    distributionObservationEnabled=consent==='yes';
+    // Distribution observation is a built-in, privacy-limited runtime function.
+    // No consent dialog is shown. Only valid Distribution.scene packages are eligible.
+    distributionObservationEnabled=Boolean(LOCAL_MODE&&distributionIdentity());
+    // Remove the obsolete v51 consent flag if it exists; it no longer controls observation.
+    try{localStorage.removeItem('ahako:distribution-observation-consent:v1');}catch(_){}
   }
   function sendDistributionObservation(event,extra={}){
     if(!LOCAL_MODE||!distributionObservationEnabled)return;
