@@ -23,21 +23,21 @@
   z-index:19990;
   display:flex;
   align-items:center;
-  gap:5px;
-  min-height:38px;
-  padding:0 13px 0 10px;
+  gap:3px;
+  min-height:32px;
+  padding:0 9px 0 7px;
   border:1px solid rgba(255,255,255,.16);
   border-radius:999px;
   background:rgba(10,12,16,.58);
   color:rgba(255,255,255,.86);
   -webkit-backdrop-filter:blur(14px);
   backdrop-filter:blur(14px);
-  font:600 12px/1 system-ui,-apple-system,"Segoe UI",sans-serif;
+  font:600 10px/1 system-ui,-apple-system,"Segoe UI",sans-serif;
   letter-spacing:.02em;
   cursor:pointer;
 }
 .local-back-button[hidden]{display:none!important}
 .local-back-button>span{transform:translateY(.5px)}
 @media(max-width:480px){
-  .local-back-button{min-height:36px;padding:0 11px 0 9px;font-size:11px;background:rgba(10,12,16,.48)}
+  .local-back-button{min-height:30px;padding:0 8px 0 7px;font-size:10px;background:rgba(10,12,16,.48)}
 }
