@@ -45,3 +45,21 @@
 
 /* v52.1: always-visible privacy route for anonymous Distribution observation */
 .local-privacy-link{display:inline-block;margin-top:10px;color:inherit;opacity:.58;font-size:12px;text-decoration:underline;text-underline-offset:3px;position:relative;z-index:2}.local-privacy-link:hover,.local-privacy-link:focus-visible{opacity:.9}
+
+
+/* Phase 4 RELAY */
+.public-relay{
+  margin-top:12px;
+  margin-bottom:max(10px,env(safe-area-inset-bottom));
+  border:0;
+  background:transparent;
+  color:var(--public-sub,#8e949a);
+  font:inherit;
+  font-size:12px;
+  letter-spacing:.08em;
+  text-decoration:underline;
+  text-underline-offset:4px;
+  cursor:pointer;
+}
+.public-relay[hidden]{display:none!important}
+.public-relay:disabled{opacity:.45;cursor:default}

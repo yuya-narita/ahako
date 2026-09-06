@@ -269,7 +269,11 @@
     const workId=String(documentData?.workId||'').trim();
     if(!/^copy_[a-f0-9]{32}$/i.test(copyId))return null;
     if(!/^[A-Za-z0-9_-]{12,80}$/.test(workId))return null;
-    return {workId,copyId};
+    const relay=documentData?.distribution?.relay||{};
+    const relayId=/^relay_[a-f0-9]{32}$/i.test(String(relay.relayId||''))?String(relay.relayId):'';
+    const parentRelayId=/^relay_[a-f0-9]{32}$/i.test(String(relay.parentRelayId||''))?String(relay.parentRelayId):'';
+    const relayHop=Math.max(0,Math.min(1000,Number(relay.hop||0)));
+    return {workId,copyId,relayId,parentRelayId,relayHop};
   }
   function randomObservationId(prefix='obs'){
     try{return `${prefix}_${crypto.randomUUID().replaceAll('-','')}`;}catch(_){
@@ -306,6 +310,7 @@
       event,
       workId:ident.workId,
       copyId:ident.copyId,
+      ...(ident.relayId?{relayId:ident.relayId,parentRelayId:ident.parentRelayId||null,relayHop:ident.relayHop}:{}),
       observerId:distributionObserverId(ident.copyId),
       sessionId:distributionObservationSessionId||randomObservationId('session'),
       sceneCount:Array.isArray(documentData?.scenes)?documentData.scenes.length:0,
