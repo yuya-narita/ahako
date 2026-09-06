@@ -254,6 +254,82 @@
     }catch(_){}
   }
 
+
+  // Distribution observation (Phase 3).
+  // A copy-specific anonymous observer id is stored only in this browser for this copyId.
+  // It is intentionally NOT shared across different works/copies, so the backend cannot
+  // use it as a general-purpose browser identifier. No filename, URL, title, body text,
+  // account information, or buyer information is sent.
+  const DISTRIBUTION_OBSERVATION_CONSENT_KEY='ahako:distribution-observation-consent:v1';
+  let distributionObservationSessionId='';
+  let distributionObservationStarted=false;
+  let distributionObservationEnabled=false;
+
+  function distributionIdentity(){
+    const copyId=String(documentData?.distribution?.copyId||'').trim();
+    const workId=String(documentData?.workId||'').trim();
+    if(!/^copy_[a-f0-9]{32}$/i.test(copyId))return null;
+    if(!/^[A-Za-z0-9_-]{12,80}$/.test(workId))return null;
+    return {workId,copyId};
+  }
+  function randomObservationId(prefix='obs'){
+    try{return `${prefix}_${crypto.randomUUID().replaceAll('-','')}`;}catch(_){
+      const a=new Uint8Array(16);crypto.getRandomValues(a);return `${prefix}_${[...a].map(v=>v.toString(16).padStart(2,'0')).join('')}`;
+    }
+  }
+  function distributionObserverId(copyId){
+    const key=`ahako:distribution-observer:${copyId}`;
+    let id='';
+    try{id=String(localStorage.getItem(key)||'');}catch(_){}
+    if(!/^obs_[A-Za-z0-9_-]{20,80}$/.test(id)){
+      id=randomObservationId('obs');
+      try{localStorage.setItem(key,id);}catch(_){}
+    }
+    return id;
+  }
+  function distributionObservationEndpoint(){
+    return 'https://scene-studio-api.a-hako.workers.dev/distribution-observation';
+  }
+  function prepareDistributionObservation(){
+    distributionObservationSessionId=randomObservationId('session');
+    distributionObservationStarted=false;
+    distributionObservationEnabled=false;
+    if(!LOCAL_MODE||!distributionIdentity())return;
+    let consent='';
+    try{consent=String(localStorage.getItem(DISTRIBUTION_OBSERVATION_CONSENT_KEY)||'');}catch(_){}
+    if(consent!=='yes'&&consent!=='no'){
+      const allow=window.confirm('この配布版には匿名の読書観測機能があります。\n\n観測を許可すると、作品ID・copyId・匿名のcopy別ID・読書開始/進行/読了だけをあ箱APIへ送信します。氏名、購入者情報、ファイル名、本文は送信しません。\n\nOK：観測を許可する\nキャンセル：オフラインで読む');
+      consent=allow?'yes':'no';
+      try{localStorage.setItem(DISTRIBUTION_OBSERVATION_CONSENT_KEY,consent);}catch(_){}
+    }
+    distributionObservationEnabled=consent==='yes';
+  }
+  function sendDistributionObservation(event,extra={}){
+    if(!LOCAL_MODE||!distributionObservationEnabled)return;
+    const ident=distributionIdentity();
+    if(!ident)return;
+    const payload={
+      event,
+      workId:ident.workId,
+      copyId:ident.copyId,
+      observerId:distributionObserverId(ident.copyId),
+      sessionId:distributionObservationSessionId||randomObservationId('session'),
+      sceneCount:Array.isArray(documentData?.scenes)?documentData.scenes.length:0,
+      ...extra
+    };
+    try{
+      fetch(distributionObservationEndpoint(),{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(payload),keepalive:true,cache:'no-store'
+      }).catch(()=>{});
+    }catch(_){}
+  }
+  function beginDistributionObservation(index=0){
+    if(distributionObservationStarted)return;
+    distributionObservationStarted=true;
+    sendDistributionObservation('start',{index:Math.max(0,Number(index)||0)});
+  }
+
   function safeProgress() {
     const n = Number(localStorage.getItem(storageKey()));
     return Number.isInteger(n) && n > 0 && documentData?.scenes?.[n] ? n : 0;
@@ -584,6 +660,7 @@
     documentData = hydrated;
     analyticsSceneAdvances = 0;
     analyticsCompleted = false;
+    prepareDistributionObservation();
     applyDocumentMeta(hydrated);
     if(!analyticsViewSent && currentWorkId()){
       analyticsViewSent=true;
@@ -661,6 +738,7 @@
     if(e.detail?.direction==='next'){
       analyticsSceneAdvances += 1;
       sendAnalytics('progress',{index});
+      sendDistributionObservation('progress',{index});
       if(player?.auto)invalidateResonance();
     }
 
@@ -687,7 +765,9 @@
     renderResonanceResult(resonanceScore());
     if(!analyticsCompleted){
       analyticsCompleted=true;
-      sendAnalytics('complete',{index:Array.isArray(documentData?.scenes)?documentData.scenes.length-1:0});
+      const finalIndex=Array.isArray(documentData?.scenes)?documentData.scenes.length-1:0;
+      sendAnalytics('complete',{index:finalIndex});
+      sendDistributionObservation('complete',{index:finalIndex});
     }
 
     // Keep player/audio alive underneath the ending screen.
@@ -882,11 +962,14 @@
 
   startButton.addEventListener('click', () => {
     localStorage.removeItem(storageKey());
+    beginDistributionObservation(0);
     ensurePlayer(0);
   });
 
   continueButton.addEventListener('click', () => {
-    ensurePlayer(safeProgress());
+    const resumeAt=safeProgress();
+    beginDistributionObservation(resumeAt);
+    ensurePlayer(resumeAt);
   });
 
   endingCoverButton?.addEventListener('click', () => {
