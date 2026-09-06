@@ -6,10 +6,11 @@
 <section><h2>4. 通信OFFの場合</h2><p>通信をOFFにしてもReaderの文章抽出・Scene化・閲覧機能は利用できます。作者版の自動確認と匿名利用統計の送信は停止します。設定はReader内の「DATA」から変更できます。</p></section>
 
 <section><h2>5. Distribution.scene の匿名観測</h2><p>配布用の <strong>Distribution.scene</strong> を対応Playerで開いた場合、作品がどの程度読まれているかを作者・運営者が把握するため、匿名の読書観測を行う場合があります。この観測はDistribution.sceneの閲覧機能の一部として動作し、個別の同意ダイアログは表示しません。</p><p>観測時に送信する情報は、作品ID（workId）、配布された一冊を識別するcopyId、当該copyId専用の匿名observerId、閲覧セッションを識別するsessionId、Scene数、現在のScene位置、開始・進行・読了のイベントです。</p><p class="note"><strong>氏名、メールアドレス、購入者情報、注文情報、アカウントID、ファイル名、ファイルの保存場所、作品本文、作品タイトル、作者名は、この匿名観測データとして送信しません。</strong></p><p>observerIdはcopyIdごとにブラウザ内で生成・保存し、異なるcopyId間で共通の利用者識別子として使用しません。観測値は「同じ人物」を厳密に数えるものではなく、同一人物の複数端末・ブラウザ等を別の観測として含む場合があります。また、通信できない環境での閲覧は観測されません。</p><p>この観測データは、作品の閲覧状況・読了状況・配布された一冊の広がりを把握し、あ箱の運用・改善および作者向け集計に利用します。購入者の特定、広告配信、行動ターゲティング、信用判断を目的として利用しません。</p></section>
-<section><h2>6. ローカル設定</h2><p>表示設定や通信設定などReaderの動作に必要な設定をChromeのローカルストレージに保存する場合があります。</p></section>
-<section><h2>7. データの販売・広告利用</h2><p>Readerが扱うデータを販売・貸与したり、パーソナライズ広告、リターゲティング広告、信用判断、データブローカー用途に使用したりすることはありません。</p></section>
-<section><h2>8. 第三者への提供</h2><p>Readerの機能提供に必要な場合、法令への対応が必要な場合、またはセキュリティ上必要な場合を除き、ユーザーデータを第三者へ販売または提供しません。</p></section>
-<section><h2>9. セキュリティ</h2><p>Readerからあ箱のAPIへの通信にはHTTPSを使用します。拡張機能は現在の機能に必要な範囲のChrome権限のみを使用する方針です。</p></section>
-<section><h2>10. Chrome Web Store Limited Use</h2><p>本拡張機能によるユーザーデータの利用は、Chrome Web Store User Data Policy（Limited Use要件を含む）に従います。取得した情報は、Readerの単一目的である「Web文章をScene形式で読む体験の提供」と、それに必要な機能・運用のためにのみ使用します。</p></section>
-<section><h2>11. ポリシーの変更</h2><p>Readerのデータ取扱いを変更する場合は本ページを更新し、必要に応じてReader内またはChrome Web Store上で利用者に分かる形で告知します。</p></section>
+<section><h2>6. RELAY（作品を回す）</h2><p>Distribution.sceneで「この作品を回す」を使用すると、同じcopyIdを維持したまま新しいrelayIdを持つ配布ファイルを端末内で生成します。RELAYのつながりを表すため、relayId、直前のrelayId（parentRelayId）、RELAY回数を表すhop、作品ID（workId）、copyIdをあ箱のAPIへ送信する場合があります。</p><p class="note"><strong>RELAYでは、送信者・受取人の氏名、メールアドレス、アカウント、連絡先、購入者情報を記録しません。</strong>記録するのは「どの一冊が、公式RELAY機能によって何段階旅したか」を示す匿名の経路情報です。</p><p>通常のファイルコピー、メール添付、AirDrop、クラウド共有等を自動検出する機能ではありません。公式RELAYを使用しなかった共有経路について、誰から誰へ渡ったかを特定することはできません。</p></section>
+<section><h2>7. ローカル設定</h2><p>表示設定や通信設定などReaderの動作に必要な設定をChromeのローカルストレージに保存する場合があります。</p></section>
+<section><h2>8. データの販売・広告利用</h2><p>Readerが扱うデータを販売・貸与したり、パーソナライズ広告、リターゲティング広告、信用判断、データブローカー用途に使用したりすることはありません。</p></section>
+<section><h2>9. 第三者への提供</h2><p>Readerの機能提供に必要な場合、法令への対応が必要な場合、またはセキュリティ上必要な場合を除き、ユーザーデータを第三者へ販売または提供しません。</p></section>
+<section><h2>10. セキュリティ</h2><p>Readerからあ箱のAPIへの通信にはHTTPSを使用します。拡張機能は現在の機能に必要な範囲のChrome権限のみを使用する方針です。</p></section>
+<section><h2>11. Chrome Web Store Limited Use</h2><p>本拡張機能によるユーザーデータの利用は、Chrome Web Store User Data Policy（Limited Use要件を含む）に従います。取得した情報は、Readerの単一目的である「Web文章をScene形式で読む体験の提供」と、それに必要な機能・運用のためにのみ使用します。</p></section>
+<section><h2>12. ポリシーの変更</h2><p>Readerのデータ取扱いを変更する場合は本ページを更新し、必要に応じてReader内またはChrome Web Store上で利用者に分かる形で告知します。</p></section>
 <footer><p>制定日：2026年9月1日</p><p>最終更新日：2026年9月7日</p><p>サービス：あ箱 / あ箱 Reader β / A-Hako</p></footer></main></body></html>
