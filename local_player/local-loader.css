@@ -41,3 +41,7 @@
 @media(max-width:480px){
   .local-back-button{min-height:30px;padding:0 8px 0 7px;font-size:10px;background:rgba(10,12,16,.48)}
 }
+
+
+/* v52.1: always-visible privacy route for anonymous Distribution observation */
+.local-privacy-link{display:inline-block;margin-top:10px;color:inherit;opacity:.58;font-size:12px;text-decoration:underline;text-underline-offset:3px;position:relative;z-index:2}.local-privacy-link:hover,.local-privacy-link:focus-visible{opacity:.9}
