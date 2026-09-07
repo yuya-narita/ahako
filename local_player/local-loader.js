@@ -57,6 +57,30 @@
     const sourceArrivalId=currentArrivalId(copyId,sourceRelayId);
     return {workId,copyId,sourceRelayId,sourceHop,sourceArrivalId};
   }
+  function sentStateKey(info){
+    return `ahako:distribution-relay-sent:${info.copyId}:${info.sourceArrivalId}`;
+  }
+  function loadSentState(info){
+    if(!info)return null;
+    try{
+      const raw=localStorage.getItem(sentStateKey(info));
+      if(!raw)return null;
+      const value=JSON.parse(raw);
+      if(!value||value.sent!==true)return null;
+      return {
+        sent:true,
+        relayId:validRelayId(value.relayId)?String(value.relayId):null,
+        sentAt:String(value.sentAt||''),
+        hop:Number.isInteger(Number(value.hop))?Math.max(0,Math.min(1000,Number(value.hop))):Math.min(1000,info.sourceHop+1)
+      };
+    }catch(_){return null;}
+  }
+  function saveSentState(info,{relayId,hop,sentAt}){
+    if(!info)return;
+    try{
+      localStorage.setItem(sentStateKey(info),JSON.stringify({sent:true,relayId,hop,sentAt}));
+    }catch(_){ }
+  }
   function journeyPathText(hop,sent=false){
     const parts=['発行'];
     if(hop<=0){parts.push('◎ あなた');}
@@ -65,20 +89,22 @@
     if(sent)parts.push('○');
     return parts.join('  ─  ');
   }
-  function renderJourney(raw,{sent=false}={}){
+  function renderJourney(raw,{sent=null}={}){
     if(!journey)return;
     const info=relayInfo(raw);
     if(!info){journey.hidden=true;return;}
+    const persisted=loadSentState(info);
+    const isSent=sent===null?!!persisted:!!sent;
     const hop=info.sourceHop;
     journey.hidden=false;
-    journey.classList.toggle('is-sent',sent);
+    journey.classList.toggle('is-sent',isSent);
     if(journeyMessage){
-      journeyMessage.textContent=sent
+      journeyMessage.textContent=isSent
         ? '次の一人へ送り出しました。'
         : (hop>0 ? `${hop}回渡って、あなたに届きました。` : 'この一冊の旅は、ここから始まります。');
     }
-    if(journeyPath)journeyPath.textContent=journeyPathText(hop,sent);
-    if(journeyPrompt)journeyPrompt.textContent=sent?'○ は、まだ届いていない次の旅です。':'面白かったら、次の一人へ。';
+    if(journeyPath)journeyPath.textContent=journeyPathText(hop,isSent);
+    if(journeyPrompt)journeyPrompt.textContent=isSent?'○ は、まだ届いていない次の旅です。':'面白かったら、次の一人へ。';
   }
 
   function crc32(bytes){
@@ -119,6 +145,7 @@
     if(!currentPackage)return;
     const info=relayInfo(currentPackage.raw);
     if(!info)return;
+    if(loadSentState(info)){renderJourney(currentPackage.raw);return;}
     if(relayButton)relayButton.disabled=true;
     if(journey){journey.classList.add('is-sharing');journey.setAttribute('aria-disabled','true');}
     const relayId=randomRelayId(),hop=Math.min(1000,info.sourceHop+1),relayedAt=new Date().toISOString();
@@ -146,6 +173,7 @@
       // Register only after the native share completed or the fallback file was
       // actually handed to the browser for download. Cancelling a share creates no branch.
       registerRelay({workId:info.workId,copyId:info.copyId,relayId,parentRelayId:info.sourceRelayId,sourceArrivalId:info.sourceArrivalId,hop,relayedAt});
+      saveSentState(info,{relayId,hop,sentAt:relayedAt});
       renderJourney(currentPackage.raw,{sent:true});
     }catch(error){console.error(error);alert(`RELAYファイルを作れませんでした: ${error?.message||error}`);}
     finally{if(relayButton)relayButton.disabled=false;if(journey){journey.classList.remove('is-sharing');journey.removeAttribute('aria-disabled');}}
@@ -242,5 +270,5 @@
   ['dragleave','drop'].forEach(type=>dropZone.addEventListener(type,e=>{e.preventDefault();dropZone.classList.remove('is-over');}));
   dropZone.addEventListener('drop',e=>openScene(e.dataTransfer?.files?.[0]));
   dropZone.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openPicker();}});
-  window.SceneLocalLoader={version:'4.2-journey-card',openFile:openScene,openPicker,returnToLauncher,relayCurrentScene};
+  window.SceneLocalLoader={version:'4.3-relay-sent-persistence',openFile:openScene,openPicker,returnToLauncher,relayCurrentScene};
 })();
