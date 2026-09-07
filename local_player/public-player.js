@@ -272,8 +272,9 @@
     const relay=documentData?.distribution?.relay||{};
     const relayId=/^relay_[a-f0-9]{32}$/i.test(String(relay.relayId||''))?String(relay.relayId):'';
     const parentRelayId=/^relay_[a-f0-9]{32}$/i.test(String(relay.parentRelayId||''))?String(relay.parentRelayId):'';
+    const sourceArrivalId=/^arrival_[a-f0-9]{32}$/i.test(String(relay.sourceArrivalId||''))?String(relay.sourceArrivalId):'';
     const relayHop=Math.max(0,Math.min(1000,Number(relay.hop||0)));
-    return {workId,copyId,relayId,parentRelayId,relayHop};
+    return {workId,copyId,relayId,parentRelayId,sourceArrivalId,relayHop};
   }
   function randomObservationId(prefix='obs'){
     try{return `${prefix}_${crypto.randomUUID().replaceAll('-','')}`;}catch(_){
@@ -286,6 +287,19 @@
     try{id=String(localStorage.getItem(key)||'');}catch(_){}
     if(!/^obs_[A-Za-z0-9_-]{20,80}$/.test(id)){
       id=randomObservationId('obs');
+      try{localStorage.setItem(key,id);}catch(_){}
+    }
+    return id;
+  }
+  function distributionArrivalId(copyId,relayId=''){
+    const slot=relayId||'root';
+    const key=`ahako:distribution-arrival:${copyId}:${slot}`;
+    let id='';
+    try{id=String(localStorage.getItem(key)||'');}catch(_){}
+    if(!/^arrival_[a-f0-9]{32}$/i.test(id)){
+      try{id=`arrival_${crypto.randomUUID().replaceAll('-','')}`;}catch(_){
+        const a=new Uint8Array(16);crypto.getRandomValues(a);id=`arrival_${[...a].map(v=>v.toString(16).padStart(2,'0')).join('')}`;
+      }
       try{localStorage.setItem(key,id);}catch(_){}
     }
     return id;
@@ -310,8 +324,9 @@
       event,
       workId:ident.workId,
       copyId:ident.copyId,
-      ...(ident.relayId?{relayId:ident.relayId,parentRelayId:ident.parentRelayId||null,relayHop:ident.relayHop}:{}),
+      ...(ident.relayId?{relayId:ident.relayId,parentRelayId:ident.parentRelayId||null,sourceArrivalId:ident.sourceArrivalId||null,relayHop:ident.relayHop}:{}),
       observerId:distributionObserverId(ident.copyId),
+      arrivalId:distributionArrivalId(ident.copyId,ident.relayId),
       sessionId:distributionObservationSessionId||randomObservationId('session'),
       sceneCount:Array.isArray(documentData?.scenes)?documentData.scenes.length:0,
       ...extra

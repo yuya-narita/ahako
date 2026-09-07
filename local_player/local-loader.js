@@ -31,7 +31,15 @@
   }
   function validCopyId(v){return /^copy_[a-f0-9]{32}$/i.test(String(v||''));}
   function validRelayId(v){return /^relay_[a-f0-9]{32}$/i.test(String(v||''));}
+  function validArrivalId(v){return /^arrival_[a-f0-9]{32}$/i.test(String(v||''));}
   function validWorkId(v){return /^[A-Za-z0-9_-]{12,80}$/.test(String(v||''));}
+  function randomArrivalId(){try{return `arrival_${crypto.randomUUID().replaceAll('-','')}`;}catch(_){const a=new Uint8Array(16);crypto.getRandomValues(a);return `arrival_${[...a].map(v=>v.toString(16).padStart(2,'0')).join('')}`;}}
+  function currentArrivalId(copyId,relayId){
+    const key=`ahako:distribution-arrival:${copyId}:${relayId||'root'}`;
+    let id='';try{id=String(localStorage.getItem(key)||'');}catch(_){}
+    if(!validArrivalId(id)){id=randomArrivalId();try{localStorage.setItem(key,id);}catch(_){}}
+    return id;
+  }
   function relayInfo(raw){
     const workId=String(raw?.workId||'').trim();
     const copyId=String(raw?.distribution?.copyId||'').trim();
@@ -39,7 +47,8 @@
     const source=raw?.distribution?.relay||{};
     const sourceRelayId=validRelayId(source.relayId)?String(source.relayId):null;
     const sourceHop=Number.isInteger(Number(source.hop))?Math.max(0,Math.min(999,Number(source.hop))):0;
-    return {workId,copyId,sourceRelayId,sourceHop};
+    const sourceArrivalId=currentArrivalId(copyId,sourceRelayId);
+    return {workId,copyId,sourceRelayId,sourceHop,sourceArrivalId};
   }
   function crc32(bytes){
     let c=0xffffffff;
@@ -84,10 +93,11 @@
     try{
       const nextRaw=JSON.parse(JSON.stringify(currentPackage.raw));
       nextRaw.distribution=nextRaw.distribution||{};
-      nextRaw.distribution.relay={schemaVersion:'1',relayId,parentRelayId:info.sourceRelayId,hop,relayedAt};
+      nextRaw.distribution.relay={schemaVersion:'2',relayId,parentRelayId:info.sourceRelayId,sourceArrivalId:info.sourceArrivalId,hop,relayedAt};
       const nextManifest=JSON.parse(JSON.stringify(currentPackage.manifest));
       nextManifest.relayId=relayId;
       nextManifest.parentRelayId=info.sourceRelayId;
+      nextManifest.relaySourceArrivalId=info.sourceArrivalId;
       nextManifest.relayHop=hop;
       nextManifest.relayedAt=relayedAt;
       const nextFiles=new Map(currentPackage.files);
@@ -96,12 +106,14 @@
       const blob=buildStoredZip(nextFiles);
       const filename=`${safeFileBase(nextManifest.title||nextRaw.title)}_relay_${hop}.scene`;
       const file=new File([blob],filename,{type:'application/octet-stream',lastModified:Date.now()});
-      registerRelay({workId:info.workId,copyId:info.copyId,relayId,parentRelayId:info.sourceRelayId,hop,relayedAt});
       let shared=false;
       try{
         if(navigator.share&&navigator.canShare?.({files:[file]})){await navigator.share({files:[file],title:nextManifest.title||nextRaw.title||'あ箱'});shared=true;}
       }catch(e){if(e?.name==='AbortError')return;}
       if(!shared){const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);}
+      // Register only after the native share completed or the fallback file was
+      // actually handed to the browser for download. Cancelling a share creates no branch.
+      registerRelay({workId:info.workId,copyId:info.copyId,relayId,parentRelayId:info.sourceRelayId,sourceArrivalId:info.sourceArrivalId,hop,relayedAt});
     }catch(error){console.error(error);alert(`RELAYファイルを作れませんでした: ${error?.message||error}`);}
     finally{relayButton.disabled=false;}
   }
