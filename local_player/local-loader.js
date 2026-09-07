@@ -41,6 +41,9 @@
     return id;
   }
   function relayInfo(raw){
+    // Author policy: older Distribution.scene files without an explicit policy
+    // remain relayable; only an explicit false disables pass-along.
+    if(raw?.sharing?.relay?.enabled === false)return null;
     const workId=String(raw?.workId||'').trim();
     const copyId=String(raw?.distribution?.copyId||'').trim();
     if(!validWorkId(workId)||!validCopyId(copyId))return null;
