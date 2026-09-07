@@ -7,6 +7,10 @@
   const status=document.getElementById('localStatus');
   const backButton=document.getElementById('localBackButton');
   const relayButton=document.getElementById('publicRelay');
+  const journey=document.getElementById('publicJourney');
+  const journeyMessage=document.getElementById('publicJourneyMessage');
+  const journeyPath=document.getElementById('publicJourneyPath');
+  const journeyPrompt=document.getElementById('publicJourneyPrompt');
   let assetUrls=[];
   let currentPackage=null;
 
@@ -53,6 +57,30 @@
     const sourceArrivalId=currentArrivalId(copyId,sourceRelayId);
     return {workId,copyId,sourceRelayId,sourceHop,sourceArrivalId};
   }
+  function journeyPathText(hop,sent=false){
+    const parts=['発行'];
+    if(hop<=0){parts.push('◎ あなた');}
+    else if(hop<=4){for(let i=1;i<hop;i++)parts.push('●');parts.push('◎ あなた');}
+    else{parts.push('●','●','…','●','◎ あなた');}
+    if(sent)parts.push('○');
+    return parts.join('  ─  ');
+  }
+  function renderJourney(raw,{sent=false}={}){
+    if(!journey)return;
+    const info=relayInfo(raw);
+    if(!info){journey.hidden=true;return;}
+    const hop=info.sourceHop;
+    journey.hidden=false;
+    journey.classList.toggle('is-sent',sent);
+    if(journeyMessage){
+      journeyMessage.textContent=sent
+        ? '次の一人へ送り出しました。'
+        : (hop>0 ? `${hop}回渡って、あなたに届きました。` : 'この一冊の旅は、ここから始まります。');
+    }
+    if(journeyPath)journeyPath.textContent=journeyPathText(hop,sent);
+    if(journeyPrompt)journeyPrompt.textContent=sent?'○ は、まだ届いていない次の旅です。':'面白かったら、次の一人へ。';
+  }
+
   function crc32(bytes){
     let c=0xffffffff;
     for(let i=0;i<bytes.length;i++){
@@ -117,6 +145,7 @@
       // Register only after the native share completed or the fallback file was
       // actually handed to the browser for download. Cancelling a share creates no branch.
       registerRelay({workId:info.workId,copyId:info.copyId,relayId,parentRelayId:info.sourceRelayId,sourceArrivalId:info.sourceArrivalId,hop,relayedAt});
+      renderJourney(currentPackage.raw,{sent:true});
     }catch(error){console.error(error);alert(`RELAYファイルを作れませんでした: ${error?.message||error}`);}
     finally{relayButton.disabled=false;}
   }
@@ -179,6 +208,7 @@
       const raw=jsonFile(files,manifest.entry||'scene.json');
       currentPackage={files:new Map(files),manifest:JSON.parse(JSON.stringify(manifest)),raw:JSON.parse(JSON.stringify(raw))};
       if(relayButton)relayButton.hidden=!relayInfo(raw);
+      renderJourney(raw);
       // Validate/build first; revoke previous package only after the new package is ready.
       const nextUrls=[];const previousUrls=assetUrls;assetUrls=[];
       let doc;
@@ -186,7 +216,7 @@
       catch(error){for(const u of assetUrls){try{URL.revokeObjectURL(u)}catch(_){}}assetUrls=previousUrls;throw error;}
       for(const u of previousUrls){try{URL.revokeObjectURL(u)}catch(_){}}
       launcher.hidden=true;if(backButton)backButton.hidden=false;setStatus('');
-    }catch(error){console.error(error);currentPackage=null;if(relayButton)relayButton.hidden=true;setStatus(String(error?.message||error));}
+    }catch(error){console.error(error);currentPackage=null;if(relayButton)relayButton.hidden=true;if(journey)journey.hidden=true;setStatus(String(error?.message||error));}
     finally{openButton.disabled=false;fileInput.value='';}
   }
   function returnToLauncher(){
@@ -194,7 +224,7 @@
     // the Blob URLs that belong to the local package.
     try{window.ScenePublicPlayer?.unloadDocument?.();}catch(error){console.warn(error);}
     revokeAssets();
-    currentPackage=null;if(relayButton)relayButton.hidden=true;
+    currentPackage=null;if(relayButton)relayButton.hidden=true;if(journey)journey.hidden=true;
     setStatus('');
     fileInput.value='';
     if(backButton)backButton.hidden=true;
@@ -209,5 +239,5 @@
   ['dragleave','drop'].forEach(type=>dropZone.addEventListener(type,e=>{e.preventDefault();dropZone.classList.remove('is-over');}));
   dropZone.addEventListener('drop',e=>openScene(e.dataTransfer?.files?.[0]));
   dropZone.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openPicker();}});
-  window.SceneLocalLoader={version:'4.0-relay',openFile:openScene,openPicker,returnToLauncher,relayCurrentScene};
+  window.SceneLocalLoader={version:'4.1-journey',openFile:openScene,openPicker,returnToLauncher,relayCurrentScene};
 })();

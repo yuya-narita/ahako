@@ -63,3 +63,31 @@
 }
 .public-relay[hidden]{display:none!important}
 .public-relay:disabled{opacity:.45;cursor:default}
+
+
+/* v62 — reader-facing journey: only the path that reached this reader. */
+.public-journey{
+  width:min(520px,92vw);
+  margin:14px auto 0;
+  padding:14px 14px 12px;
+  box-sizing:border-box;
+  border:1px solid rgba(128,128,128,.22);
+  border-radius:16px;
+  background:rgba(128,128,128,.055);
+  text-align:center;
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+.public-journey[hidden]{display:none!important}
+.public-journey small{display:block;margin:0 0 5px;color:var(--public-sub,#8e949a);font-size:9px;font-weight:700;letter-spacing:.16em}
+.public-journey strong{display:block;color:var(--public-text,#17191d);font-size:13px;font-weight:650;line-height:1.5}
+.public-journey-path{margin:9px auto 7px;color:var(--public-text,#17191d);font-size:11px;line-height:1.4;letter-spacing:.015em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.public-journey p{margin:0;color:var(--public-sub,#8e949a);font-size:10px;line-height:1.45}
+.public-journey.is-sent{border-style:dashed}
+.public-relay{margin-top:9px!important}
+@media(max-width:520px){
+  .public-journey{width:100%;margin-top:10px;padding:11px 10px 10px;border-radius:14px}
+  .public-journey strong{font-size:12px}
+  .public-journey-path{font-size:10px;margin-top:7px;margin-bottom:6px}
+  .public-journey p{font-size:9px}
+  .public-relay{margin-top:7px!important;margin-bottom:max(6px,env(safe-area-inset-bottom))!important}
+}
