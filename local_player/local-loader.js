@@ -13,6 +13,8 @@
   const journeyPrompt=document.getElementById('publicJourneyPrompt');
   let assetUrls=[];
   let currentPackage=null;
+  let currentSourceMode='file';
+  const API_BASE='https://scene-studio-api.a-hako.workers.dev';
 
   const u16=(v,o)=>v.getUint16(o,true);
   const u32=(v,o)=>v.getUint32(o,true);
@@ -21,6 +23,67 @@
   function revokeAssets(){for(const url of assetUrls){try{URL.revokeObjectURL(url)}catch(_){}}assetUrls=[];}
   function setStatus(text){if(status)status.textContent=text||'';}
 
+
+
+
+  // ------------------------------------------------------------
+  // V63.1 URL RELAY receiver
+  // A relay URL is a delivery ticket, not an owned local file. When a valid
+  // ?relay=TOKEN is present, resolve it through the Worker and hand the
+  // returned runtime Scene directly to the existing public Player. No file
+  // picker is shown to the recipient.
+  // ------------------------------------------------------------
+  function relayTokenFromLocation(){
+    try{return String(new URL(location.href).searchParams.get('relay')||'').trim();}catch(_){return '';}
+  }
+  function validRelayToken(v){return /^[a-f0-9]{48}$/i.test(String(v||''));}
+  function relayResolveErrorMessage(code,fallback){
+    if(code==='RELAY_EXPIRED')return 'この一冊の受け取り期限が切れています。';
+    if(code==='EDITION_STOPPED')return 'この版のRELAYは作者により停止されています。';
+    if(code==='EDITION_NOT_FOUND'||code==='RELAY_NOT_FOUND')return 'この一冊の旅を見つけられませんでした。';
+    return String(fallback||'RELAYを読み込めませんでした。');
+  }
+  async function openRelayFromUrl(token){
+    if(!validRelayToken(token)){
+      setStatus('このRELAY URLは正しくありません。');
+      return false;
+    }
+    currentSourceMode='relay-url';
+    setStatus('一冊を受け取っています…');
+    if(openButton)openButton.disabled=true;
+    try{
+      const response=await fetch(`${API_BASE}/relay/resolve?token=${encodeURIComponent(token)}`,{method:'GET',cache:'no-store'});
+      const payload=await response.json().catch(()=>null);
+      if(!response.ok||!payload?.ok||!payload?.scene){
+        throw new Error(relayResolveErrorMessage(payload?.code,payload?.error));
+      }
+      const raw=JSON.parse(JSON.stringify(payload.scene));
+      currentPackage={files:new Map(),manifest:{package:'url-relay',packageVersion:'1.0'},raw};
+      if(relayButton)relayButton.hidden=true;
+      renderJourney(raw);
+      const previousUrls=assetUrls;assetUrls=[];
+      try{
+        await window.ScenePublicPlayer.loadDocument(raw,{sourceKey:`relay-url:${String(payload?.relay?.relayId||token)}`});
+      }catch(error){assetUrls=previousUrls;throw error;}
+      for(const u of previousUrls){try{URL.revokeObjectURL(u)}catch(_){}}
+      launcher.hidden=true;
+      // URL RELAY recipients should never be sent to the local file picker.
+      if(backButton)backButton.hidden=true;
+      setStatus('');
+      return true;
+    }catch(error){
+      console.error(error);
+      currentPackage=null;
+      if(relayButton)relayButton.hidden=true;
+      if(journey)journey.hidden=true;
+      launcher.hidden=false;
+      if(backButton)backButton.hidden=true;
+      setStatus(String(error?.message||error));
+      return false;
+    }finally{
+      if(openButton)openButton.disabled=false;
+    }
+  }
 
   // ------------------------------------------------------------
   // Phase 4 RELAY
@@ -228,6 +291,7 @@
   }
   async function openScene(file){
     if(!file)return;
+    currentSourceMode='file';
     setStatus('読み込み中…');openButton.disabled=true;
     try{
       const files=await readZip(await file.arrayBuffer());
@@ -249,6 +313,7 @@
     finally{openButton.disabled=false;fileInput.value='';}
   }
   function returnToLauncher(){
+    if(currentSourceMode==='relay-url'){try{history.back();}catch(_){}return;}
     // Let the current public Player own Core/audio teardown, then release only
     // the Blob URLs that belong to the local package.
     try{window.ScenePublicPlayer?.unloadDocument?.();}catch(error){console.warn(error);}
@@ -270,5 +335,12 @@
   ['dragleave','drop'].forEach(type=>dropZone.addEventListener(type,e=>{e.preventDefault();dropZone.classList.remove('is-over');}));
   dropZone.addEventListener('drop',e=>openScene(e.dataTransfer?.files?.[0]));
   dropZone.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openPicker();}});
-  window.SceneLocalLoader={version:'4.3-relay-sent-persistence',openFile:openScene,openPicker,returnToLauncher,relayCurrentScene};
+  window.SceneLocalLoader={version:'4.4-url-relay-receiver',openFile:openScene,openPicker,returnToLauncher,relayCurrentScene,openRelayFromUrl};
+
+  const initialRelayToken=relayTokenFromLocation();
+  if(initialRelayToken){
+    // Hide the picker before the first paint path can become the user's task.
+    if(launcher)launcher.hidden=false;
+    openRelayFromUrl(initialRelayToken);
+  }
 })();
