@@ -112,13 +112,14 @@
     // remain relayable; only an explicit false disables pass-along.
     if(raw?.sharing?.relay?.enabled === false)return null;
     const workId=String(raw?.workId||'').trim();
+    const editionId=String(raw?.edition?.editionId||'').trim();
     const copyId=String(raw?.distribution?.copyId||'').trim();
-    if(!validWorkId(workId)||!validCopyId(copyId))return null;
+    if(!validWorkId(workId)||!/^edition_[a-f0-9]{32}$/i.test(editionId)||!validCopyId(copyId))return null;
     const source=raw?.distribution?.relay||{};
     const sourceRelayId=validRelayId(source.relayId)?String(source.relayId):null;
     const sourceHop=Number.isInteger(Number(source.hop))?Math.max(0,Math.min(999,Number(source.hop))):0;
     const sourceArrivalId=currentArrivalId(copyId,sourceRelayId);
-    return {workId,copyId,sourceRelayId,sourceHop,sourceArrivalId};
+    return {workId,editionId,copyId,sourceRelayId,sourceHop,sourceArrivalId};
   }
   function sentStateKey(info){
     return `ahako:distribution-relay-sent:${info.copyId}:${info.sourceArrivalId}`;
@@ -201,8 +202,49 @@
     return new Blob([...locals,...centrals,eocd],{type:'application/octet-stream'});
   }
   function safeFileBase(v){return String(v||'scene').replace(/[\\/:*?"<>|]/g,'_').replace(/\s+/g,' ').trim().slice(0,80)||'scene';}
-  function registerRelay(payload){
-    try{fetch('https://scene-studio-api.a-hako.workers.dev/distribution-relay',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true,cache:'no-store'}).catch(()=>{});}catch(_){}
+  async function createRelayUrl(info,hop){
+    const response=await fetch(`${API_BASE}/relay/create`,{
+      method:'POST',headers:{'Content-Type':'application/json'},cache:'no-store',
+      body:JSON.stringify({
+        workId:info.workId,editionId:info.editionId,copyId:info.copyId,
+        parentRelayId:info.sourceRelayId,sourceArrivalId:info.sourceArrivalId,hop
+      })
+    });
+    const payload=await response.json().catch(()=>null);
+    if(!response.ok||!payload?.ok||!payload?.url||!validRelayId(payload?.relayId)){
+      const code=String(payload?.code||'');
+      if(code==='EDITION_NOT_FOUND')throw new Error('この版はまだURL RELAY用に登録されていません。');
+      if(code==='EDITION_STOPPED')throw new Error('この版のRELAYは作者により停止されています。');
+      throw new Error(String(payload?.error||'RELAY URLを発行できませんでした。'));
+    }
+    return payload;
+  }
+  async function commitRelayUrl(token){
+    if(!validRelayToken(token))return false;
+    try{
+      const response=await fetch(`${API_BASE}/relay/commit`,{
+        method:'POST',headers:{'Content-Type':'application/json'},cache:'no-store',
+        body:JSON.stringify({token})
+      });
+      const payload=await response.json().catch(()=>null);
+      return !!(response.ok&&payload?.ok);
+    }catch(_){return false;}
+  }
+  function relayTokenFromUrl(url){
+    try{return String(new URL(url,location.href).searchParams.get('relay')||'').trim();}catch(_){return '';}
+  }
+  async function shareRelayUrl(url){
+    if(navigator.share){
+      try{await navigator.share({url});return {shared:true,method:'native'};}
+      catch(e){if(e?.name==='AbortError')return {shared:false,cancelled:true};throw e;}
+    }
+    if(navigator.clipboard?.writeText){
+      await navigator.clipboard.writeText(url);
+      alert('RELAY URLをコピーしました。次の一人へ送ってください。');
+      return {shared:true,method:'clipboard'};
+    }
+    window.prompt('このURLを次の一人へ送ってください。',url);
+    return {shared:false,manual:true};
   }
   async function relayCurrentScene(){
     if(!currentPackage)return;
@@ -211,34 +253,19 @@
     if(loadSentState(info)){renderJourney(currentPackage.raw);return;}
     if(relayButton)relayButton.disabled=true;
     if(journey){journey.classList.add('is-sharing');journey.setAttribute('aria-disabled','true');}
-    const relayId=randomRelayId(),hop=Math.min(1000,info.sourceHop+1),relayedAt=new Date().toISOString();
+    const hop=Math.min(1000,info.sourceHop+1);
     try{
-      const nextRaw=JSON.parse(JSON.stringify(currentPackage.raw));
-      nextRaw.distribution=nextRaw.distribution||{};
-      nextRaw.distribution.relay={schemaVersion:'2',relayId,parentRelayId:info.sourceRelayId,sourceArrivalId:info.sourceArrivalId,hop,relayedAt};
-      const nextManifest=JSON.parse(JSON.stringify(currentPackage.manifest));
-      nextManifest.relayId=relayId;
-      nextManifest.parentRelayId=info.sourceRelayId;
-      nextManifest.relaySourceArrivalId=info.sourceArrivalId;
-      nextManifest.relayHop=hop;
-      nextManifest.relayedAt=relayedAt;
-      const nextFiles=new Map(currentPackage.files);
-      nextFiles.set('scene.json',enc.encode(JSON.stringify(nextRaw,null,2)));
-      nextFiles.set('manifest.json',enc.encode(JSON.stringify(nextManifest,null,2)));
-      const blob=buildStoredZip(nextFiles);
-      const filename=`${safeFileBase(nextManifest.title||nextRaw.title)}_relay_${hop}.scene`;
-      const file=new File([blob],filename,{type:'application/octet-stream',lastModified:Date.now()});
-      let shared=false;
-      try{
-        if(navigator.share&&navigator.canShare?.({files:[file]})){await navigator.share({files:[file]});shared=true;}
-      }catch(e){if(e?.name==='AbortError')return;}
-      if(!shared){const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);}
-      // Register only after the native share completed or the fallback file was
-      // actually handed to the browser for download. Cancelling a share creates no branch.
-      registerRelay({workId:info.workId,copyId:info.copyId,relayId,parentRelayId:info.sourceRelayId,sourceArrivalId:info.sourceArrivalId,hop,relayedAt});
-      saveSentState(info,{relayId,hop,sentAt:relayedAt});
+      const issued=await createRelayUrl(info,hop);
+      const result=await shareRelayUrl(String(issued.url));
+      if(result.cancelled||!result.shared)return;
+      const token=relayTokenFromUrl(String(issued.url));
+      // Commit only after the URL was actually handed off. If this commit is
+      // lost after a successful native share, /relay/resolve auto-recovers it
+      // when the recipient opens the URL, so cancelled shares never grow a ○.
+      await commitRelayUrl(token);
+      saveSentState(info,{relayId:String(issued.relayId),hop,sentAt:new Date().toISOString()});
       renderJourney(currentPackage.raw,{sent:true});
-    }catch(error){console.error(error);alert(`RELAYファイルを作れませんでした: ${error?.message||error}`);}
+    }catch(error){console.error(error);alert(`RELAY URLを作れませんでした: ${error?.message||error}`);}
     finally{if(relayButton)relayButton.disabled=false;if(journey){journey.classList.remove('is-sharing');journey.removeAttribute('aria-disabled');}}
   }
 
@@ -335,7 +362,7 @@
   ['dragleave','drop'].forEach(type=>dropZone.addEventListener(type,e=>{e.preventDefault();dropZone.classList.remove('is-over');}));
   dropZone.addEventListener('drop',e=>openScene(e.dataTransfer?.files?.[0]));
   dropZone.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openPicker();}});
-  window.SceneLocalLoader={version:'4.4-url-relay-receiver',openFile:openScene,openPicker,returnToLauncher,relayCurrentScene,openRelayFromUrl};
+  window.SceneLocalLoader={version:'4.5-url-relay-sender',openFile:openScene,openPicker,returnToLauncher,relayCurrentScene,openRelayFromUrl};
 
   const initialRelayToken=relayTokenFromLocation();
   if(initialRelayToken){
