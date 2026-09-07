@@ -3,132 +3,51 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#0b1016">
-  <title>あ箱 Local Player</title>
-  <link rel="stylesheet" href="./scene-player-core.css?v=chat-test-v08">
-  <link rel="stylesheet" href="./public-player.css?v=chat-test-v08">
-  <link rel="stylesheet" href="./local-loader.css?v=53">
-  <script>window.__AHAKO_LOCAL_PLAYER__ = true;</script>
+  <title>あ箱 本棚</title>
+  <link rel="stylesheet" href="bookshelf.css">
 </head>
 <body>
-  <section id="localLauncher" class="local-launcher">
-    <div id="localDropZone" class="local-launcher-card" tabindex="0" role="button" aria-label=".sceneを開く">
-      <small>あ箱 LOCAL PLAYER</small>
-      <h1>.sceneを開く</h1>
-      <p>Master.scene / Distribution.scene を端末内で読み込みます。作品データはアップロードしません。</p>
-      <button id="localOpenButton" type="button">ファイルを選択</button>
-      <span>PCではここへドラッグ＆ドロップもできます</span>
-      <input id="localFileInput" type="file" hidden>
-      <p id="localStatus" class="local-status" aria-live="polite"></p>
-      <a class="local-privacy-link" href="https://yuya-narita.github.io/scene/privacy/" target="_blank" rel="noopener noreferrer">プライバシー</a>
-    </div>
-  </section>
+  <header class="topbar">
+    <div class="brand"><strong><span>あ</span><span class="box">□</span></strong><small>本棚</small></div>
+    <button id="addButton" class="primary" type="button">＋ Masterを追加</button>
+    <input id="fileInput" type="file" hidden>
+  </header>
 
-  <button id="localBackButton" class="local-back-button" type="button" hidden aria-label="ファイル選択に戻る">‹ <span>選択</span></button>
-
-  <section id="publicIntro" class="public-intro" hidden>
-    <div id="publicIntroCover" class="public-intro-cover"></div>
-    <div id="publicIntroCoverDim" class="public-intro-cover-dim"></div>
-    <div class="public-intro-frame">
-      <div class="public-intro-copy">
-        <div class="public-work-block">
-          <img id="publicIntroLogo" class="public-logo" alt="" hidden>
-          <h1 id="publicIntroTitle" class="public-title">Scene</h1>
-          <p id="publicIntroDescription" class="public-description"></p>
-          <p id="publicIntroAuthor" class="public-author"></p>
-        </div>
-        <div class="public-episode-block">
-          <p id="publicIntroEpisode" class="public-episode" hidden></p>
-          <p id="publicIntroEpisodeTitle" class="public-episode-title" hidden></p>
-        </div>
+  <main>
+    <section class="intro">
+      <div>
+        <p class="eyebrow">LOCAL BOOKSHELF</p>
+        <h1>作品そのものは、作者の手元に。</h1>
+        <p>Master .scene をこの端末のブラウザ内に保存して管理します。作品本体はサーバーへ送信しません。</p>
       </div>
-      <div class="public-intro-actions">
-        <button id="publicStart" class="public-primary" type="button">はじめる</button>
-        <button id="publicContinue" class="public-secondary" type="button" hidden>途中から</button>
+      <div class="intro-actions">
+        <button id="backupButton" type="button">本棚をバックアップ</button>
+        <button id="restoreButton" type="button">バックアップから復元</button>
+        <input id="restoreInput" type="file" accept=".zip,application/zip" hidden>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <div id="publicOpening" class="public-opening" hidden>
-    <div id="publicOpeningImage" class="public-opening-image"></div>
-    <div id="publicOpeningDim" class="public-opening-dim"></div>
-  </div>
+    <section class="shelf-head">
+      <div><h2>本棚</h2><p id="countText">0作品</p></div>
+      <p class="local-note">この端末内に保存</p>
+    </section>
 
-  <div id="scenePlayer" class="public-player" hidden></div>
+    <section id="emptyState" class="empty">
+      <div class="empty-mark">□</div>
+      <h2>まだ本棚は空です</h2>
+      <p>作者用の Master .scene を追加してください。Distribution .scene は本棚には入りません。</p>
+      <button id="emptyAddButton" class="primary" type="button">Masterを追加</button>
+    </section>
 
-  <section id="publicEnding" class="public-ending" hidden>
-    <div class="public-ending-inner">
-      <p id="publicEndingLabel" class="public-ending-label" hidden></p>
+    <section id="grid" class="grid" aria-live="polite"></section>
+  </main>
 
-      <div id="publicEndingActions" class="public-ending-actions public-ending-three">
-        <a id="publicEndingLeft" class="public-ending-box" hidden><small></small><strong></strong></a>
-        <button id="publicEndingCover" class="public-ending-box public-ending-cover" type="button"><small>COVER</small><strong>表紙に戻る</strong></button>
-        <a id="publicEndingRight" class="public-ending-box" hidden><small></small><strong></strong></a>
-      </div>
-<button id="publicRestart" class="public-reread" type="button">
-        もう一度読む
-      </button>
-      <button id="publicRelay" class="public-relay" type="button" hidden>
-        この作品を回す
-      </button>
-    </div>
-  </section>
-
-  <section id="publicError" class="public-error" hidden>
-    <div class="public-error-card">
-      <strong id="publicErrorTitle">Sceneを開けませんでした</strong>
-      <p id="publicErrorMessage"></p>
-      <button id="publicRetry" type="button">もう一度読み込む</button>
-    </div>
-  </section>
-
-
-  <button id="publicReportButton" class="public-report-trigger" type="button">この作品について報告</button>
-
-  <dialog id="publicReportDialog" class="public-report-dialog">
-    <form method="dialog" class="public-report-card">
-      <button id="publicReportClose" class="public-report-close" type="button" aria-label="閉じる">×</button>
-      <small>REPORT</small>
-      <h2>この作品について報告</h2>
-      <fieldset class="public-report-section">
-        <legend>報告理由</legend>
-        <label><input type="radio" name="reportReason" value="unauthorized" checked> 自分の作品が無断で使用されている</label>
-        <label><input type="radio" name="reportReason" value="copyright"> 第三者の著作物・権利侵害と思われる</label>
-        <label><input type="radio" name="reportReason" value="other"> その他</label>
-      </fieldset>
-      <label class="public-report-field">
-        <span>問題のある箇所 <b>必須</b></span>
-        <select id="publicReportSubject">
-          <option value="text">本文・文章</option>
-          <option value="cover">表紙</option>
-          <option value="image">背景・画像</option>
-          <option value="audio">BGM・SE・音声</option>
-          <option value="other">その他</option>
-        </select>
-      </label>
-      <label class="public-report-field" id="publicReportEvidenceWrap">
-        <span>元作品・権利を確認できるURL <b id="publicReportEvidenceRequired">必須</b></span>
-        <input id="publicReportEvidenceUrl" type="url" inputmode="url" autocomplete="url" placeholder="https://note.com/...">
-        <small>元作品の掲載ページなど、運営が比較できるURLを入力してください。</small>
-      </label>
-      <label class="public-report-field">
-        <span>詳しい内容 <b>必須</b></span>
-        <textarea id="publicReportDetails" rows="4" maxlength="1200" placeholder="例：上記URLで公開している本文が、そのまま使用されています。"></textarea>
-      </label>
-      <label class="public-report-field">
-        <span>連絡先メール <b id="publicReportContactRequired">必須</b></span>
-        <input id="publicReportContact" type="email" inputmode="email" autocomplete="email" placeholder="name@example.com">
-        <small id="publicReportContactHint">確認が必要な場合に運営から連絡するために使用します。</small>
-      </label>
-      <label class="public-report-confirm"><input id="publicReportConfirm" type="checkbox"> <span>この報告内容が正確であることを確認します。</span></label>
-      <div class="public-report-meta"><span>workId</span><code id="publicReportWorkId">-</code><span>対象URL</span><code id="publicReportUrl">-</code></div>
-      <p id="publicReportStatus" class="public-report-status">根拠を確認できる情報と一緒に運営へ送信します。</p>
-      <button id="publicReportCopy" type="button" class="public-report-copy">運営に申立てを送る</button>
-    </form>
+  <dialog id="detailDialog" class="detail-dialog">
+    <button id="closeDetail" class="dialog-close" aria-label="閉じる">×</button>
+    <div id="detailContent"></div>
   </dialog>
 
-  <script src="./scene-player-core.js?v=local-current"></script>
-  <script src="./public-player.js?v=53"></script>
-  <script src="./local-loader.js?v=53"></script>
+  <div id="toast" class="toast" hidden></div>
+  <script src="bookshelf.js"></script>
 </body>
 </html>
