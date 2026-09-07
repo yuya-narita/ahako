@@ -91,3 +91,10 @@
   .public-journey p{font-size:9px}
   .public-relay{margin-top:7px!important;margin-bottom:max(6px,env(safe-area-inset-bottom))!important}
 }
+
+/* v62.1 — the journey card itself is the pass-along action. */
+.public-journey:not(.is-sent){cursor:pointer}
+.public-journey:not(.is-sent):active{transform:scale(.995)}
+.public-journey:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.public-journey.is-sharing{opacity:.6;pointer-events:none}
+.public-journey.is-sent{cursor:default}

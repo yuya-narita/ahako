@@ -119,7 +119,8 @@
     if(!currentPackage)return;
     const info=relayInfo(currentPackage.raw);
     if(!info)return;
-    relayButton.disabled=true;
+    if(relayButton)relayButton.disabled=true;
+    if(journey){journey.classList.add('is-sharing');journey.setAttribute('aria-disabled','true');}
     const relayId=randomRelayId(),hop=Math.min(1000,info.sourceHop+1),relayedAt=new Date().toISOString();
     try{
       const nextRaw=JSON.parse(JSON.stringify(currentPackage.raw));
@@ -139,7 +140,7 @@
       const file=new File([blob],filename,{type:'application/octet-stream',lastModified:Date.now()});
       let shared=false;
       try{
-        if(navigator.share&&navigator.canShare?.({files:[file]})){await navigator.share({files:[file],title:nextManifest.title||nextRaw.title||'あ箱'});shared=true;}
+        if(navigator.share&&navigator.canShare?.({files:[file]})){await navigator.share({files:[file]});shared=true;}
       }catch(e){if(e?.name==='AbortError')return;}
       if(!shared){const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);}
       // Register only after the native share completed or the fallback file was
@@ -147,7 +148,7 @@
       registerRelay({workId:info.workId,copyId:info.copyId,relayId,parentRelayId:info.sourceRelayId,sourceArrivalId:info.sourceArrivalId,hop,relayedAt});
       renderJourney(currentPackage.raw,{sent:true});
     }catch(error){console.error(error);alert(`RELAYファイルを作れませんでした: ${error?.message||error}`);}
-    finally{relayButton.disabled=false;}
+    finally{if(relayButton)relayButton.disabled=false;if(journey){journey.classList.remove('is-sharing');journey.removeAttribute('aria-disabled');}}
   }
 
   async function inflateRaw(bytes){
@@ -207,7 +208,7 @@
       if(String(manifest.packageVersion||'')!=='1.0')throw new Error(`未対応 Scene Package version: ${manifest.packageVersion||'(なし)'}`);
       const raw=jsonFile(files,manifest.entry||'scene.json');
       currentPackage={files:new Map(files),manifest:JSON.parse(JSON.stringify(manifest)),raw:JSON.parse(JSON.stringify(raw))};
-      if(relayButton)relayButton.hidden=!relayInfo(raw);
+      if(relayButton)relayButton.hidden=true;
       renderJourney(raw);
       // Validate/build first; revoke previous package only after the new package is ready.
       const nextUrls=[];const previousUrls=assetUrls;assetUrls=[];
@@ -234,10 +235,12 @@
   openButton.addEventListener('click',e=>{e.stopPropagation();openPicker();});
   backButton?.addEventListener('click',returnToLauncher);
   relayButton?.addEventListener('click',relayCurrentScene);
+  journey?.addEventListener('click',()=>{if(relayInfo(currentPackage?.raw)&&!journey.classList.contains('is-sent')&&!journey.classList.contains('is-sharing'))relayCurrentScene();});
+  journey?.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&relayInfo(currentPackage?.raw)&&!journey.classList.contains('is-sent')&&!journey.classList.contains('is-sharing')){e.preventDefault();relayCurrentScene();}});
   fileInput.addEventListener('change',()=>openScene(fileInput.files?.[0]));
   ['dragenter','dragover'].forEach(type=>dropZone.addEventListener(type,e=>{e.preventDefault();dropZone.classList.add('is-over');}));
   ['dragleave','drop'].forEach(type=>dropZone.addEventListener(type,e=>{e.preventDefault();dropZone.classList.remove('is-over');}));
   dropZone.addEventListener('drop',e=>openScene(e.dataTransfer?.files?.[0]));
   dropZone.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openPicker();}});
-  window.SceneLocalLoader={version:'4.1-journey',openFile:openScene,openPicker,returnToLauncher,relayCurrentScene};
+  window.SceneLocalLoader={version:'4.2-journey-card',openFile:openScene,openPicker,returnToLauncher,relayCurrentScene};
 })();
