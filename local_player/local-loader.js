@@ -22,6 +22,35 @@
 
   function revokeAssets(){for(const url of assetUrls){try{URL.revokeObjectURL(url)}catch(_){}}assetUrls=[];}
   function setStatus(text){if(status)status.textContent=text||'';}
+  function setRelayEntryMode(active){
+    if(!dropZone)return;
+    dropZone.classList.toggle('is-relay-entry',!!active);
+    dropZone.setAttribute('aria-label',active?'RELAYを受け取っています':'.sceneを開く');
+    const small=dropZone.querySelector('small');
+    const title=dropZone.querySelector('h1');
+    const desc=dropZone.querySelector('p:not(.local-status)');
+    const hint=dropZone.querySelector('span');
+    const privacy=dropZone.querySelector('.local-privacy-link');
+    if(active){
+      if(small)small.textContent='あ箱';
+      if(title)title.textContent='一冊を受け取っています';
+      if(desc)desc.hidden=true;
+      if(openButton)openButton.hidden=true;
+      if(hint)hint.hidden=true;
+      if(privacy)privacy.hidden=true;
+      dropZone.removeAttribute('tabindex');
+      dropZone.removeAttribute('role');
+    }else{
+      if(small)small.textContent='あ箱 LOCAL PLAYER';
+      if(title)title.textContent='.sceneを開く';
+      if(desc)desc.hidden=false;
+      if(openButton)openButton.hidden=false;
+      if(hint)hint.hidden=false;
+      if(privacy)privacy.hidden=false;
+      dropZone.setAttribute('tabindex','0');
+      dropZone.setAttribute('role','button');
+    }
+  }
 
 
 
@@ -49,6 +78,8 @@
       return false;
     }
     currentSourceMode='relay-url';
+    setRelayEntryMode(true);
+    if(launcher)launcher.hidden=false;
     setStatus('一冊を受け取っています…');
     if(openButton)openButton.disabled=true;
     try{
@@ -77,6 +108,7 @@
       if(relayButton)relayButton.hidden=true;
       if(journey)journey.hidden=true;
       launcher.hidden=false;
+      setRelayEntryMode(true);
       if(backButton)backButton.hidden=true;
       setStatus(String(error?.message||error));
       return false;
@@ -346,6 +378,7 @@
     try{window.ScenePublicPlayer?.unloadDocument?.();}catch(error){console.warn(error);}
     revokeAssets();
     currentPackage=null;if(relayButton)relayButton.hidden=true;if(journey)journey.hidden=true;
+    setRelayEntryMode(false);
     setStatus('');
     fileInput.value='';
     if(backButton)backButton.hidden=true;
@@ -362,11 +395,13 @@
   ['dragleave','drop'].forEach(type=>dropZone.addEventListener(type,e=>{e.preventDefault();dropZone.classList.remove('is-over');}));
   dropZone.addEventListener('drop',e=>openScene(e.dataTransfer?.files?.[0]));
   dropZone.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openPicker();}});
-  window.SceneLocalLoader={version:'4.5-url-relay-sender',openFile:openScene,openPicker,returnToLauncher,relayCurrentScene,openRelayFromUrl};
+  window.SceneLocalLoader={version:'4.6-url-relay-e2e-entry',openFile:openScene,openPicker,returnToLauncher,relayCurrentScene,openRelayFromUrl};
 
   const initialRelayToken=relayTokenFromLocation();
   if(initialRelayToken){
-    // Hide the picker before the first paint path can become the user's task.
+    // A RELAY recipient should never see the local-file task. Convert the
+    // launcher into a neutral receiving card immediately, then resolve.
+    setRelayEntryMode(true);
     if(launcher)launcher.hidden=false;
     openRelayFromUrl(initialRelayToken);
   }
